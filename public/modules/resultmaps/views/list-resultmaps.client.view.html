@@ -1,0 +1,20 @@
+<section data-ng-controller="ResultmapsController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>ชนิดฮีโมลโกลบิน <span><a ui-sref="createResultmap" class="btn btn-lg btn-info"><i class="fa fa-plus fa-fw"></i> เพิ่ม</a></span></h1>
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="resultmap in resultmaps" data-ng-href="#!/resultmaps/{{resultmap._id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="resultmap.created | date:'medium'"></span>
+				by
+				<span data-ng-bind="resultmap.user.displayName"></span>
+			</small>
+			<h4 class="list-group-item-heading" > <span class="label label-warning" data-ng-bind="resultmap.numcode"></span> <span data-ng-bind="resultmap.code"></span> </h4>
+            <p data-ng-bind="resultmap.results"></p>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!resultmaps.$resolved || resultmaps.length">
+    	No Resultmaps yet, why don't you <a href="/#!/resultmaps/create">create one</a>?
+    </div>
+</section>

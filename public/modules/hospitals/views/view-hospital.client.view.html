@@ -1,0 +1,28 @@
+<div class="row" data-ng-controller="HospitalsController" data-ng-init="findOne()">
+	<div class="page-header">
+		<h1 data-ng-bind="hospital.name"></h1>
+	</div>
+	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == hospital.user._id))">
+		<a class="btn btn-primary" href="/#!/hospitals/{{hospital._id}}/edit">
+			<i class="glyphicon glyphicon-edit"></i>
+		</a>
+		<a class="btn btn-primary" data-ng-click="remove();">
+			<i class="glyphicon glyphicon-trash"></i>
+		</a>
+	</div>
+	<small>
+		<em class="text-muted">
+			Posted on
+			<span data-ng-bind="hospital.created | date:'mediumDate'"></span>
+			by
+			<span data-ng-bind="hospital.user.displayName"></span>
+		</em>
+	</small>
+	<div class="page-body">
+		<p>ที่อยู่ <span data-ng-bind="hospital.address"></span></p>
+		<p>ติดต่อ <span data-ng-bind="hospital.contact_person"></span></p>
+		<p>หมายเลขโทรศัพท์ <span data-ng-bind="hospital.contact_number"></span></p>
+		<p>ตำแหน่งพิกัด<span data-ng-bind="hospital.location"></span></p>
+		
+	</div>
+</div>

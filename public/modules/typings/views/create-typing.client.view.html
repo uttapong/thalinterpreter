@@ -1,0 +1,94 @@
+<div  class="row" data-ng-controller="TypingsController" data-ng-init="getResultMap()">
+    <div class="page-header">
+        <h1>เพิ่มข้อมูล Typing</h1>
+    </div>
+    <div class="col-xs-4">
+        <form class="form-horizontal" data-ng-submit="create()" novalidate>
+           
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Lab No.</label>
+                    <div class="col-md-8">
+                        <input type="text" data-ng-model="typingid" id="typingid" class="form-control" placeholder="Typing ID" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Gender</label>
+                    <div class="col-md-8">
+                        <select class="form-control" data-ng-model="gender" id="name">
+                          <option value="Male" selected="selected">Male</option>
+                          <option value="Female">Female</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Age</label>
+                    <div class="col-md-8">
+                        <input type="number" data-ng-model="age" id="name" class="form-control" placeholder="0" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">DCIP</label>
+                    <div class="col-md-8">
+                        <input type="text" type="number" data-ng-model="dcip" id="name" class="form-control" placeholder="0" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Hb</label>
+                    <div class="col-md-8">
+                        <input ng-change="livecheck()" type="number" data-ng-model="hb" id="name" class="form-control" placeholder="0" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">MCV</label>
+                    <div class="col-md-8">
+                        <input ng-change="livecheck()" type="number" data-ng-model="mcv" id="name" class="form-control" placeholder="0" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">A</label>
+                    <div class="col-md-8">
+                        <input ng-change="livecheck()" type="number" data-ng-model="a" id="name" class="form-control" placeholder="0" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">A2</label>
+                    <div class="col-md-8">
+                        <input ng-change="livecheck()" type="number" data-ng-model="a2" id="name" class="form-control" placeholder="0" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">HbE</label>
+                    <div class="col-md-8">
+                        <input ng-change="livecheck()" type="number" data-ng-model="hbe" id="name" class="form-control" placeholder="0" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">HbCS</label>
+                    <div class="col-md-8">
+                        <input ng-change="livecheck()" type="number" data-ng-model="hbcs" id="name" class="form-control" placeholder="0" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">H/Bart's</label>
+                    <div class="col-md-8">
+                        <input ng-change="livecheck()" type="number" data-ng-model="bart_h" id="name" class="form-control" placeholder="0" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                     <div class="col-sm-offset-2 col-sm-10">
+                        <input  type="submit" class="btn btn-info" value="เพิ่มข้อมูล">
+                    </div>
+                </div>
+				<div data-ng-show="error" class="text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+          
+        </form>
+    </div>
+    <div class="col-xs-7 col-xs-offset-1 live-interprete">
+    <h2>Possible Typing</h2>
+        <div ng-show="typingcheck(type.code)" class="interprete-type col-xs-2" ng-repeat="type in resultmaps">
+            <div  code='{{type.code}}'>{{type.results[0]}}</div>
+        </div>
+    </div>
+</div> 
