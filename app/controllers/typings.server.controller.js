@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Typing = mongoose.model('Typing'),
+	ResultMap = mongoose.model('ResultMap'),
 	thal=require('thal-interpreter'),
 	_ = require('lodash');
 
@@ -15,16 +16,33 @@ var mongoose = require('mongoose'),
 exports.create = function(req, res) {
 	var typing = new Typing(req.body);
 	typing.user = req.user;
+	if(typing.mch&&typing.mch!=''&&typing.mch!='-')typing.interprete_code=thal.interprete_withMCH(typing);
+	else typing.interprete_code=thal.interprete_noMCH(typing);
 
-	typing.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(typing);
+	ResultMap.findOne({ 'code':  typing.interprete_code },function(error,code_doc){
+		if(error) {
+		//	console.log(typing);
+
+		  console.log(error);
 		}
-	});
+		if(code_doc){
+			console.log(typing);
+			typing.resultmap=code_doc._id;
+
+		}
+		typing.save(function(err) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+				res.jsonp(typing);
+			}
+		});
+
+		});
+
+	
 };
 
 /**

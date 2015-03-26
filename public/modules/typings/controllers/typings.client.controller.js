@@ -1,10 +1,19 @@
 'use strict';
 
 // Typings controller
-angular.module('typings').controller('TypingsController', ['$http','$scope', '$stateParams', '$location', 'Authentication', 'Typings','ResultMap',
+angular.module('typings').controller('TypingsController', ['$http','$scope', '$stateParams', '$location', 'Authentication', 'AllTypings','ResultMap',
 	function($http,$scope, $stateParams, $location, Authentication, Typings,ResultMap) {
 		$scope.authentication = Authentication;
-
+		$scope.genderchoice = [{
+			  id: 'Male',
+			  label: 'Male',
+			  subItem: { name: 'Male' }
+			}, {
+			  id: 'Female',
+			  label: 'Female',
+			  subItem: { name: 'Female' }
+			}];
+		$scope.gender=$scope.genderchoice[0];
 		// Create new Typing
 		$scope.create = function() {
 			// Create new Typing object
@@ -22,7 +31,8 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 				bart_h:this.bart_h
 			});
 
-			$scope.gender= ['Male','Female'];
+			
+
 
 			// Redirect after save
 			typing.$save(function(response) {

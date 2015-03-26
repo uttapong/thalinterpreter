@@ -90,7 +90,7 @@ var TypingSchema = new Schema({
 	},
 	test_result: {
 		type: String,
-		default: 'FALSE',
+		default: '',
 	},
 	resultmap:{
 		type: Schema.ObjectId,

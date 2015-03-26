@@ -1,8 +1,8 @@
-<section data-ng-controller="TypingsController" data-ng-init="findOne()">
-	<div class="page-header">
-		<h1 data-ng-bind="typing.typingid"></h1>
+<div class="row" data-ng-controller="TypingsController" data-ng-init="findOne()">
+	<div class="col-xs-12 page-header">
+		<h1>Typing ID: {{typing.typingid}} </h1>
 	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == typing.user._id))">
+	<div class="col-xs-12 pull-right" data-ng-show="((authentication.user) && (authentication.user._id == typing.user._id))">
 		<a class="btn btn-primary" href="/#!/typings/{{typing._id}}/edit">
 			<i class="glyphicon glyphicon-edit"></i>
 		</a>
@@ -10,7 +10,7 @@
 			<i class="glyphicon glyphicon-trash"></i>
 		</a>
 	</div>
-	<small>
+	<small class="col-xs-12">
 		<em class="text-muted">
 			Posted on
 			<span data-ng-bind="typing.created | date:'mediumDate'"></span>
@@ -18,4 +18,46 @@
 			<span data-ng-bind="typing.user.displayName"></span>
 		</em>
 	</small>
-</section>
+	<div class="page-content col-xs-12">
+
+		<table class="table-striped table col-xs-12" >
+<thead>
+			<tr>
+				<th>Typing ID</th>
+				<th>Created</th>
+				<th>A</th>
+				<th>E</th>
+				<th>A2</th>
+				<th>F</th>
+				<th>HbE</th>
+				<th>HbCS</th>
+				<th>MCV</th>
+				<th>Hb</th>
+				<th>H/Bart's</th>
+				<th>Age</th>
+				<th>Gender</th>
+       			<th>Interprete Result</th>
+			</tr>
+			</thead>
+<tbody>
+	<tr>
+		<td data-ng-bind="typing.typingid">{{}}</td>
+        <td>{{typing.created|date}}</td>
+        <td>{{typing.a}}</td>
+        <td>{{typing.e}}</td>
+        <td>{{typing.a2}}</td>
+        <td>{{typing.f}}</td>
+        <td>{{typing.hbe}}</td>
+        <td>{{typing.hbcs}}</td>
+        <td>{{typing.mcv}}</td>
+        <td>{{typing.hb}}</td>
+        <td>{{typing.bart_h}}</td>
+        <td>{{typing.age}}</td>
+        <td>{{typing.gender}}</td>
+        <td>{{typing.interprete_code}}</td>
+	</tr>
+	</tbody>
+</table>
+	</div>
+
+</div>

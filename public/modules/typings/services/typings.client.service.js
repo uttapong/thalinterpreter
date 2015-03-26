@@ -1,7 +1,7 @@
 'use strict';
 
 //Typings service used to communicate Typings REST endpoints
-angular.module('typings').factory('Typings', ['$resource',
+angular.module('typings').factory('AllTypings', ['$resource',
 	function($resource) {
 		return $resource('typings/:typingId', { typingId: '@_id'
 		}, {

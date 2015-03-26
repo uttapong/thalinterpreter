@@ -103,7 +103,7 @@ exports.create = function (req, res, next) {
 							typing.hbcs=thal.numtidy(output[11]);
 							typing.bart_h=thal.numtidy(output[12]);
 							typing.clinical_result=output[13];
-							typing.submitter=req.user;
+							typing.user=req.user;
 							typing.upload=uploadid;
 							if(typing.mch&&typing.mch!=''&&typing.mch!='-')typing.interprete_code=thal.interprete_withMCH(typing);
 							else typing.interprete_code=thal.interprete_noMCH(typing);

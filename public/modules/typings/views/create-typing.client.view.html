@@ -14,9 +14,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Gender</label>
                     <div class="col-md-8">
-                        <select class="form-control" data-ng-model="gender" id="name">
-                          <option value="Male" selected="selected">Male</option>
-                          <option value="Female">Female</option>
+                        <select class="form-control" ng-options="item.label for item in genderchoice track by item.id" ng-model="gender">
                         </select>
                     </div>
                 </div>
@@ -75,7 +73,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                     <div class="col-sm-offset-2 col-sm-10">
+                     <div class="col-sm-offset-4 col-sm-10">
                         <input  type="submit" class="btn btn-info" value="เพิ่มข้อมูล">
                     </div>
                 </div>
