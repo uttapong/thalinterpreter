@@ -23,11 +23,6 @@ var TypingSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'User'
 	},
-	labno: {
-		type: String,
-		default: '',
-		trim: true,
-	},
 	gender: {
 		type: String,
 		default: '',
@@ -39,7 +34,7 @@ var TypingSchema = new Schema({
 		trim: true,
 	},
 	dcip: {
-		type: Number,
+		type: String,
 		default: '',
 		trim: true,
 	},
@@ -93,6 +88,10 @@ var TypingSchema = new Schema({
 		default: '',
 		trim: true,
 	},
+	test_result: {
+		type: String,
+		default: 'FALSE',
+	},
 	resultmap:{
 		type: Schema.ObjectId,
 		ref:'ResultMap'
@@ -103,7 +102,7 @@ var TypingSchema = new Schema({
 	},
 	updated:{
 		type: Date,
-		default: Date.now 
+		default: Date.now
 	},
 	upload:{
 		type: Schema.ObjectId,

@@ -12,3 +12,17 @@ angular.module('uploads').factory('Uploads', ['$resource',
 		});
 	}
 ]);
+
+angular.module('uploads').factory('Typings', ['$resource','$http',
+
+	function($resource,$http) {
+		return{
+    getResults : function(uploadid) {
+        return $http({
+            url: 'uploadresults/'+uploadid,
+            method: 'GET'
+        })
+    }
+ 	}
+}
+]);

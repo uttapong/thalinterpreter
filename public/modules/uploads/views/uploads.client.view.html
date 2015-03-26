@@ -36,7 +36,7 @@
 	</div>
 </div>
 
-<table class="table-striped table" st-table="displayedCollection"  st-safe-src="rowCollection" data-ng-init="find()"> 
+<table class="table-striped table" st-table="displayedCollection"  st-safe-src="rowCollection" data-ng-init="find()">
 <thead>
 			<tr>
 				<th st-sort="title">Title</th>
@@ -44,6 +44,7 @@
 				<th st-sort="note">Date</th>
 				<th st-sort="note">Status</th>
 				<th st-sort="note">Re interprete</th>
+        <th st-sort="results">Negative Results</th>
 				<th st-sort="note">Delete</th>
 			</tr>
 			<tr>
@@ -57,12 +58,13 @@
         <td>{{upload.created | date}}</td>
         <td><span class="label label-default">{{upload.status}}</span></td>
         <td><button class='btn btn-xs btn-info'><i class="fa fa-retweet"></i> แปลผลใหม่</button></td>
+        <td><a class="btn btn-xs btn-warning" href="/#!/uploads/{{upload._id}}"><i class="glyphicon glyphicon-question-sign"></i></a></td>
         <td><button class='btn btn-xs btn-danger'><i class="fa fa-times"></i></button></td>
 	</tr>
 	</tbody>
 <tfoot>
 			<tr>
-				<td colspan="5" class="text-center">
+				<td colspan="7" class="text-center">
 					<div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
 				</td>
 			</tr>

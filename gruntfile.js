@@ -163,19 +163,19 @@ module.exports = function(grunt) {
           }
         },
         mongobackup: {
-	    options: {
-	      host : 'localhost',
-	      port: '27017',
-	      db : 'thal-dev', 
-	      dump:{
-	        out : './dump',
-	      },    
-	      restore:{
-	        path : './dump/thal-dev',          
-	        drop : true
-	      }
+		    options: {
+		      host : 'localhost',
+		      port: '27017',
+		      db : 'thal-dev',
+		      dump:{
+		        out : './dump',
+		      },
+		      restore:{
+		        path : './dump/thal-dev',
+		        drop : true
+		      }
+		    }
 	    }
-	    } 
 
 	});
 
@@ -204,7 +204,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('secure', ['env:secure', 'lint', 'concurrent:default']);
 
 	// Lint task(s).
-	grunt.registerTask('lint', ['jshint', 'csslint']);
+	//grunt.registerTask('lint', ['jshint', 'csslint']);
 
 	// Build task(s).
 	grunt.registerTask('build', ['lint', 'loadConfig', 'ngAnnotate', 'uglify', 'cssmin','csslint','less']);

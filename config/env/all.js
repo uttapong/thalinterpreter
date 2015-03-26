@@ -22,11 +22,11 @@ module.exports = {
 				'public/lib/jquery/dist/jquery.min.js',
 				'public/lib/angular/angular.js',
 				'public/lib/bootstrap/dist/js/bootstrap.min.js',
-				'public/lib/angular-resource/angular-resource.js', 
-				'public/lib/angular-cookies/angular-cookies.js', 
-				'public/lib/angular-animate/angular-animate.js', 
-				'public/lib/angular-touch/angular-touch.js', 
-				'public/lib/angular-sanitize/angular-sanitize.js', 
+				'public/lib/angular-resource/angular-resource.js',
+				'public/lib/angular-cookies/angular-cookies.js',
+				'public/lib/angular-animate/angular-animate.js',
+				'public/lib/angular-touch/angular-touch.js',
+				'public/lib/angular-sanitize/angular-sanitize.js',
 				'public/lib/angular-ui-router/release/angular-ui-router.js',
 				'public/lib/angular-route/angular-route.min.js',
 				'public/lib/angular-ui-utils/ui-utils.js',
@@ -37,7 +37,7 @@ module.exports = {
 				'public/lib/sweetalert/lib/sweet-alert.min.js',
 				'public/lib/angular-sweetalert/SweetAlert.min.js',
 				'public/lib/angular-smart-table/dist/smart-table.min.js'
-				
+
 			]
 		},
 		css: [
@@ -49,7 +49,8 @@ module.exports = {
 			'public/application.js',
 			'public/modules/*/*.js',
 			'public/modules/*/*[!tests]*/*.js',
-			'public/ext/**/*.js'
+			'public/ext/**/*.js',
+			'public/js/*.js'
 		],
 		tests: [
 			'public/lib/angular-mocks/angular-mocks.js',

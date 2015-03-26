@@ -16,6 +16,7 @@ var mongoose = require('mongoose'),
 	wait=require('wait.for'),
 	thal=require('thal-interpreter'),
 	async=require('async'),
+	ObjectId = require('mongoose').Types.ObjectId,
 	_ = require('lodash');
 
 
@@ -31,6 +32,25 @@ var mongoose = require('mongoose'),
 			res.json(uploads);
 		}
 	});
+};
+
+exports.listFalse = function(req, res, next, uploadid) {
+//	res.json(uploadid);
+var results={};
+Typing.find({test_result:'FALSE',upload:new ObjectId(uploadid)},'upload typingid test_result clinical_result interprete_code created').sort('-created').populate('upload','title note user').populate('upload.user').exec(function(err, typings) {
+	if (err) {
+		return res.status(400).send({
+			message: errorHandler.getErrorMessage(err)
+		});
+	} else {
+		Typing.count({}, function (err, count) {
+			res.json({typings:typings,count:count});
+		});
+
+	}
+});
+
+
 };
 
 exports.create = function (req, res, next) {
@@ -50,135 +70,86 @@ exports.create = function (req, res, next) {
 		} else {
 			uploadid=obj._id;
 			res.json(upload);
+
+
+			fs.readFile(file_dir+req.files.file.name,{encoding: 'utf-8'},function(err,data){
+				if(err)throw err;
+				//console.log(data);
+
+					var row_count=1;
+					csv.parse(data, {}, function(err, outputs){
+
+					async.each(outputs,
+					  // 2nd param is the function that each item is passed to
+
+
+
+					  function(output, callback){
+					    // Call an asynchronous function, often a save() to DB
+							if(row_count==1){row_count++;return; }
+
+					      	var typing=new Typing();
+					      	typing.typingid=output[0];
+							typing.gender=output[1];
+							typing.age=output[2];
+							typing.dcip=thal.numtidy(output[3]);
+							typing.hb=thal.numtidy(output[4]);
+							typing.mcv=thal.numtidy(output[5]);
+							typing.mch=thal.numtidy(output[6]);
+							typing.a=thal.numtidy(output[7]);
+							typing.a2=thal.numtidy(output[8]);
+							typing.f=thal.numtidy(output[9]);
+							typing.hbe=thal.numtidy(output[10]);
+							typing.hbcs=thal.numtidy(output[11]);
+							typing.bart_h=thal.numtidy(output[12]);
+							typing.clinical_result=output[13];
+							typing.submitter=req.user;
+							typing.upload=uploadid;
+							if(typing.mch&&typing.mch!=''&&typing.mch!='-')typing.interprete_code=thal.interprete_withMCH(typing);
+							else typing.interprete_code=thal.interprete_noMCH(typing);
+							//console.log(typing);
+
+
+
+
+							ResultMap.findOne({ 'code':  typing.interprete_code },function(error,code_doc){
+								if(error) {
+								//	console.log(typing);
+
+								  console.log(error);
+								}
+								if(code_doc){
+									console.log(typing);
+									typing.resultmap=code_doc._id;
+									typing.test_result='FALSE';
+									for(var j=0;j<code_doc.results.length;j++){
+										if(code_doc.results[j].toUpperCase()==typing.clinical_result.toUpperCase())typing.test_result='TRUE';
+									}
+
+								}
+								typing.save();
+
+							});
+					      	callback();
+					  }
+					,
+					  function(err){
+							res.writeHead(500, {'Content-Type': 'application/json'});
+							res.write('{error: "' + err + '"}');
+							res.end();
+						}
+					);
+				});//end csv parse
+
+			});//end read file
 		}
 	});
 
-	
 
 
-	fs.readFile(file_dir+req.files.file.name,{encoding: 'utf-8'},function(err,data){
-		if(err)throw err;
-		//console.log(data);
-		
-			var row_count=1;
-			csv.parse(data, {}, function(err, outputs){
 
-			async.each(outputs,
-			  // 2nd param is the function that each item is passed to
-			  function(output, callback){
-			    // Call an asynchronous function, often a save() to DB
-			   		
-			      
-			      	var typing=new Typing();
-			      	typing.labno=output[4];
-					typing.gender=output[6];
-					typing.age=output[7];
-					typing.dcip=thal.numtidy(output[8]);
-					typing.hb=thal.numtidy(output[9]);
-					typing.mcv=thal.numtidy(output[10]);
-					typing.a=thal.numtidy(output[11]);
-					typing.a2=thal.numtidy(output[12]);
-					typing.f=thal.numtidy(output[13]);
-					typing.hbe=thal.numtidy(output[14]);
-					typing.hbcs=thal.numtidy(output[15]);
-					typing.bart_h=thal.numtidy(output[16]);
-					typing.clinical_result=output[17];
-					typing.submitter=req.user;
-					typing.upload=uploadid;
-					typing.interprete_code=thal.interprete(typing);
-					console.log(typing);
 
-					ResultMap.findOne({ 'code':  typing.interprete_code },function(err,code_doc){
-						if(code_doc){
-							console.log(code_doc);
-							typing.resultmap=code_doc._id;
-							typing.save();
-						}
 
-					});
-						
-			      	callback();
-			 
-			  },
-			  // 3rd param is the function to call when everything's done
-			  function(err){
-			    // All tasks are done now
-			    //doSomethingOnceAllAreDone();
-			  }
-			);
-				
-			/*for (var i = 1, len = output.length; i < len; i++) {
-				//var self=this;
-				var tp=output[i];
-				
-				var obj={};
-				obj.labno=tp[4];
-				obj.gender=tp[6];
-				obj.age=tp[7];
-				obj.dcip=thal.numtidy(tp[8]);
-				obj.hb=thal.numtidy(tp[9]);
-				obj.mcv=thal.numtidy(tp[10]);
-				obj.a=thal.numtidy(tp[11]);
-				obj.a2=thal.numtidy(tp[12]);
-				obj.f=thal.numtidy(tp[13]);
-				obj.hbe=thal.numtidy(tp[14]);
-				obj.hbcs=thal.numtidy(tp[15]);
-				obj.bart_h=thal.numtidy(tp[16]);
-				obj.clinical_result=tp[17];
-				obj.submitter=req.user;
-				obj.upload=uploadid;
-				obj.interprete_code=thal.interprete(obj);*/
-				//typing=typing;
-				//console.log(typing.interprete_code);
-				//var resultmap=wait.forMethod(ResultMap,'findOne',{code:typing.interprete_code});
-				//typing.resultmap=resultmap;
-				//typing.save();
-				/*
-				typing.save(function(err,product,numaffected){
-					if(err)return err;
-					else {
-						row_count++;
-						if(row_count==output.length)mapResult();
-					}
-				});*/
-				
-				/*
-				var mapResult=function(){
-					
-					var query = Typing.find({ upload: uploadid },function (err, docs) {
-						for (var j = 0, len = docs.length; j < len; j++) {
-							var doc=docs[i];
-							console.log(doc);
-							query2=ResultMap.where({ 'code':  doc.interprete_code });
-							query2.findOne(function (err, map) {
-							  if (err) return err;
-							   console.log(map);
-							  if (map) {
-							   doc.resultmap=map._id;
-							    doc.save();
-							  }
-							  
-							 
-							});
-						};
-					});
-					
 
-				}*/
-				
-				
 
-				
-
-			//}//end for
-		  //output.should.eql([ [ '1', '2', '3', '4' ], [ 'a', 'b', 'c', 'd' ] ]);
-		});//end csv parse
-
-	});
-
-	
-	
 };
-
-
-

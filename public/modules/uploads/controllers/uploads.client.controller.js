@@ -2,8 +2,8 @@
 //inject angular file upload directives and services.
 
 
-var uploadMod = angular.module('uploads').controller('UploadController', ['$scope', '$stateParams', '$location', 'Authentication', 'Uploads', '$upload', 'SweetAlert',
-    function($scope, $stateParams, $location, Authentication, Upload, $upload, sweet) { 
+var uploadMod = angular.module('uploads').controller('UploadController', ['$scope', '$stateParams', '$location', 'Authentication', 'Uploads', '$upload', 'SweetAlert','Typings',
+    function($scope, $stateParams, $location, Authentication, Upload, $upload, sweet,typing) {
         $scope.authentication = Authentication;
 
         $scope.dropzoneConfig = {
@@ -16,7 +16,7 @@ var uploadMod = angular.module('uploads').controller('UploadController', ['$scop
         $scope.selectedFile = [];
         $scope.uploadProgress = 0;
         $scope.isCollapsed = true;
-        
+
 
         $scope.uploadFile = function() {
             var file = $scope.selectedFile[0];
@@ -60,13 +60,21 @@ var uploadMod = angular.module('uploads').controller('UploadController', ['$scop
         };
 
         $scope.find = function() {
-        	
-			$scope.rowCollection = Upload.query();
 
-			
-		}; 
+			$scope.rowCollection = Upload.query();
+      $scope.itemsByPage=10;
+
+		  };
+        $scope.uploadResults = function() {
+          typing.getResults($stateParams.uploadid).success(function(data){
+            $scope.rowCollection =data.typings;
+            $scope.alltypings=data.count;
+          });
+
+          $scope.itemsByPage=100;
+        };
 		$scope.displayedCollection = [].concat($scope.rowCollection);
-        $scope.itemsByPage=10;
+
 
     }
 ]);

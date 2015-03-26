@@ -1,0 +1,49 @@
+<div class="row" ng-app="thal" data-ng-controller="UploadController as uploadCtl">
+<div class="page-header">
+        <h1>ผลจากการแปลผลไฟล์ : {{rowCollection[0].upload.title}}</h1>
+        <p>{{rowCollection[0].upload.note}}</p>
+        <p><span class="label label-default">All {{alltypings}} </span>&nbsp; <span class="label label-danger">Negative Result {{rowCollection.length}}</span>&nbsp;
+           <span class="label label-success">% success {{100 - rowCollection.length/alltypings*100}} % </span></p>
+    </div>
+<div ng-repeat="(key,val) in alerts" class="alert {{key}}">
+        <div ng-repeat="msg in val">{{msg}}</div>
+</div>
+
+
+<table class="table-striped table" st-table="displayedCollection" st-safe-src="rowCollection" data-ng-init="uploadResults()">
+<thead>
+			<tr>
+				<th st-sort="title">Typing ID</th>
+				<th st-sort="note">Created</th>
+        <th st-sort="note">Interprete Result</th>
+        <th st-sort="note">Clinical Result</th>
+				<th st-sort="note">Compare Result</th>
+				<th st-sort="note">Delete</th>
+			</tr>
+			<tr>
+				<th colspan="2"><input st-search=""  class="form-control" placeholder="Typing ID..." type="search"/></th>
+			</tr>
+			</thead>
+<tbody>
+	<tr ng-repeat="typing in displayedCollection">
+		<td>{{typing.typingid}}</td>
+        <td>{{typing.created|date}}</td>
+        <td>{{typing.interprete_code}}</td>
+        <td>{{typing.clinical_result}}</td>
+        <td><span class="label label-default">{{typing.test_result}}</span></td>
+        <td><button class='btn btn-xs btn-danger'><i class="fa fa-times"></i></button></td>
+	</tr>
+	</tbody>
+<tfoot>
+			<tr>
+				<td colspan="6" class="text-center">
+					<div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+				</td>
+			</tr>
+		</tfoot>
+</table>
+
+
+
+
+</div>

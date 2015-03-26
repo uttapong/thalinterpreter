@@ -30,8 +30,11 @@ var typing_dir=multer({ dest: './uploads/',
 app.route('/batchupload')
 		.get(users.requiresLogin,upload.list)
 		.post(typing_dir,users.requiresLogin, upload.create);
-	
 
+app.route('/uploadresults/:uploadid')
+				.get(users.requiresLogin,upload.listFalse);
+
+	app.param('uploadid', upload.listFalse);
 	// Finish by binding the Resultmap middleware
 	//app.param('resultmapId', resultmaps.resultmapByID);
 };

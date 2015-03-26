@@ -7,8 +7,8 @@ var ApplicationConfiguration = (function() {
 	var applicationModuleVendorDependencies = [
 	'ngResource',
 	'ngCookies',
-	'ngRoute', 
-	'ngTouch', 
+	'ngRoute',
+	'ngTouch',
 	'ngSanitize',
 	'ui.router',
 	'ui.bootstrap',
@@ -31,6 +31,8 @@ var ApplicationConfiguration = (function() {
 		applicationModuleVendorDependencies: applicationModuleVendorDependencies,
 		registerModule: registerModule
 	};
+
+
 })();
 
 
@@ -54,10 +56,10 @@ angular.module('oitozero.ngSweetAlert', [])
 		warning: function(title, message) {
 			swal( title, message, 'warning' );
 		},
-		info: function(title, message) {	
+		info: function(title, message) {
 			swal( title, message, 'info' );
 		}
 	};
-	
+
 	return self;
 }]);
