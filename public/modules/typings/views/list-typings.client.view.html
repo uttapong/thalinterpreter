@@ -2,20 +2,46 @@
     <div class="page-header">
         <h1>ข้อมูล Typings <a    class="btn btn-info" ui-sref="createTyping" ><i class="fa fa-plus fa-lg"></i> เพิ่ม Typing </a></h1>
     </div>
-    <div class="list-group">
-        <a data-ng-repeat="typing in typings" data-ng-href="#!/typings/{{typing._id}}" class="list-group-item">
-			<small class="list-group-item-text">
-				Posted on
-				<span data-ng-bind="typing.created | date:'medium'"></span>
-				by
-				<span data-ng-bind="typing.user.displayName"></span>
-			</small>
-			<h4 class="list-group-item-heading">Typing ID <span data-ng-bind="typing.typingid"></span> <span class="label label-warning" data-ng-bind="typing.interprete_code"></span></h4>
-            <p>Age: {{typing.age}}, A2E: {{typing.ae || 0}}, A: {{typing.a || 0}}, HbE: {{typing.hbe || 0}}, HbCS: {{typing.cs || 0}},H/Bart's: {{typing.bart_h || 0}}, F: {{typing.f || 0}}, MCV: {{typing.mcv || 0}}, Hb: {{typing.hb || 0}}, DCIP: {{typing.dcip || 0}} </p>
-            
-        </a>
-    </div>
+    <pre>Page: {{currentPage}} / {{numPages}}</pre>
+
+
     <div class="alert alert-warning text-center" data-ng-hide="!typings.$resolved || typings.length">
     	No Typings yet, why don't you <a href="/#!/typings/create">create one</a>?
+    </div>
+    <div class="col-xs-12 text-center">
+
+    <pagination total-items="totalItems" items-per-page="perPage" ng-model="currentPage" max-size="maxSize" ng-change="setPage(currentPage)" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages"></pagination>
+
+    </div>
+    <div class="col-xs-12">
+    <table class="table-striped table" >
+    <thead>
+    			<tr>
+    				<th>Typing ID</th>
+    				<th>Created</th>
+            <th>Interprete Result</th>
+            <th>Clinical Result</th>
+            <th>Submitter</th>
+    				<th>View</th>
+    			</tr>
+    			</thead>
+    <tbody>
+    	<tr ng-repeat="typing in typingslist">
+    		<td>{{typing.typingid}}</td>
+            <td>{{typing.created|date}}</td>
+            <td>{{typing.interprete_code}}</td>
+            <td>{{typing.clinical_result}}</td>
+            <td>{{typing.user.displayName}}</td>
+            <td><a data-ng-href="#!/typings/{{typing._id}}" class='btn btn-xs btn-info'><i class="fa fa-eye"></i> Detail</a></td>
+    	</tr>
+    	</tbody>
+
+    </table>
+  </div>
+
+    <div class="col-xs-12 text-center">
+
+    <pagination total-items="totalItems" items-per-page="perPage" ng-model="currentPage" max-size="maxSize" ng-change="setPage(currentPage)" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages"></pagination>
+
     </div>
 </div >

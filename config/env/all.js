@@ -17,6 +17,7 @@ module.exports = {
 				'public/lib/fontawesome/css/font-awesome.min.css',
 				'public/lib/morrisjs/morris.css',
 				'public/lib/sweetalert/lib/sweet-alert.css',
+				'public/lib/angular-loading-bar/build/loading-bar.css'
 			],
 			js: [
 				'public/lib/jquery/dist/jquery.min.js',
@@ -36,7 +37,8 @@ module.exports = {
 				'public/lib/ng-file-upload/angular-file-upload.min.js',
 				'public/lib/sweetalert/lib/sweet-alert.min.js',
 				'public/lib/angular-sweetalert/SweetAlert.min.js',
-				'public/lib/angular-smart-table/dist/smart-table.min.js'
+				'public/lib/angular-smart-table/dist/smart-table.min.js',
+				'public/lib/angular-loading-bar/build/loading-bar.min.js'
 
 			]
 		},

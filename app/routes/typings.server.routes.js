@@ -15,6 +15,8 @@ module.exports = function(app) {
 		.delete(users.requiresLogin, typings.hasAuthorization, typings.delete);
 	app.route('/typings/live')
 		.post(typings.liveinterprete);
+	app.route('/pagetypings')
+			.post(typings.list);
 	// Finish by binding the Typing middleware
-	app.param('typingId', typings.typingByID); 
+	app.param('typingId', typings.typingByID);
 };

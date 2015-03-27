@@ -1,0 +1,19 @@
+<div class="row" data-ng-controller="RbcsController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>RBC Type <a class="btn btn-info" ui-sref="createRbc" ><i class="fa fa-plus fa-lg"></i> เพิ่ม RBC Type</a></h1>
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="rbc in rbcs" data-ng-href="#!/rbcs/{{rbc._id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="rbc.created | date:'medium'"></span>
+				by
+				<span data-ng-bind="rbc.user.displayName"></span>
+			</small>
+			<h4 class="list-group-item-heading" data-ng-bind="rbc.name"></h4>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!rbcs.$resolved || rbcs.length">
+    	No Rbcs yet, why don't you <a href="/#!/rbcs/create">create one</a>?
+    </div>
+</div>

@@ -16,7 +16,8 @@ var ApplicationConfiguration = (function() {
 	'angularFileUpload',
 	'oitozero.ngSweetAlert',
 	'ui.bootstrap',
-	'smart-table'];
+	'smart-table',
+	'angular-loading-bar'];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {

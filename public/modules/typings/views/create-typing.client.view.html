@@ -4,7 +4,7 @@
     </div>
     <div class="col-xs-4">
         <form class="form-horizontal" data-ng-submit="create()" novalidate>
-           
+
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Lab No.</label>
                     <div class="col-md-8">
@@ -24,6 +24,14 @@
                         <input type="number" data-ng-model="age" id="name" class="form-control" placeholder="0" required>
                     </div>
                 </div>
+                <div class="form-group" ng-repeat="rbc in rbcs">
+                    <label class="control-label col-md-4" for="name">{{rbc.name}}</label>
+                    <div class="col-md-6">
+                        <input type="text" data-ng-model="typingdata[rbc.name]" id="name" class="form-control" placeholder="0">
+                    </div>
+                    <div class="col-md-2">{{rbc.unit}}</div>
+                </div>
+                <!--
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">DCIP</label>
                     <div class="col-md-8">
@@ -72,6 +80,7 @@
                         <input ng-change="livecheck()" type="number" data-ng-model="bart_h" id="name" class="form-control" placeholder="0" required>
                     </div>
                 </div>
+              -->
                 <div class="form-group">
                      <div class="col-sm-offset-4 col-sm-10">
                         <input  type="submit" class="btn btn-info" value="เพิ่มข้อมูล">
@@ -80,7 +89,7 @@
 				<div data-ng-show="error" class="text-danger">
 					<strong data-ng-bind="error"></strong>
 				</div>
-          
+
         </form>
     </div>
     <div class="col-xs-7 col-xs-offset-1 live-interprete">
@@ -89,4 +98,4 @@
             <div  code='{{type.code}}'>{{type.results[0]}}</div>
         </div>
     </div>
-</div> 
+</div>

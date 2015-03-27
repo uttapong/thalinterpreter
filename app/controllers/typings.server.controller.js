@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
 	Typing = mongoose.model('Typing'),
 	ResultMap = mongoose.model('ResultMap'),
 	thal=require('thal-interpreter'),
+	mongoosePaginate = require('mongoose-paginate'),
 	_ = require('lodash');
 
 /**
@@ -42,7 +43,7 @@ exports.create = function(req, res) {
 
 		});
 
-	
+
 };
 
 /**
@@ -91,22 +92,39 @@ exports.delete = function(req, res) {
 /**
  * List of Typings
  */
-exports.list = function(req, res) { 
-	Typing.find().sort('-created').populate('user', 'displayName').limit(20).exec(function(err, typings) {
+exports.list = function(req, res) {
+	console.log(req.body);
+	var page=req.body.page || 1;
+	var perpage=req.body.perpage || 10;
+	Typing.find().sort('-created').populate('user', 'displayName').skip(page*perpage-perpage).limit(perpage).exec(function(err, typings) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(typings);
+			Typing.count({},function(err,count){
+				res.jsonp({typings:typings,count:count});
+			});
+
 		}
 	});
+//	Typing.find(function(err,doc){ });
+	/*Typing.paginate=mongoosePaginate;
+	Typing.paginate({}, req.body.page, req.body.perpage, function(error, pageCount, paginatedResults, itemCount) {
+	  if (error) {
+	    console.error(error);
+	  } else {
+	    console.log('Pages:', pageCount);
+	    console.log(paginatedResults);
+			res.jsonp({pagecount:pageCount,result:paginateResults,itemcount:itemCount});
+	  }
+	});*/
 };
 
 /**
  * Typing middleware
  */
-exports.typingByID = function(req, res, next, id) { 
+exports.typingByID = function(req, res, next, id) {
 	Typing.findById(id).populate('user', 'displayName').exec(function(err, typing) {
 		if (err) return next(err);
 		if (! typing) return next(new Error('Failed to load Typing ' + id));

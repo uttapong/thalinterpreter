@@ -1,4 +1,4 @@
-<section data-ng-controller="ResultmapsController" data-ng-init="find()">
+<div class="row" data-ng-controller="ResultmapsController" data-ng-init="find()">
     <div class="page-header">
         <h1>ชนิดฮีโมลโกลบิน <span><a ui-sref="createResultmap" class="btn btn-lg btn-info"><i class="fa fa-plus fa-fw"></i> เพิ่ม</a></span></h1>
     </div>
@@ -17,4 +17,4 @@
     <div class="alert alert-warning text-center" data-ng-hide="!resultmaps.$resolved || resultmaps.length">
     	No Resultmaps yet, why don't you <a href="/#!/resultmaps/create">create one</a>?
     </div>
-</section>
+</div>
