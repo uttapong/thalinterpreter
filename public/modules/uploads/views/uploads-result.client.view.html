@@ -3,7 +3,7 @@
         <h1>ผลจากการแปลผลไฟล์ : {{rowCollection[0].upload.title}}</h1>
         <p>{{rowCollection[0].upload.note}}</p>
         <p><span class="label label-default">All {{alltypings}} </span>&nbsp; <span class="label label-danger">Negative Result {{rowCollection.length}}</span>&nbsp;
-           <span class="label label-success">% success {{100 - rowCollection.length/alltypings*100}} % </span></p>
+           <span class="label label-success">Success {{(100 - rowCollection.length/alltypings*100) | number : 2}} % </span></p>
     </div>
 <div ng-repeat="(key,val) in alerts" class="alert {{key}}">
         <div ng-repeat="msg in val">{{msg}}</div>
