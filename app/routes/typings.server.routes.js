@@ -42,7 +42,7 @@ module.exports = function(app) {
 	app.route('/uploadimagetyping')
 			.post(typing_dir,users.requiresLogin, typings.typingimage);
 
-	app.route('/printview')
+	app.route('/printview/:id')
 					.get(users.requiresLogin,typings.printview);
 
 	app.param('pdfreport',typings.pdfreport);

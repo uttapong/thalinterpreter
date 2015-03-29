@@ -60,30 +60,7 @@
 			<hr />
 
       <section>
-				<table class="table-striped table col-xs-12" >
-		<thead>
-					<tr>
-						<th>Typing ID</th>
-						<th>Created</th>
-						<th>Age</th>
-						<th>Gender</th>
-						<th ng-repeat="(key, value) in typing.typing">{{key}}</th>
-
-		       			<th>Interprete Result</th>
-					</tr>
-					</thead>
-		<tbody>
-			<tr>
-				<td data-ng-bind="typing.typingid">{{}}</td>
-		        <td>{{typing.created|date}}</td>
-						<td>{{typing.age}}</td>
-		        <td>{{typing.gender}}</td>
-		        <td ng-repeat="(key, value) in typing.typing">{{value| number: 2}}</td>
-
-		        <td>{{typing.resultmap.results.join(', ')}}</td>
-			</tr>
-			</tbody>
-		</table>
+				{{typing}}
 			</section>
       <footer></footer>
 			{% endblock %}

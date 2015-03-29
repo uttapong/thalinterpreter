@@ -188,9 +188,11 @@ exports.typingimage = function (req, res, next) {
 };
 
 exports.printview=function(req,res,next){
+
 	res.render('print', {
 		user: req.user || null,
-		request: req
+		request: req,
+		typing:req.typing
 
 	});
 }
