@@ -20,6 +20,10 @@ angular.module('typings').config(['$stateProvider',
 		state('editTyping', {
 			url: '/typings/:typingId/edit',
 			templateUrl: 'modules/typings/views/edit-typing.client.view.html'
+		}).
+		state('viewTypingReport', {
+			url: '/typingreport/:typingId',
+			templateUrl: 'modules/typings/views/report-typing.client.view.html'
 		});
 	}
 ]);

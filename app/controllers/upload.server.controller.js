@@ -88,29 +88,27 @@ exports.create = function (req, res, next) {
 					    // Call an asynchronous function, often a save() to DB
 							if(row_count==1){row_count++;return; }
 
-					      	var typing=new Typing();
-					      	typing.typingid=output[0];
+					    var typing=new Typing();
+							var typingdata={};
+					    typing.typingid=output[0];
 							typing.gender=output[1];
 							typing.age=output[2];
-							typing.dcip=thal.numtidy(output[3]);
-							typing.hb=thal.numtidy(output[4]);
-							typing.mcv=thal.numtidy(output[5]);
-							typing.mch=thal.numtidy(output[6]);
-							typing.a=thal.numtidy(output[7]);
-							typing.a2=thal.numtidy(output[8]);
-							typing.f=thal.numtidy(output[9]);
-							typing.hbe=thal.numtidy(output[10]);
-							typing.hbcs=thal.numtidy(output[11]);
-							typing.bart_h=thal.numtidy(output[12]);
+							typingdata['dcip']=thal.numtidy(output[3]);
+							typingdata['hb']=thal.numtidy(output[4]);
+							typingdata['mcv']=thal.numtidy(output[5]);
+							typingdata['mch']=thal.numtidy(output[6]);
+							typingdata['a']=thal.numtidy(output[7]);
+							typingdata['a2']=thal.numtidy(output[8]);
+							typingdata['f']=thal.numtidy(output[9]);
+							typingdata['hbe']=thal.numtidy(output[10]);
+							typingdata['hbcs']=thal.numtidy(output[11]);
+							typingdata['bart_h']=thal.numtidy(output[12]);
+							typing['typing']=typingdata;
 							typing.clinical_result=output[13];
 							typing.user=req.user;
 							typing.upload=uploadid;
-							if(typing.mch&&typing.mch!=''&&typing.mch!='-')typing.interprete_code=thal.interprete_withMCH(typing);
-							else typing.interprete_code=thal.interprete_noMCH(typing);
+							typing.interprete_code=thal.interprete(typing,'batch');
 							//console.log(typing);
-
-
-
 
 							ResultMap.findOne({ 'code':  typing.interprete_code },function(error,code_doc){
 								if(error) {

@@ -9,6 +9,7 @@ var mongoose = require('mongoose'),
 	ResultMap = mongoose.model('ResultMap'),
 	thal=require('thal-interpreter'),
 	mongoosePaginate = require('mongoose-paginate'),
+	jsreport=require("jsreport"),
 	_ = require('lodash');
 
 /**
@@ -16,9 +17,13 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 	var typing = new Typing(req.body);
+	/*console.log(typing);
+	typing.save(function(err){
+		res.jsonp('xxxx');
+	});*/
+
 	typing.user = req.user;
-	if(typing.mch&&typing.mch!=''&&typing.mch!='-')typing.interprete_code=thal.interprete_withMCH(typing);
-	else typing.interprete_code=thal.interprete_noMCH(typing);
+	typing.interprete_code=thal.interprete(typing,'single');
 
 	ResultMap.findOne({ 'code':  typing.interprete_code },function(error,code_doc){
 		if(error) {
@@ -27,7 +32,7 @@ exports.create = function(req, res) {
 		  console.log(error);
 		}
 		if(code_doc){
-			console.log(typing);
+			// console.log(typing);
 			typing.resultmap=code_doc._id;
 
 		}
@@ -125,7 +130,7 @@ exports.list = function(req, res) {
  * Typing middleware
  */
 exports.typingByID = function(req, res, next, id) {
-	Typing.findById(id).populate('user', 'displayName').exec(function(err, typing) {
+	Typing.findById(id).populate('user', 'displayName').populate('resultmap','code results').exec(function(err, typing) {
 		if (err) return next(err);
 		if (! typing) return next(new Error('Failed to load Typing ' + id));
 		req.typing = typing ;
@@ -133,9 +138,7 @@ exports.typingByID = function(req, res, next, id) {
 	});
 };
 
-/**
- * Typing authorization middleware
- */
+
 exports.hasAuthorization = function(req, res, next) {
 	if (req.typing.user.id !== req.user.id) {
 		return res.status(403).send('User is not authorized');
@@ -144,7 +147,74 @@ exports.hasAuthorization = function(req, res, next) {
 };
 
 exports.liveinterprete = function(req, res, next) {
-	console.log(req);
-	var result=thal.liveinterprete(req);
-	res.jsonp(result);
+	//console.log(req);
+	var result=thal.interprete(req,'live');
+	ResultMap.findOne({ 'code':  result },function(error,code_doc){
+		if(error) {
+		  console.log(error);
+		}
+		if(code_doc){
+			res.jsonp(code_doc);
+
+		}
+		});
+
+};
+
+
+
+exports.typingimage = function (req, res, next) {
+	console.log(req.files.file.name);
+    // console.log(req.files.file.name);
+
+//	var file_dir='./uploads/'+req.user._id+'/batchtyping/';
+	//upload.filename=req.files.file.name;
+	//console.log(req.user);
+	//var uploadid;
+	Typing.findOne({ typingid:req.body.typingid }, function (err, doc){
+	  doc.image=req.files.file.name;
+		doc.save(function(err){
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+				res.jsonp(doc);
+			}
+		});
+	});
+
+
+};
+
+exports.printview=function(req,res,next){
+	res.render('print', {
+		user: req.user || null,
+		request: req
+
+	});
+}
+
+exports.pdfreport=function(req,res,next,id){
+
+	Typing.findById(id).populate('user', 'displayName').populate('resultmap','code results').exec(function(err, typing) {
+		if (err) return next(err);
+		if (! typing) return next(new Error('Failed to load Typing ' + id));
+		req.typing = typing ;
+		next();
+	});
+
+	/*	Typing.findById(id).populate('user', 'displayName').populate('resultmap','code results').exec(function(err, typing) {
+		if (err) return next(err);
+		if (! typing) return next(new Error('Failed to load Typing ' + id));
+		req.typing = typing ;
+		res.jsonp(typing);
+		res.render('print', {
+			user: req.user || null,
+			request: req,
+			typing:typing
+
+		});
+	});*/
+
 };

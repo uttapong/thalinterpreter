@@ -108,12 +108,16 @@ var TypingSchema = new Schema({
 		type: Schema.ObjectId,
 		ref:'Upload'
 	},
-	typing:[
+	typing:
 		{
-			type:String,
+			type:Schema.Types.Mixed,
 			trim:true
-		}
-	]
+		},
+	image:{
+		type: String
+	}
+
+
 });
 
 mongoose.model('Typing', TypingSchema);

@@ -27,7 +27,7 @@
                 <div class="form-group" ng-repeat="rbc in rbcs">
                     <label class="control-label col-md-4" for="name">{{rbc.name}}</label>
                     <div class="col-md-6">
-                        <input type="text" data-ng-model="typingdata[rbc.name]" id="name" class="form-control" placeholder="0">
+                        <input type="text" ng-change="livecheck()" data-ng-model="typingdata[rbc.name]" id="name" class="form-control" placeholder="0">
                     </div>
                     <div class="col-md-2">{{rbc.unit}}</div>
                 </div>
@@ -94,8 +94,8 @@
     </div>
     <div class="col-xs-7 col-xs-offset-1 live-interprete">
     <h2>Possible Typing</h2>
-        <div ng-show="typingcheck(type.code)" class="interprete-type col-xs-2" ng-repeat="type in resultmaps">
-            <div  code='{{type.code}}'>{{type.results[0]}}</div>
+        <div ng-show="liveresult" class="interprete-type col-xs-12">
+            <div>{{liveresult.results.join(', ')}}</div>
         </div>
     </div>
 </div>

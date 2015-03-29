@@ -32,8 +32,8 @@ var uploadMod = angular.module('uploads').controller('UploadController', ['$scop
             }).progress(function(evt) {
                 $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total, 10);
             }).success(function(data) {
-                $scope.title = 'adfdf';
-                $scope.note = 'adfadf';
+                $scope.title = '';
+                $scope.note = '';
                 $scope.uploadProgress = 0;
 
                 sweet.swal({

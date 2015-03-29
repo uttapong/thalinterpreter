@@ -1,8 +1,8 @@
 'use strict';
 
 // Typings controller
-angular.module('typings').controller('TypingsController', ['$http','$scope', '$stateParams', '$location', 'Authentication', 'AllTypings','PageTypings','ResultMap',
-	function($http,$scope, $stateParams, $location, Authentication, Typings,PageTypings,ResultMap) {
+angular.module('typings').controller('TypingsController', ['$http','$scope', '$stateParams', '$location', 'Authentication', 'AllTypings','PageTypings','ResultMap','Uploads', '$upload','SweetAlert',
+	function($http,$scope, $stateParams, $location, Authentication, Typings,PageTypings,ResultMap,Upload, $upload,sweet) {
 		$scope.authentication = Authentication;
 		$scope.genderchoice = [{
 			  id: 'Male',
@@ -22,7 +22,12 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 		$scope.perPage=50;
 		$scope.numPages=0;
 
+		$scope.selectedFile = [];
+		$scope.uploadProgress = 0;
+
 		$scope.typingdata={};
+
+
 	  $scope.setPage = function (pageNo) {
 
 			PageTypings.getResults(pageNo,$scope.perPage).success(function(data,status,header,config){
@@ -124,6 +129,14 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 				typingId: $stateParams.typingId
 			});
 		};
+
+		$scope.findOneReport = function() {
+			$scope.typing = Typings.get({
+				typingId: $stateParams.typingId
+			});
+		};
+
+
 		$scope.getResultMap=function(){
 			$scope.resultmaps=ResultMap.query();
 			$scope.getRBC();
@@ -142,19 +155,55 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 				console.log('error get rbcs');
 		  });
 		}
+
+		$scope.uploadFile = function() {
+				var file = $scope.selectedFile[0];
+				$scope.upload = $upload.upload({
+						url: '/uploadimagetyping',
+						method: 'POST',
+						fields: {
+								typingid: $scope.typing.typingid,
+								filedir: 'typing_image'
+						},
+						file: file
+				}).progress(function(evt) {
+						$scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total, 10);
+				}).success(function(data) {
+						$scope.uploadProgress = 0;
+
+						sweet.swal({
+								title: 'Success',
+								text: 'อัพโหลดไฟล์สำเร็จ',
+								type: 'success'
+						}, function(isConfirm) {
+
+								angular.forEach(
+										angular.element('input[name=\'uploadfile\']'),
+										function(inputElem) {
+												angular.element(inputElem).val(null);
+										});
+
+						});
+						$scope.isCollapsed = true;
+
+				});
+		};
+
+		$scope.onFileSelect = function($files) {
+				$scope.uploadProgress = 0;
+				$scope.selectedFile = $files;
+		};
+
+
 		$scope.livecheck=function(){
-			$http.post('/typings/live',{dcip:$scope.dcip,hb:$scope.hb,mcv:$scope.mcv,a:$scope.a,a2:$scope.a2,hbe:$scope.hbe,hbcs:$scope.hbcs,bart_h:$scope.bart_h}).
+			$http.post('/typings/live',{dcip:$scope.typingdata.dcip,hb:$scope.typingdata.hb,mcv:$scope.typingdata.mcv,a:$scope.typingdata.a,a2:$scope.typingdata.a2,hbe:$scope.typingdata.hbe,hbcs:$scope.typingdata.hbcs,bart_h:$scope.typingdata.bart_h}).
 		    success(function(data, status, headers, config) {
-		      $scope.typingdata = data;
+		      $scope.liveresult = data;
 
 		    }).
 		    error(function(data, status, headers, config) {
 		      console.log('error');
 		    });
-		};
-		$scope.typingcheck=function(code){
-			if(!$scope.typingdata)return 0;
-			return $scope.typingdata[code];
 		};
 
 		$scope.callPage = function callServer(tableState) {

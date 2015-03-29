@@ -9,6 +9,26 @@
 		<a class="btn btn-primary" data-ng-click="remove();">
 			<i class="glyphicon glyphicon-trash"></i>
 		</a>
+		<a class="btn btn-info" href="/typingreport/{{typing._id}}" ng-show="typing.image">
+			<i class="fa fa-bar-chart"></i> View Report
+		</a>
+		<form class="form-inline" data-ng-submit="uploadFile()" method="post" enctype="multipart/form-data" >
+
+		<div class="form-group">
+
+			<label for="exampleInputEmail1">อัพโหลดไฟล์</label>
+		  	<input name="uploadfile" type="file" ng-file-select="onFileSelect($files)"/>
+		  	<p class="help-block">รองรับเฉพาะไฟล์ภาพ (jpg,png,gif) </p>
+		</div>
+		  <button class="btn btn-info" type="submit" value="submit"><i class="fa fa-cloud-upload"></i> อัพโหลด</button>
+		  <div class="progress class="col-xs-12"">
+	  <div class="progress-bar progress-bar-success progress-bar-striped" progress-bar="uploadProgress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+	   <span ng-bind="uploadProgress"></span>
+	    <span class="sr-only">%</span>
+	  </div>
+	</div>
+		</form>
+
 	</div>
 	<small class="col-xs-12">
 		<em class="text-muted">
@@ -25,17 +45,10 @@
 			<tr>
 				<th>Typing ID</th>
 				<th>Created</th>
-				<th>A</th>
-				<th>E</th>
-				<th>A2</th>
-				<th>F</th>
-				<th>HbE</th>
-				<th>HbCS</th>
-				<th>MCV</th>
-				<th>Hb</th>
-				<th>H/Bart's</th>
 				<th>Age</th>
 				<th>Gender</th>
+				<th ng-repeat="(key, value) in typing.typing">{{key}}</th>
+
        			<th>Interprete Result</th>
 			</tr>
 			</thead>
@@ -43,21 +56,19 @@
 	<tr>
 		<td data-ng-bind="typing.typingid">{{}}</td>
         <td>{{typing.created|date}}</td>
-        <td>{{typing.a}}</td>
-        <td>{{typing.e}}</td>
-        <td>{{typing.a2}}</td>
-        <td>{{typing.f}}</td>
-        <td>{{typing.hbe}}</td>
-        <td>{{typing.hbcs}}</td>
-        <td>{{typing.mcv}}</td>
-        <td>{{typing.hb}}</td>
-        <td>{{typing.bart_h}}</td>
-        <td>{{typing.age}}</td>
+				<td>{{typing.age}}</td>
         <td>{{typing.gender}}</td>
-        <td>{{typing.interprete_code}}</td>
+        <td ng-repeat="(key, value) in typing.typing">{{value| number: 2}}</td>
+
+        <td>{{typing.resultmap.results.join(', ')}}</td>
 	</tr>
 	</tbody>
 </table>
+	</div>
+
+	<div class="page-content col-xs-12" ng-show="typing.image" style="margin-bottom: 20px;">
+			<h4>Typing Image</h4>
+			<a target="_blank" href="/uploads/typingimage/{{typing.typingid}}/{{typing.image}}"><img class="col-xs-1" ng-src="/uploads/typingimage/{{typing.typingid}}/{{typing.image}}"/></a>
 	</div>
 
 </div>
