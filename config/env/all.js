@@ -40,7 +40,9 @@ module.exports = {
 				'public/lib/angular-smart-table/dist/smart-table.min.js',
 				'public/lib/angular-loading-bar/build/loading-bar.min.js',
 				'public/lib/angular-translate/angular-translate.min.js',
-				'public/lib/angular-translate/angular-translate-loader-url.min.js'
+				'public/lib/angular-translate/angular-translate-loader-url.min.js',
+				'public/lib/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js',
+				'public/lib/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js'
 
 			]
 		},

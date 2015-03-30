@@ -13,13 +13,15 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(['$locatio
     cfpLoadingBarProvider.latencyThreshold = 100;
   }])
 .config(function($translateProvider) {
-  $translateProvider.translations('en', {
-    HEADLINE: 'Hello there, This is my awesome app!'
-  })
-  .translations('th', {
-    HEADLINE: 'Hey, das ist meine großartige App!'
-  });
-  $translateProvider.preferredLanguage('en');
+
+	$translateProvider.useCookieStorage();
+	$translateProvider.useStaticFilesLoader({
+    files: [ {
+        prefix: 'lang/',
+        suffix: '.json'
+    }]
+});
+	$translateProvider.preferredLanguage('en');
 });
 
 //Then define the init function for starting up the application

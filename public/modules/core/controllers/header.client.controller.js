@@ -7,10 +7,15 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 		$scope.menu = Menus.getMenu('topbar');
 
 		//console.log(Authentication);
-
+		$scope.lang='en';
 		$scope.toggleCollapsibleMenu = function() {
 			$scope.isCollapsed = !$scope.isCollapsed;
 		};
+
+		$scope.changeLanguage = function (langKey) {
+		$scope.lang=langKey;
+    $translate.use(langKey);
+  };
 
 		// Collapsing the menu after navigation
 		$scope.$on('$stateChangeSuccess', function() {
