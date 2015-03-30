@@ -1,0 +1,52 @@
+'use strict';
+
+angular.module('users').controller('CuratorController', ['$scope', '$http', '$location', 'Authentication','Curators',
+	function($scope, $http, $location, Authentication,Curators) {
+		$scope.authentication = Authentication;
+
+		// If user is signed in then redirect back home
+		if ($scope.authentication.user) $location.path('/');
+
+
+
+		$scope.find = function() {
+			$scope.allcurators = Curators.query();
+			//console.log($scope.hospitals);
+
+		};
+
+
+		$scope.addCurator = function() {
+			$scope.curator.role='curator';
+			$http.post('/addcurator', $scope.curator).success(function(response) {
+				// If successful we assign the response to the global user model
+			//	$scope.authentication.user = response;
+			$location.path('addcurator/');
+
+			// Clear form fields
+			$scope.curator.firstName = '';
+			$scope.curator.lastName = '';
+			$scope.curator.email = '';
+			$scope.curator.username = '';
+			$scope.curator.password = '';
+
+				// And redirect to the index page
+			$location.path('/signupcurator');
+			}).error(function(response) {
+				$scope.error = response.message;
+			});
+		};
+
+		$scope.signin = function() {
+			$http.post('/auth/signin', $scope.credentials).success(function(response) {
+				// If successful we assign the response to the global user model
+				$scope.authentication.user = response;
+
+				// And redirect to the index page
+				$location.path('/');
+			}).error(function(response) {
+				$scope.error = response.message;
+			});
+		};
+	}
+]);

@@ -189,12 +189,22 @@ exports.typingimage = function (req, res, next) {
 
 exports.printview=function(req,res,next){
 
-	res.render('print', {
-		user: req.user || null,
-		request: req,
-		typing:req.typing
 
+	Typing.findById(req.params.id).populate('user', 'displayName').populate('resultmap','code results').exec(function(err, typing) {
+		if (err) return next(err);
+		if (! typing) return next(new Error('Failed to load Typing ' + id));
+		console.log(typing.typing);
+		var baseUrl = req.protocol + '://' + req.get('host');
+		res.render('print', {
+			user: req.user || null,
+			request: req,
+			typing:typing,
+			baseurl:baseUrl
+
+		});
 	});
+
+
 }
 
 exports.pdfreport=function(req,res,next,id){

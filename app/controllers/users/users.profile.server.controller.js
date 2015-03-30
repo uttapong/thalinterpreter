@@ -54,3 +54,16 @@ exports.update = function(req, res) {
 exports.me = function(req, res) {
 	res.json(req.user || null);
 };
+
+exports.getcurators=function(req,res){
+	User.find({roles:'curator'},function(err,curators){
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(curators);
+		}
+
+	});
+}

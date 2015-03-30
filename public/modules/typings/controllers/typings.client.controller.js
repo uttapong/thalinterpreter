@@ -1,8 +1,8 @@
 'use strict';
 
 // Typings controller
-angular.module('typings').controller('TypingsController', ['$http','$scope', '$stateParams', '$location', 'Authentication', 'AllTypings','PageTypings','ResultMap','Uploads', '$upload','SweetAlert',
-	function($http,$scope, $stateParams, $location, Authentication, Typings,PageTypings,ResultMap,Upload, $upload,sweet) {
+angular.module('typings').controller('TypingsController', ['$http','$scope', '$stateParams', '$location', 'Authentication', 'AllTypings','PageTypings','ResultMap','Uploads', '$upload','SweetAlert','$sce',
+	function($http,$scope, $stateParams, $location, Authentication, Typings,PageTypings,ResultMap,Upload, $upload,sweet,$sce) {
 		$scope.authentication = Authentication;
 		$scope.genderchoice = [{
 			  id: 'Male',
@@ -128,7 +128,16 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 			$scope.typing = Typings.get({
 				typingId: $stateParams.typingId
 			});
+
+			$scope.printurl = $sce.trustAsResourceUrl('/printview/'+$stateParams.typingId);
+
+		/*	$http.get('/printview/'+$stateParams.typingId).
+  success(function(data, status, headers, config) {
+		$scope.printhtml_trusted = $sce.trustAsHtml(data);
+  }).error(function(data, status, headers, config) {});*/
+
 		};
+
 
 		$scope.findOneReport = function() {
 			$scope.typing = Typings.get({
@@ -193,6 +202,12 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 				$scope.uploadProgress = 0;
 				$scope.selectedFile = $files;
 		};
+
+		$scope.printChart=function($id){
+			var myWindow=window.open('/printview/'+$id);
+	    myWindow.focus();
+	    myWindow.print();
+		}
 
 
 		$scope.livecheck=function(){

@@ -1,0 +1,61 @@
+<div class="row" data-ng-controller="CuratorController" data-ng-init="find()">
+	<h3 class="col-md-12 text-center">Curators List</h3>
+
+	<div class="page-content col-xs-12">
+
+		<table class="table-striped table col-xs-12">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Username</th>
+					<th>Email</th>
+					<th>Manage</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="cr in allcurators">
+				<td>{{ cr.firstName}} {{ cr.larstName}}</td>
+				<td>{{ cr.username}}</td>
+				<td>{{ cr.email}}</td>
+				<td></td>
+				</tr>
+			</tbody>
+		</table>
+		<hr />
+		<h4>Add Curator</h4>
+		<p style="color: #dc4136;">
+			<strong>{{typing.resultmap.results.join(', ')}}</strong>
+		</p>
+	</div>
+	<form class='form-inline' name="userForm" data-ng-submit="addCurator()" novalidate autocomplete="off">
+
+				<div class="form-group">
+					<label for="firstName">First Name</label>
+					<input type="text" required id="firstName" name="firstName" class="form-control" data-ng-model="curator.firstName" placeholder="First Name">
+				</div>
+				<div class="form-group">
+					<label for="lastName">Last Name</label>
+					<input type="text" id="lastName" name="lastName" class="form-control" data-ng-model="curator.lastName" placeholder="Last Name">
+				</div>
+				<div class="form-group">
+					<label for="email">Email</label>
+					<input type="email" id="email" name="email" class="form-control" data-ng-model="curator.email" placeholder="Email">
+				</div>
+				<div class="form-group">
+					<label for="username">Username</label>
+					<input type="text" id="username" name="username" class="form-control" data-ng-model="curator.username" placeholder="Username">
+				</div>
+				<div class="form-group">
+					<label for="password">Password</label>
+					<input type="password" id="password" name="password" class="form-control" data-ng-model="curator.password" placeholder="Password">
+				</div>
+
+				<div class="text-center form-group">
+					<button type="submit" class="btn btn-large btn-info">Add</button>
+				</div>
+				<div data-ng-show="error" class="text-center text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+		</form>
+
+</div>

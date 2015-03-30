@@ -17,7 +17,8 @@ var ApplicationConfiguration = (function() {
 	'oitozero.ngSweetAlert',
 	'ui.bootstrap',
 	'smart-table',
-	'angular-loading-bar'];
+	'angular-loading-bar',
+	'pascalprecht.translate'];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {

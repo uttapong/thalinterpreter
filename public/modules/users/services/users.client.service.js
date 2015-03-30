@@ -10,3 +10,14 @@ angular.module('users').factory('Users', ['$resource',
 		});
 	}
 ]);
+
+angular.module('users').factory('Curators', ['$resource',
+	function($resource) {
+		return $resource('curators/:userId', { userId: '@_id'
+		}, {
+			update: {
+				method: 'PUT'
+			}
+		});
+	}
+]);

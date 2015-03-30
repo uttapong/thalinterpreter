@@ -15,7 +15,7 @@
 
             <ul class="nav navbar-top-links navbar-right" data-ng-controller="HeaderController">
 
-
+              {{ 'HEADLINE' | translate }}
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -134,7 +134,7 @@
                                     <a ui-sref="listTypings"> ข้อมูล Typing</a>
                                 </li>
                                 <li>
-                                    <a ui-sref="uploads"><i class="fa fa-cog fa-fw"></i> Batch Interprete</a>
+                                    <a ui-sref="uploads"> Batch Interprete</a>
                                 </li>
                                 <li>
                                     <a ui-sref="listHospitals"> ข้อมูลโรงพยาบาล</a>
@@ -144,6 +144,9 @@
                                 </li>
                                 <li>
                                     <a ui-sref="listRbcs"> ชนิด RBC</a>
+                                </li>
+                                <li>
+                                    <a ui-sref="signupcurator"> ผู้เชี่ยวชาญ</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

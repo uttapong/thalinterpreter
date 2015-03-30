@@ -38,7 +38,9 @@ module.exports = {
 				'public/lib/sweetalert/lib/sweet-alert.min.js',
 				'public/lib/angular-sweetalert/SweetAlert.min.js',
 				'public/lib/angular-smart-table/dist/smart-table.min.js',
-				'public/lib/angular-loading-bar/build/loading-bar.min.js'
+				'public/lib/angular-loading-bar/build/loading-bar.min.js',
+				'public/lib/angular-translate/angular-translate.min.js',
+				'public/lib/angular-translate/angular-translate-loader-url.min.js'
 
 			]
 		},

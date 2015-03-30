@@ -1,6 +1,67 @@
-.content {
-	margin-top: 50px;
+@page {
+  size: A4;
 }
-header{
-	text-align:center;
+@media print{
+
+body{
+	padding: 10px 20px;
+
+	}
+
+	.content {
+		margin-top: 50px;
+		width: auto;
+		float: none !important;
+		background: transparent;
+	}
+	body{
+		background: white;
+		color: black;
+		font-family: Georgia, ‘Times New Roman’, serif;
+		font-size: 9pt;
+	}
+	header{
+		text-align:center !important;
+	}
+
+	.fn {
+	  float: footnote;
+	}
+	h1{
+		font-size: 18pt;
+	}
+	h2{
+		font-size: 14pt;
+	}
+	h3{
+		font-size: 11ptpt;
+	}
+	h4{
+		font-size: 10pt;
+	}
+	.result p{
+		background-color: #dedede;
+		padding: 10pt;
+		font-size: 11pt;
+		border-radius: 5px;
+		display: block;
+		font-weight: bold;
+	}
+	table{
+		width: 100%;
+	}
+	th,td{
+		text-align:right;
+	}
+	.typingimage{
+		height: 150pt;
+	}
+
+}
+@page :left {
+  margin-left: 1.5cm;
+}
+
+@page :right {
+  margin-left: 1.5cm;
 }

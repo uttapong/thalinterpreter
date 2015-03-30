@@ -35,9 +35,9 @@
 	<link href="/modules/core/img/brand/favicon.png" rel="shortcut icon" type="image/x-icon">
 <!--	{% for cssFile in cssFiles %}<link rel="stylesheet" href="{{cssFile}}">{% endfor %}-->
 
-	<link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css">
-	<link rel="stylesheet" href="lib/fontawesome/css/font-awesome.min.css">
-	<link rel="stylesheet" href="modules/core/css/print.css">
+
+	<link rel="stylesheet" href="/lib/fontawesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/modules/core/css/print.css">
 	<!--Application CSS Files-->
 
 
@@ -52,17 +52,60 @@
 	<div id="page-wrapper">
 			{% block content %}
 
-			<header class="header-content">
+			<header style="text-align:center;" class="header-content">
           <h1>Lab Report</h1>
+					<img src="/modules/core/img/brand/logo_print_thal.jpg" />
           <h2>Thallasemia Interpreter Software</h2>
-          <h2>Biostatistics and Informatics Laboratory, Genome Technology Reserach Unit, BIOTEC, NSTDA</h2>
+          <h3>Biostatistics and Informatics Laboratory, Genome Technology Reserach Unit, BIOTEC, NSTDA</h3>
       </header>
 			<hr />
 
       <section>
-				{{typing}}
+				<div class="meta">
+					<h3>Case Data</h3>
+					<p>Typing ID: {{typing.typingid}}</p>
+					<p>Submitted Date: {{typing.created|date('d, m Y')}}</p>
+					<p>Age: {{typing.age}}</p>
+					<p>Gender: {{typing.gender}}</p>
+				</div>
+				<hr />
+				<h3>Typing Data</h3>
+				<table class="table-striped table col-xs-12" style="width: 100%;" >
+
+		<thead>
+					<tr>
+						{% for key in typing.typing %}
+						<th>{{loop.key}}</th>
+						{% endfor %}
+
+					</tr>
+					</thead>
+		<tbody>
+			<tr>
+
+						{% for value in typing.typing %}
+						<td>{{value}}</td>
+						{% endfor %}
+
+			</tr>
+			</tbody>
+		</table>
+		<hr />
+		<div class="result">
+			<h3>Interpretation</h3>
+			<p class="result">Interpreted Result : {{typing.resultmap.results.join(', ')}}</p>
+		</div>
+
+		{% if typing.image %}
+		<div class="image">
+			<h3>Lab Investigation Chromatogram</h3>
+			<p><img class="typingimage" src="{{baseurl}}/uploads/typingimage/{{typing.typingid}}/{{typing.image}}" /></p>
+		</div>
+		{% endif %}
 			</section>
-      <footer></footer>
+			<hr />
+			<p><span class="footnotes"><img style="float:left;height: 20pt;margin-right: 5pt" src="/modules/core/img/brand/logo_print_biotec.jpg" /> Genome Technology Research Unit, National Center for Genetic Engineering and Biotechnology (BIOTEC)
+113 Thailand Science Park, Phahonyothin Road, Khlong Nueng, Khlong Luang, Pathum Thani 12120 Thailand</p>
 			{% endblock %}
 
 	</div>
