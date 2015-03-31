@@ -68,11 +68,11 @@
                 <!-- /.dropdown -->
 
             <li ui-route="/signup" ng-class="{active: $uiRoute}" data-ng-hide="authentication.user">
-                <a href="/#!/signup">ลงทะเบียน</a>
+                <a href="/#!/signup">{{ 'REGISTER' | translate }}</a>
             </li>
             <li class="divider-vertical"></li>
             <li ui-route="/signin" ng-class="{active: $uiRoute}" data-ng-hide="authentication.user">
-                <a href="/#!/signin">เข้าสู่ระบบ</a>
+                <a href="/#!/signin">{{ 'SIGN_IN' | translate }}</a>
             </li>
 
 
@@ -83,12 +83,20 @@
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="/#!/settings/profile"><i class="fa fa-user fa-fw"></i> {{ 'PROFILE' | translate }}</a>
                         </li>
+<<<<<<< Updated upstream
                          <li><a href="/#!/settings/accounts"><i class="fa fa-user fa-fw"></i> {{ 'SOCIAL_ACCOUNTS' | translate }}</a>
+=======
+                         <li><a href="/#!/settings/accounts"><i class="fa fa-user fa-fw"></i> {{ 'SOCIAL_ACC' | translate }}</a>
+>>>>>>> Stashed changes
                         </li>
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> {{ 'SETTINGS' | translate }}</a>
                         </li>
                         <li class="divider"></li>
+<<<<<<< Updated upstream
                         <li><a href="/auth/signout"><i class="fa fa-sign-out fa-fw"></i> {{ 'SIGNOUT' | translate }}</a>
+=======
+                        <li><a href="/auth/signout"><i class="fa fa-sign-out fa-fw"></i> {{ 'LOGOUT' | translate }}</a>
+>>>>>>> Stashed changes
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
