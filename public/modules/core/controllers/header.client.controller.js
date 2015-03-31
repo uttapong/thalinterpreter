@@ -8,6 +8,7 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 
 		//console.log(Authentication);
 		$scope.lang='en';
+		$translate.use($scope.lang);
 		$scope.toggleCollapsibleMenu = function() {
 			$scope.isCollapsed = !$scope.isCollapsed;
 		};

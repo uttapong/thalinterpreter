@@ -15,7 +15,7 @@
 
             <ul class="nav navbar-top-links navbar-right" data-ng-controller="HeaderController">
 
-              {{ 'HEADLINE' | translate }}
+
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -81,14 +81,14 @@
                         <i class="fa fa-user fa-fw"></i> <span data-ng-bind="authentication.user.displayName"></span> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="/#!/settings/profile"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        <li><a href="/#!/settings/profile"><i class="fa fa-user fa-fw"></i> {{ 'PROFILE' | translate }}</a>
                         </li>
-                         <li><a href="/#!/settings/accounts"><i class="fa fa-user fa-fw"></i> Social Account</a>
+                         <li><a href="/#!/settings/accounts"><i class="fa fa-user fa-fw"></i> {{ 'SOCIAL_ACCOUNTS' | translate }}</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> {{ 'SETTINGS' | translate }}</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="/auth/signout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="/auth/signout"><i class="fa fa-sign-out fa-fw"></i> {{ 'SIGNOUT' | translate }}</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -102,7 +102,7 @@
                     <ul class="nav" id="side-menu">
                         <li class="sidebar-search">
                             <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
+                                <input type="text" class="form-control" placeholder="{{ 'SEARCH' | translate }}">
                                 <span class="input-group-btn">
                                 <button class="btn btn-default" type="button">
                                     <i class="fa fa-search"></i>
@@ -112,61 +112,55 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> {{ 'DASHBOARD' | translate }}</a>
                         </li>
 
 
                         <li>
-                            <a href="#"><i class="fa fa-database fa-fw"></i> ฐานข้อมูล<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a ui-sref="listTypings"> ข้อมูล Typing</a>
-                                </li>
-                                <li>
-                                    <a ui-sref="uploads"> Batch Interprete</a>
-                                </li>
-                                <li>
-                                    <a ui-sref="listHospitals"> ข้อมูลโรงพยาบาล</a>
-                                </li>
-                                <li>
-                                    <a ui-sref="listResultmaps"> ชนิดฮีโมลโกลบิน</a>
-                                </li>
-                                <li>
-                                    <a ui-sref="listRbcs"> ชนิด RBC</a>
-                                </li>
-                                <li>
-                                    <a ui-sref="signupcurator"> ผู้เชี่ยวชาญ</a>
-                                </li>
-                            </ul>
+                            <a ui-sref="listTypings"> {{ 'TYPINGDATA' | translate }}</a>
+                        </li>
+                        <li>
+                            <a ui-sref="uploads"> {{ 'BATCH_UPLOAD' | translate }}</a>
+                        </li>
+                        <li>
+                            <a ui-sref="listHospitals"> {{ 'HOSPITALS_DATA' | translate }}</a>
+                        </li>
+                        <li>
+                            <a ui-sref="listResultmaps"> {{ 'HEMOGLOBIN_TYPE' | translate }}</a>
+                        </li>
+                        <li>
+                            <a ui-sref="listRbcs"> {{ 'PARAMETER_DATA' | translate }}</a>
+                        </li>
+                        <li>
+                            <a ui-sref="signupcurator"> {{ 'CURATORS_DATA' | translate }}</a>
+                        </li>
+
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-tasks fa-fw"></i> รายงานการแปลผล<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-tasks fa-fw"></i> {{ 'INTERPRETE_REPORT' | translate }}<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="panels-wells.html">ข้อมูลรายบุคคล</a>
+                                    <a href="buttons.html">{{ 'STATISTICS_REPORT' | translate }}</a>
                                 </li>
                                 <li>
-                                    <a href="buttons.html">สถิติการแปลผล</a>
-                                </li>
-                                <li>
-                                    <a href="notifications.html">สรุปผล</a>
+                                    <a href="notifications.html">{{ 'DISTRIBUTION' | translate }}</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
 
                         <li>
-                            <a href="#"><i class="fa fa-cogs fa-fw"></i> สถานะระบบ<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-cogs fa-fw"></i> {{ 'SERVER_MANAGEMENT' | translate }}<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a ui-sref="system"> ทรัพยากรเครื่อง</a>
+                                    <a ui-sref="system"> {{ 'SERVER_RESOURCE' | translate }}</a>
                                 </li>
                                 <li>
-                                    <a href="buttons.html"> ตั้งค่าระบบ</a>
+                                    <a href="buttons.html"> {{ 'SETTINGS' | translate }}</a>
                                 </li>
                                 <li>
-                                    <a href="notifications.html"> จัดการระบบ</a>
+                                    <a href="notifications.html"> {{ 'BACKUP_DATA' | translate }}</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

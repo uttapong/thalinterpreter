@@ -1,9 +1,9 @@
 <div class="row" ng-app="thal" data-ng-controller="UploadController as uploadCtl">
 <div class="page-header">
-        <h1>ผลจากการแปลผลไฟล์ : {{rowCollection[0].upload.title}}</h1>
+        <h1>{{ 'INTERPRETATION_RESULT' | translate }} : {{rowCollection[0].upload.title}}</h1>
         <p>{{rowCollection[0].upload.note}}</p>
-        <p><span class="label label-default">All {{alltypings}} </span>&nbsp; <span class="label label-danger">Negative Result {{rowCollection.length}}</span>&nbsp;
-           <span class="label label-success">Success {{(100 - rowCollection.length/alltypings*100) | number : 2}} % </span></p>
+        <p><span class="label label-default">{{ 'ALL_TYPING_COUNT' | translate }} {{alltypings}} </span>&nbsp; <span class="label label-danger">{{ 'NEGATIVE_TYPING_COUNT' | translate }}t {{rowCollection.length}}</span>&nbsp;
+           <span class="label label-success">{{ 'SUCCESS_TYPING_COUNT' | translate }} {{(100 - rowCollection.length/alltypings*100) | number : 2}} % </span></p>
     </div>
 <div ng-repeat="(key,val) in alerts" class="alert {{key}}">
         <div ng-repeat="msg in val">{{msg}}</div>
@@ -13,16 +13,16 @@
 <table class="table-striped table" st-table="displayedCollection" st-safe-src="rowCollection" data-ng-init="uploadResults()">
 <thead>
 			<tr>
-				<th st-sort="title">Typing ID</th>
-				<th st-sort="note">Created</th>
-        <th st-sort="note">Interprete Result</th>
-        <th st-sort="note">Clinical Result</th>
-				<th st-sort="note">Compare Result</th>
-        <th>View</th>
-				<th st-sort="note">Delete</th>
+				<th st-sort="title">{{ 'TYPING_ID' | translate }}</th>
+				<th st-sort="note">{{ 'CREATED' | translate }}</th>
+        <th st-sort="note">{{ 'INTERPRETE_RESULT' | translate }}</th>
+        <th st-sort="note">{{ 'CLINICAL_RESULT' | translate }}</th>
+				<th st-sort="note">{{ 'COMPARED_RESULT' | translate }}</th>
+        <th>{{ 'VIEW' | translate }}</th>
+				<th st-sort="note">{{ 'DELETE' | translate }}</th>
 			</tr>
 			<tr>
-				<th colspan="2"><input st-search=""  class="form-control" placeholder="Search Typing ID..." type="search"/></th>
+				<th colspan="2"><input st-search=""  class="form-control" placeholder="{{ 'SEARCH' | translate }}" type="search"/></th>
 			</tr>
 			</thead>
 <tbody>
@@ -32,7 +32,7 @@
         <td>{{typing.interprete_code}}</td>
         <td>{{typing.clinical_result}}</td>
         <td><span class="label label-default">{{typing.test_result}}</span></td>
-        <td><a data-ng-href="#!/typings/{{typing._id}}" class='btn btn-xs btn-info'><i class="fa fa-eye"></i> Detail</a></td>
+        <td><a data-ng-href="#!/typings/{{typing._id}}" class='btn btn-xs btn-info'><i class="fa fa-eye"></i> {{ 'DETAIL' | translate }}</a></td>
         <td><button class='btn btn-xs btn-danger'><i class="fa fa-times"></i></button></td>
 	</tr>
 	</tbody>

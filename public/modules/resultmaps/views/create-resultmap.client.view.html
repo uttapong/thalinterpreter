@@ -1,27 +1,27 @@
 <div class="row" data-ng-controller="ResultmapsController">
     <div class="page-header">
-        <h1>เพิ่มชนิดฮีโมลโกลบิน</h1>
+        <h1>{{ 'ADD_HEMOGLOBIN_TYPE' | translate }}</h1>
     </div>
     <div class="col-md-12">
         <form class="form-horizontal" data-ng-submit="create()" novalidate>
             <fieldset>
                 <div class="form-group">
-                    <label class="control-label" for="numcode">Code Number</label>
+                    <label class="control-label" for="numcode">{{ 'CODE_NO' | translate }}</label>
                     <div class="controls">
-                        <input type="number" data-ng-model="numcode" id="numcode" class="form-control" placeholder="Code Number"  maxlength="2" required>
+                        <input type="number" data-ng-model="numcode" id="numcode" class="form-control" placeholder="{{ 'CODE_NO' | translate }}"  maxlength="2" required>
                     </div>
-                    <label class="control-label" for="code">Typing Code (Trait Code)</label>
+                    <label class="control-label" for="code">{{ 'CODE_NAME' | translate }}</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="code" id="code" class="form-control" placeholder="Code Name" required>
+                        <input type="text" data-ng-model="code" id="code" class="form-control" placeholder="{{ 'CODE_NAME' | translate }}" required>
                     </div>
-                     <label class="control-label" for="results">Name list (separated by comma (,))</label>
+                     <label class="control-label" for="results">{{ 'HEMO_NAME_LIST' | translate }}</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="results" id="results" class="form-control" placeholder="Name List" required>
+                        <input type="text" data-ng-model="results" id="results" class="form-control" placeholder="HEMO_NAME_LIST" required>
                     </div>
 
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-default">
+                    <input type="{{ 'SUBMIT' | translate }}" class="btn btn-default">
                 </div>
 				<div data-ng-show="error" class="text-danger">
 					<strong data-ng-bind="error"></strong>

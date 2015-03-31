@@ -12,17 +12,17 @@
 	</div>
 	<small>
 		<em class="text-muted">
-			Posted on
+			{{ 'POSTED_DATE' | translate }}
 			<span data-ng-bind="hospital.created | date:'mediumDate'"></span>
-			by
+			{{ 'BY' | translate }}
 			<span data-ng-bind="hospital.user.displayName"></span>
 		</em>
 	</small>
 	<div class="page-body">
-		<p>ที่อยู่ <span data-ng-bind="hospital.address"></span></p>
-		<p>ติดต่อ <span data-ng-bind="hospital.contact_person"></span></p>
-		<p>หมายเลขโทรศัพท์ <span data-ng-bind="hospital.contact_number"></span></p>
-		<p>ตำแหน่งพิกัด<span data-ng-bind="hospital.location"></span></p>
-		
+		<p>{{ 'HOSPITAL_ADDRESS' | translate }} <span data-ng-bind="hospital.address"></span></p>
+		<p>{{ 'CONTACT_PERSON' | translate }} <span data-ng-bind="hospital.contact_person"></span></p>
+		<p>{{ 'CONTACT_NO' | translate }} <span data-ng-bind="hospital.contact_number"></span></p>
+		<p>{{ 'HOSPITAL_LOCATION' | translate }}<span data-ng-bind="hospital.location"></span></p>
+
 	</div>
 </div>

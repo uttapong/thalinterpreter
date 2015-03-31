@@ -1,38 +1,38 @@
 <div class="row" data-ng-controller="HospitalsController">
     <div class="page-header">
-        <h1>เพิ่ม โรงพยาบาล</h1>
+        <h1>{{ 'ADD_HOSPITAL' | translate }} </h1>
     </div>
     <div class="col-md-12">
         <form class="form-horizontal" data-ng-submit="create()" novalidate>
             <fieldset>
                 <div class="form-group">
-                    <label class="control-label" for="name">ชื่อโรงพยาบาล</label>
+                    <label class="control-label" for="name">{{ 'HOSPITAL_NAME' | translate }}</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="ชื่อโรงพยาบาล" required>
+                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="{{ 'HOSPITAL_NAME' | translate }}" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label" for="name">ที่อยู่</label>
+                    <label class="control-label" for="name">{{ 'HOSPITAL_ADDRESS' | translate }}</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="address" id="address" class="form-control" placeholder="ที่อยู่" required>
+                        <input type="text" data-ng-model="address" id="address" class="form-control" placeholder="{{ 'HOSPITAL_ADDRESS' | translate }}" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label" for="name">ผู้ติดต่อ</label>
+                    <label class="control-label" for="name">{{ 'CONTACT_PERSON' | translate }}</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="contact_person" id="contact_person" class="form-control" placeholder="ผู้ติดต่อ" required>
+                        <input type="text" data-ng-model="contact_person" id="contact_person" class="form-control" placeholder="{{ 'CONTACT_PERSON' | translate }}" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label" for="name">หมายเลขติดต่อ</label>
+                    <label class="control-label" for="name">{{ 'CONTACT_NO' | translate }}</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="contact_number" id="contact_number" class="form-control" placeholder="หมายเลขติดต่อ" required>
+                        <input type="text" data-ng-model="contact_number" id="contact_number" class="form-control" placeholder="{{ 'CONTACT_NO' | translate }}" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label" for="name">ตำแหน่งโรงพยาบาล</label>
+                    <label class="control-label" for="name">{{ 'HOSPITAL_LOCATION' | translate }}</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="location" id="location" class="form-control" placeholder="ตำแหน่งโรงพยาบาล">
+                        <input type="text" data-ng-model="location" id="location" class="form-control" placeholder="{{ 'HOSPITAL_LOCATION' | translate }}">
                     </div>
                 </div>
                 <div class="form-group">

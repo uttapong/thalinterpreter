@@ -1,12 +1,12 @@
 <div class="row" data-ng-controller="TypingsController" ng-init="find()">
     <div class="page-header">
-        <h1>ข้อมูล Typings <a    class="btn btn-info" ui-sref="createTyping" ><i class="fa fa-plus fa-lg"></i> เพิ่ม Typing </a></h1>
+        <h1>{{ 'TYPING_DATA' | translate }} <a    class="btn btn-info" ui-sref="createTyping" ><i class="fa fa-plus fa-lg"></i> {{ 'ADD_TYPING' | translate }} </a></h1>
     </div>
-    <pre>Page: {{currentPage}} / {{numPages}}</pre>
+    <pre>{{ 'PAGE' | translate }}: {{currentPage}} / {{numPages}}</pre>
 
 
     <div class="alert alert-warning text-center" data-ng-hide="!typings.$resolved || typings.length">
-    	No Typings yet, why don't you <a href="/#!/typings/create">create one</a>?
+      {{ 'NO_TYPING_YET' | translate }} <a href="/#!/typings/create">{{ 'ADD_TYPING' | translate }}</a>?
     </div>
     <div class="col-xs-12 text-center">
 
@@ -18,11 +18,11 @@
     <thead>
     			<tr>
     				<th>Typing ID</th>
-    				<th>Created</th>
-            <th>Interprete Result</th>
-            <th>Clinical Result</th>
-            <th>Submitter</th>
-    				<th>View</th>
+    				<th>{{ 'CREATED' | translate }}</th>
+            <th>{{ 'INTERPRETE_RESULT' | translate }}</th>
+            <th>{{ 'CLINICAL_RESULT' | translate }}</th>
+            <th>{{ 'SUBMITTER' | translate }}</th>
+    				<th>{{ 'VIEW' | translate }}</th>
     			</tr>
     			</thead>
     <tbody>
@@ -32,7 +32,7 @@
             <td>{{typing.interprete_code}}</td>
             <td>{{typing.clinical_result}}</td>
             <td>{{typing.user.displayName}}</td>
-            <td><a data-ng-href="#!/typings/{{typing._id}}" class='btn btn-xs btn-info'><i class="fa fa-eye"></i> Detail</a></td>
+            <td><a data-ng-href="#!/typings/{{typing._id}}" class='btn btn-xs btn-info'><i class="fa fa-eye"></i> {{ 'DETAIL' | translate }}</a></td>
     	</tr>
     	</tbody>
 

@@ -6,5 +6,25 @@
   "PASSED_AS_INTERPOLATION": "Beginners! I'm interpolated!",
   "VARIABLE_REPLACEMENT": "Hi {{name}}",
   "BUTTON_LANG_DE": "german",
-  "BUTTON_LANG_EN": "english"
+  "BUTTON_LANG_EN": "english",
+  "PROFILE":"User Profile",
+
+  "SEARCH":"Search...",
+  "DASHBOARD":"Dashboard",
+  "TYPINGDATA":"Typing Data",
+  "BATCH_UPLOAD":"Batch Upload",
+  "HOSPITALS_DATA":"Hospitals Data",
+  "HEMOGLOBIN_TYPE":"Hemoglobin Type",
+  "PARAMETER_DATA":"Parameters",
+  "CURATORS_DATA":"Curators",
+  "INTERPRETE_REPORT":"Interpreted Report",
+  "STATISTICS_REPORT":"Statistical Report",
+  "DISTRIBUTION":"Distribution Report",
+  "SERVER_MANAGEMENT":"Server Management",
+  "SERVER_RESOURCE":"Server Resources",
+  "SETTINGS":"Settings",
+  "BACKUP_DATA":"Backup Data"
+
+
+
 }

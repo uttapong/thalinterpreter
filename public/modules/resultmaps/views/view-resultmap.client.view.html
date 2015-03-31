@@ -10,15 +10,15 @@
 			<i class="glyphicon glyphicon-trash"></i>
 		</a>
 	</div>
-	<p>รายชื่อในกลุ่ม : <span data-ng-bind="resultmap.results"></span></p>
+	<p>{{ 'HEMO_NAME_LIST' | translate }} : <span data-ng-bind="resultmap.results"></span></p>
 	<small>
 		<em class="text-muted">
-			Posted on
+			{{ 'POSTED_ON' | translate }}
 			<span data-ng-bind="resultmap.created | date:'mediumDate'"></span>
-			by
+			{{ 'BY' | translate }}
 			<span data-ng-bind="resultmap.user.displayName"></span>
 		</em>
 	</small>
 	<p></p>
-	<p><a class="btn btn-default" ui-sref="listResultmaps"><i class="fa fa-chevron-left"></i> กลับ</a></p>
+	<p><a class="btn btn-default" ui-sref="listResultmaps"><i class="fa fa-chevron-left"></i> {{ 'BACK' | translate }}</a></p>
 </div>
