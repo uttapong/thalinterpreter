@@ -1,5 +1,5 @@
 
-            <div class="row">
+            <div class="row" data-ng-controller="HomeController" ng-init="getDashboardInfo()">
                 <div class="col-lg-12">
                     <h1 class="page-header">{{ 'DASHBOARD' | translate }}</h1>
                 </div>
@@ -15,7 +15,7 @@
                                     <i class="fa fa-comments fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">26</div>
+                                    <div class="huge" data-ng-bind="testis"></div>
                                     <div>{{ 'TYPINGDATA_COUNT' | translate }}</div>
                                 </div>
                             </div>
@@ -37,7 +37,7 @@
                                     <i class="fa fa-tasks fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">12</div>
+                                    <div class="huge">{{dashboard.hospitalcount}}</div>
                                     <div>{{ 'HOSPITALS_COUNT' | translate }}</div>
                                 </div>
                             </div>
@@ -59,7 +59,7 @@
                                     <i class="fa fa-shopping-cart fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">124</div>
+                                    <div class="huge">{{dashboard.usercount}}</div>
                                     <div>{{ 'USERS_COUNT' | translate }}</div>
                                 </div>
                             </div>
@@ -81,7 +81,7 @@
                                     <i class="fa fa-support fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">13</div>
+                                    <div class="huge">{{dashboard.curatorcount}}</div>
                                     <div>{{ 'CURATORS_COUNT' | translate }}</div>
                                 </div>
                             </div>
@@ -102,7 +102,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-bar-chart-o fa-fw"></i> {{ 'TYPING_STATISTICS_REPORT' | translate }}
-                          
+
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">

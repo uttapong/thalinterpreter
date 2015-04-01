@@ -6,4 +6,5 @@ module.exports = function(app) {
 	app.route('/').get(core.index);
 
 	app.route('/systeminfo').get(core.system);
+	app.route('/dashboard').get(core.dashboard);
 };

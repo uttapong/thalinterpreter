@@ -3,7 +3,11 @@
 /**
  * Module dependencies.
  */
- var os = require('os'),
+ var mongoose = require('mongoose'),
+ User = mongoose.model('User'),
+ Typing = mongoose.model('Typing'),
+ 	Hospital = mongoose.model('Hospital'),
+   os = require('os'),
 	_ = require('lodash');
 
 exports.index = function(req, res) {
@@ -28,3 +32,52 @@ exports.system=function(req,res){
 
 	});
 };
+
+exports.dashboard=function(req,res){
+
+var result={};
+
+Typing.aggregate(
+    { $group : {
+         '_id' : '$interprete_code',
+         'count' : { $sum : 1 }}
+         },
+    function (err, obj)
+         { if (err) ; // TODO handle error
+           //console.log(res);
+           result.hemotype=obj;
+
+           Typing.aggregate(
+               { $group : {
+                    '_id' : {$dayOfYear:"$created" },
+                    'count' : { $sum : 1 }}
+                    },
+               function (err, obj2)
+                    { if (err) ; // TODO handle error
+                      //console.log(res);
+                      result.monthly=obj2;
+
+
+                      User.count({ }, function (err, usercount) {
+                       result.usercount=usercount;
+                       Hospital.count({ }, function (err, hpcount) {
+                        result.hospitalcount=hpcount;
+                        Typing.count({ }, function (err, typingcount) {
+                         result.hemocount=typingcount;
+                         User.count({roles:'curator' }, function (err, crcount) {
+                          result.curatercount=crcount;
+                          res.jsonp(result);
+                         });
+                        });
+                       });
+                      });
+                      //res.jsonp(obj);
+                    });
+
+
+
+           //res.jsonp(obj);
+         });
+
+
+}
