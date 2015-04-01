@@ -2,8 +2,6 @@
 .nodemonignore
 .sass-cache/
 npm-debug.log
-public/lib
-!public/lib/bootstrap/dist/
 app/tests/coverage/
 .bower-*/
 .idea/

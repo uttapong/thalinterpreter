@@ -1,6 +1,6 @@
 <div class="row" data-ng-controller="RbcsController">
     <div class="page-header">
-        <h1>New RBC Type</h1>
+        <h1>{{ 'NEW_HEMO_PROFILE' | translate }}</h1>
     </div>
     <div class="col-md-12">
         <form class="form-horizontal" data-ng-submit="create()" novalidate>
@@ -8,30 +8,30 @@
                 <div class="form-group">
 
                     <div class="form-group">
-                    <label class="control-label  col-xs-2" for="name">Name</label>
+                    <label class="control-label  col-xs-2" for="name">{{ 'NAME' | translate }}</label>
                     <div class="col-xs-6">
-                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
+                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="{{ 'NAME' | translate }}" required>
                     </div>
                   </div>
 
                     <div class="form-group">
-                    <label class="control-label  col-xs-2" for="name">Unit</label>
+                    <label class="control-label  col-xs-2" for="name">{{ 'UNIT' | translate }}</label>
                     <div class="col-xs-6">
-                        <input type="text" data-ng-model="unit" id="name" class="form-control" placeholder="Unit" required>
+                        <input type="text" data-ng-model="unit" id="name" class="form-control" placeholder="{{ 'UNIT' | translate }}" required>
                     </div>
                   </div>
 
                     <div class="form-group">
-                    <label class="control-label  col-xs-2" for="name">Minimum Value</label>
+                    <label class="control-label  col-xs-2" for="name">{{ 'MIN_VALUE' | translate }}</label>
                     <div class="col-xs-6">
-                        <input type="number" data-ng-model="min" id="name" class="form-control" placeholder="Min">
+                        <input type="number" data-ng-model="min" id="name" class="form-control" placeholder="{{ 'MIN_VALUE' | translate }}">
                     </div>
                   </div>
 
                     <div class="form-group">
-                    <label class="control-label  col-xs-2" for="name">Maximum Value</label>
+                    <label class="control-label  col-xs-2" for="name">{{ 'MAX_VALUE' | translate }}</label>
                     <div class="col-xs-6">
-                        <input type="number" data-ng-model="max" id="name" class="form-control" placeholder="Max">
+                        <input type="number" data-ng-model="max" id="name" class="form-control" placeholder="{{ 'MAX_VALUE' | translate }}">
                     </div>
                   </div>
                   <div class="form-group">

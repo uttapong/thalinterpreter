@@ -6,10 +6,10 @@
 		<table class="table-striped table col-xs-12">
 			<thead>
 				<tr>
-					<th>Name</th>
-					<th>Username</th>
-					<th>Email</th>
-					<th>Manage</th>
+					<th>{{ 'NAME' | translate }}</th>
+					<th>{{ 'USERNAME' | translate }}</th>
+					<th>{{ 'EMAIL' | translate }}</th>
+					<th>{{ 'MANAGE' | translate }}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -22,7 +22,7 @@
 			</tbody>
 		</table>
 		<hr />
-		<h4>Add Curator</h4>
+		<h4>{{ 'ADD_CURATOR' | translate }}</h4>
 		<p style="color: #dc4136;">
 			<strong>{{typing.resultmap.results.join(', ')}}</strong>
 		</p>
@@ -30,28 +30,28 @@
 	<form class='form-inline' name="userForm" data-ng-submit="addCurator()" novalidate autocomplete="off">
 
 				<div class="form-group">
-					<label for="firstName">First Name</label>
-					<input type="text" required id="firstName" name="firstName" class="form-control" data-ng-model="curator.firstName" placeholder="First Name">
+					<label for="firstName">{{ 'FIRSTNAME' | translate }}</label>
+					<input type="text" required id="firstName" name="firstName" class="form-control" data-ng-model="curator.firstName" placeholder="{{ 'FIRSTNAME' | translate }}">
 				</div>
 				<div class="form-group">
-					<label for="lastName">Last Name</label>
-					<input type="text" id="lastName" name="lastName" class="form-control" data-ng-model="curator.lastName" placeholder="Last Name">
+					<label for="lastName">{{ 'LASTNAME' | translate }}</label>
+					<input type="text" id="lastName" name="lastName" class="form-control" data-ng-model="curator.lastName" placeholder="{{ 'LASTNAME' | translate }}">
 				</div>
 				<div class="form-group">
-					<label for="email">Email</label>
-					<input type="email" id="email" name="email" class="form-control" data-ng-model="curator.email" placeholder="Email">
+					<label for="email">{{ 'EMAIL' | translate }}</label>
+					<input type="email" id="email" name="email" class="form-control" data-ng-model="curator.email" placeholder="{{ 'EMAIL' | translate }}">
 				</div>
 				<div class="form-group">
-					<label for="username">Username</label>
-					<input type="text" id="username" name="username" class="form-control" data-ng-model="curator.username" placeholder="Username">
+					<label for="username">{{ 'USERNAME' | translate }}</label>
+					<input type="text" id="username" name="username" class="form-control" data-ng-model="curator.username" placeholder="{{ 'USERNAME' | translate }}">
 				</div>
 				<div class="form-group">
-					<label for="password">Password</label>
-					<input type="password" id="password" name="password" class="form-control" data-ng-model="curator.password" placeholder="Password">
+					<label for="password">{{ 'PASSWORD' | translate }}</label>
+					<input type="password" id="password" name="password" class="form-control" data-ng-model="curator.password" placeholder="{{ 'PASSWORD' | translate }}">
 				</div>
 
 				<div class="text-center form-group">
-					<button type="submit" class="btn btn-large btn-info">Add</button>
+					<button type="submit" class="btn btn-large btn-info">{{ 'ADD' | translate }}</button>
 				</div>
 				<div data-ng-show="error" class="text-center text-danger">
 					<strong data-ng-bind="error"></strong>
