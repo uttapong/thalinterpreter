@@ -27,7 +27,7 @@ angular.module('typings').config(['$stateProvider',
 		}).
 		state('dashboard', {
 			url: '/dashboard',
-			templateUrl: 'modules/core/views/home.client.view.html'
+			templateUrl: 'modules/typings/views/dashboard.client.view.html'
 		});
 	}
 ]);

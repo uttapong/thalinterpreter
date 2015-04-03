@@ -4,6 +4,7 @@
 angular.module('typings').controller('TypingsController', ['$http','$scope', '$stateParams', '$location', 'Authentication', 'AllTypings','PageTypings','ResultMap','Uploads', '$upload','SweetAlert','$sce',
 	function($http,$scope, $stateParams, $location, Authentication, Typings,PageTypings,ResultMap,Upload, $upload,sweet,$sce) {
 		$scope.authentication = Authentication;
+		$scope.testis="adfadfadf";
 		$scope.genderchoice = [{
 			  id: 'Male',
 			  label: 'Male',
@@ -208,6 +209,22 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 	    myWindow.focus();
 	    myWindow.print();
 		}
+
+		$scope.getDashboardInfo = function() {
+			console.log('adfadf');
+			$http.get('/dashboard').
+		    success(function(data, status, headers, config) {
+
+		      $scope.dashboard = data;
+					console.log($scope.dashboard);
+
+		    }).
+		    error(function(data, status, headers, config) {
+		      console.log('error');
+		    });
+
+
+		};
 
 
 		$scope.livecheck=function(){
