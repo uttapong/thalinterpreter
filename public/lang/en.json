@@ -7,6 +7,8 @@
   "VARIABLE_REPLACEMENT": "Hi {{name}}",
   "BUTTON_LANG_DE": "german",
   "BUTTON_LANG_EN": "english",
+  "SOCIAL_ACCOUNTS":"Social Accounts",
+  "SIGNOUT":"Log out",
   "PROFILE":"User Profile",
 
   "SEARCH":"Search...",

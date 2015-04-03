@@ -6,7 +6,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		// This provides Authentication context.
 		$scope.authentication = Authentication;
 		//$scope.dashboard={};
-		//$scope.testis='xxx';
+		$scope.testis='xxx';
 		//this.testis='adfdaf';
 
 		$scope.getDashboardInfo = function() {
