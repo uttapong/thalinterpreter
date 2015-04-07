@@ -2,8 +2,8 @@
 //inject angular file upload directives and services.
 
 
-var uploadMod = angular.module('uploads').controller('UploadController', ['$scope', '$stateParams', '$location', 'Authentication', 'Uploads', '$upload', 'SweetAlert','Typings',
-    function($scope, $stateParams, $location, Authentication, Upload, $upload, sweet,typing) {
+var uploadMod = angular.module('uploads').controller('UploadController', ['$http','$scope', '$stateParams', '$location', 'Authentication', 'Uploads', '$upload', 'SweetAlert','Typings',
+    function($http,$scope, $stateParams, $location, Authentication, Upload, $upload, sweet,typing) {
         $scope.authentication = Authentication;
 
         $scope.dropzoneConfig = {
@@ -73,8 +73,16 @@ var uploadMod = angular.module('uploads').controller('UploadController', ['$scop
 
           $scope.itemsByPage=100;
         };
-		$scope.displayedCollection = [].concat($scope.rowCollection);
 
+		   $scope.displayedCollection = [].concat($scope.rowCollection);
+       $scope.reinterprete=function(uploadid){
+         $http({
+             url: 'reinterprete/'+uploadid,
+             method: 'GET'
+         }).success(function(data){
+           console.log(data);
+         });
+       }
 
     }
 ]);

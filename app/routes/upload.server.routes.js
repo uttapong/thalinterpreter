@@ -34,7 +34,12 @@ app.route('/batchupload')
 app.route('/uploadresults/:uploadid')
 				.get(users.requiresLogin,upload.listFalse);
 
+app.route('/reinterprete/:reinterpreteid')
+								.get(users.requiresLogin,upload.reInterprete);
+
 	app.param('uploadid', upload.listFalse);
+
+	app.param('reinterpreteid', upload.reInterprete);
 	// Finish by binding the Resultmap middleware
 	//app.param('resultmapId', resultmaps.resultmapByID);
 };

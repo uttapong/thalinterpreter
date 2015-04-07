@@ -58,7 +58,7 @@
         <td>{{upload.note}}</td>
         <td>{{upload.created | date}}</td>
         <td><span class="label label-default">{{upload.status}}</span></td>
-        <td><button class='btn btn-xs btn-info'><i class="fa fa-retweet"></i> {{ 'RE_INTERPRETE' | translate }}</button></td>
+        <td><button ng-click="reinterprete(upload._id);" class='btn btn-xs btn-info'><i class="fa fa-retweet"></i> {{ 'RE_INTERPRETE' | translate }}</a></td>
         <td><a class="btn btn-xs btn-warning" href="/#!/uploads/{{upload._id}}"><i class="glyphicon glyphicon-question-sign"></i></a></td>
         <td><button class='btn btn-xs btn-danger'><i class="fa fa-times"></i></button></td>
 	</tr>

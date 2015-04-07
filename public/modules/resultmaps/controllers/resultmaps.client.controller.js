@@ -11,7 +11,7 @@ angular.module('resultmaps').controller('ResultmapsController', ['$scope', '$sta
 			var resultmap = new Resultmaps ({
 				code: this.code,
 				numcode: parseInt(this.numcode),
-				results: this.results.split(',')
+				results: this.results
 
 			});
 
@@ -30,7 +30,7 @@ angular.module('resultmaps').controller('ResultmapsController', ['$scope', '$sta
 
 		// Remove existing Resultmap
 		$scope.remove = function(resultmap) {
-			if ( resultmap ) { 
+			if ( resultmap ) {
 				resultmap.$remove();
 
 				for (var i in $scope.resultmaps) {
@@ -48,8 +48,8 @@ angular.module('resultmaps').controller('ResultmapsController', ['$scope', '$sta
 		// Update existing Resultmap
 		$scope.update = function() {
 			var resultmap = $scope.resultmap;
-			console.log($scope.resultmap);
-			resultmap.results=$scope.resultmap.results;
+			//console.log($scope.resultmap);
+			//resultmap.results=$scope.resultmap.results;
 
 			resultmap.$update(function() {
 				$location.path('resultmaps/' + resultmap._id);
@@ -65,7 +65,7 @@ angular.module('resultmaps').controller('ResultmapsController', ['$scope', '$sta
 
 		// Find existing Resultmap
 		$scope.findOne = function() {
-			$scope.resultmap = Resultmaps.get({ 
+			$scope.resultmap = Resultmaps.get({
 				resultmapId: $stateParams.resultmapId
 			});
 		};

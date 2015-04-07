@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Resultmap = mongoose.model('ResultMap'),
+	util=require('util'),
 	_ = require('lodash');
 
 /**
@@ -14,7 +15,7 @@ var mongoose = require('mongoose'),
 exports.create = function(req, res) {
 	var resultmap = new Resultmap(req.body);
 	resultmap.user = req.user;
-
+	resultmap.results=req.body.results.split(",");
 	resultmap.save(function(err) {
 		if (err) {
 			return res.status(400).send({
@@ -37,7 +38,20 @@ exports.read = function(req, res) {
  * Update a Resultmap
  */
 exports.update = function(req, res) {
+	//console.log(req.resultmap);
+	if(util.isArray(req.body.results)){
+
+		req.body.results=req.body.results[0].split(",");
+	//	console.log(resultmap.results);
+	}
+	else {
+		//console.log('not array');
+		req.body.results=req.body.results.split(",");
+	}
+
+
 	var resultmap = req.resultmap ;
+//	console.log(req.body.results[0]);
 
 	resultmap = _.extend(resultmap , req.body);
 
@@ -72,7 +86,7 @@ exports.delete = function(req, res) {
 /**
  * List of Resultmaps
  */
-exports.list = function(req, res) { 
+exports.list = function(req, res) {
 	Resultmap.find().sort({'numcode':1}).populate('user', 'displayName').exec(function(err, resultmaps) {
 		if (err) {
 			return res.status(400).send({
@@ -87,7 +101,7 @@ exports.list = function(req, res) {
 /**
  * Resultmap middleware
  */
-exports.resultmapByID = function(req, res, next, id) { 
+exports.resultmapByID = function(req, res, next, id) {
 	Resultmap.findById(id).populate('user', 'displayName').exec(function(err, resultmap) {
 		if (err) return next(err);
 		if (! resultmap) return next(new Error('Failed to load Resultmap ' + id));
