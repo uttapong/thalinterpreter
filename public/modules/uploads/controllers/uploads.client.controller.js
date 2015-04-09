@@ -80,6 +80,7 @@ var uploadMod = angular.module('uploads').controller('UploadController', ['$http
              url: 'reinterprete/'+uploadid,
              method: 'GET'
          }).success(function(data){
+           if(data=='Success')sweet.swal("Success", "All data has been successfully reinterpreted.", "success");
            console.log(data);
          });
        }

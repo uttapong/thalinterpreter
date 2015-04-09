@@ -12,7 +12,7 @@ var mongoose = require('mongoose'),
 var TypingSchema = new Schema({
 	typingid: {
 		type: String,
-		required: 'Please fill Typing ID',
+		default: 'unknown',
 		trim: true
 	},
 	created: {

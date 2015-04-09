@@ -130,7 +130,7 @@ exports.list = function(req, res) {
  * Typing middleware
  */
 exports.typingByID = function(req, res, next, id) {
-	Typing.findById(id).populate('user', 'displayName').populate('resultmap','code results').exec(function(err, typing) {
+	Typing.findById(id).populate('user', 'displayName').populate('resultmap','code results color comment').exec(function(err, typing) {
 		if (err) return next(err);
 		if (! typing) return next(new Error('Failed to load Typing ' + id));
 		req.typing = typing ;
@@ -190,7 +190,7 @@ exports.typingimage = function (req, res, next) {
 exports.printview=function(req,res,next){
 
 
-	Typing.findById(req.params.id).populate('user', 'displayName').populate('resultmap','code results').exec(function(err, typing) {
+	Typing.findById(req.params.id).populate('user', 'displayName').populate('resultmap','code results color comment').exec(function(err, typing) {
 		if (err) return next(err);
 		if (! typing) return next(new Error('Failed to load Typing ' + id));
 		console.log(typing.typing);
@@ -209,7 +209,7 @@ exports.printview=function(req,res,next){
 
 exports.pdfreport=function(req,res,next,id){
 
-	Typing.findById(id).populate('user', 'displayName').populate('resultmap','code results').exec(function(err, typing) {
+	Typing.findById(id).populate('user', 'displayName').populate('resultmap','code results color comment').exec(function(err, typing) {
 		if (err) return next(err);
 		if (! typing) return next(new Error('Failed to load Typing ' + id));
 		req.typing = typing ;

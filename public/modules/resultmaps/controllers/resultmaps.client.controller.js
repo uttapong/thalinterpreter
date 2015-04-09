@@ -11,7 +11,9 @@ angular.module('resultmaps').controller('ResultmapsController', ['$scope', '$sta
 			var resultmap = new Resultmaps ({
 				code: this.code,
 				numcode: parseInt(this.numcode),
-				results: this.results
+				results: this.results,
+				color: this.color,
+				comment: this.comment
 
 			});
 
@@ -49,7 +51,7 @@ angular.module('resultmaps').controller('ResultmapsController', ['$scope', '$sta
 		$scope.update = function() {
 			var resultmap = $scope.resultmap;
 			//console.log($scope.resultmap);
-			//resultmap.results=$scope.resultmap.results;
+			resultmap.results=$scope.resultmap.results;
 
 			resultmap.$update(function() {
 				$location.path('resultmaps/' + resultmap._id);

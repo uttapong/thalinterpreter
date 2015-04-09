@@ -16,7 +16,7 @@ exports.create = function(req, res) {
 	var resultmap = new Resultmap(req.body);
 	resultmap.user = req.user;
 	resultmap.results=req.body.results.split(",");
-	resultmap.save(function(err) {
+	resultmap.save(function(err) { 
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -41,7 +41,7 @@ exports.update = function(req, res) {
 	//console.log(req.resultmap);
 	if(util.isArray(req.body.results)){
 
-		req.body.results=req.body.results[0].split(",");
+	//	req.body.results=req.body.results[0].split(",");
 	//	console.log(resultmap.results);
 	}
 	else {

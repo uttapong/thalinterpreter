@@ -11,6 +11,7 @@ var mongoose = require('mongoose'),
 	multiparty=require('multiparty'),
 	multer=require('multer'),
 	util=require('util'),
+	trim = require('trim'),
 	fs=require('fs'),
 	csv=require('csv'),
 	wait=require('wait.for'),
@@ -18,8 +19,6 @@ var mongoose = require('mongoose'),
 	async=require('async'),
 	ObjectId = require('mongoose').Types.ObjectId,
 	_ = require('lodash');
-
-
 
 
  exports.list = function(req, res) {
@@ -57,7 +56,7 @@ exports.reInterprete = function(req, res, next, uploadid) {
 
 	//console.log('adfadfadfadfadfadfdafadfdaf');
 
-	var file_dir='./uploads/'+req.user._id+'/batchtyping/';
+ 	//res.end('processing');
 
 	Upload.findOne({ '_id':  uploadid },function(err,upload_doc){
 		console.log(upload_doc);
@@ -66,6 +65,7 @@ exports.reInterprete = function(req, res, next, uploadid) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
+			var file_dir='./uploads/'+upload_doc.user+'/batchtyping/';
 			var filename=upload_doc.filename;
 
 			Typing.remove({'upload': uploadid},function(err){
@@ -80,6 +80,13 @@ exports.reInterprete = function(req, res, next, uploadid) {
 					var row_count=1;
 					csv.parse(data, {}, function(err, outputs){
 
+						var interpreteSuccess=function(){
+							res.end("success");
+							console.log("interpreted successfull");
+						}
+					var rowcount=outputs.length-1;
+					console.log("row count "+rowcount);
+					var inserted_count=0;
 					async.each(outputs,
 						// 2nd param is the function that each item is passed to
 
@@ -122,22 +129,32 @@ exports.reInterprete = function(req, res, next, uploadid) {
 									typing.resultmap=code_doc._id;
 									typing.test_result='FALSE';
 									for(var j=0;j<code_doc.results.length;j++){
-										if(code_doc.results[j].toUpperCase()==typing.clinical_result.toUpperCase())typing.test_result='TRUE';
+										if(code_doc.results[j].toUpperCase().trim()==typing.clinical_result.toUpperCase().trim())typing.test_result='TRUE';
 									}
 
 								}
-								typing.save();
+								typing.save(function(err,doc){
+									if(err){ } else {
+										++inserted_count;
+									//	res.json({percent:Math.floor(inserted_count/rowcount)});
+									}
+									console.log("inserted count "+inserted_count);
+									if(inserted_count>=rowcount)res.end('Success');
+								});
 
 							});
-									callback();
+							callback();
 						}
 					,
 						function(err){
+							res.json({result:"end of interprete"});
 							if( err ) {
+								res.end("fail");
 					      // One of the iterations produced an error.
 					      // All processing will now stop.
 					      console.log('A file failed to process');
 					    } else {
+								res.end("success");
 					      console.log('All typings have been processed successfully');
 					    }
 						}
@@ -177,13 +194,16 @@ exports.create = function (req, res, next) {
 
 					var row_count=1;
 					csv.parse(data, {}, function(err, outputs){
-
+					var interpreteSuccess=function(){
+						res.end("success");
+						console.log("interpreted successfull");
+					}
 					async.each(outputs,
 					  // 2nd param is the function that each item is passed to
 
 
 
-					  function(output, callback){
+					  function(output, interpreteSuccess){
 					    // Call an asynchronous function, often a save() to DB
 							if(row_count==1){row_count++;return; }
 
@@ -220,14 +240,14 @@ exports.create = function (req, res, next) {
 									typing.resultmap=code_doc._id;
 									typing.test_result='FALSE';
 									for(var j=0;j<code_doc.results.length;j++){
-										if(code_doc.results[j].toUpperCase()==typing.clinical_result.toUpperCase())typing.test_result='TRUE';
+										if(code_doc.results[j].toUpperCase().trim()==typing.clinical_result.toUpperCase().trim())typing.test_result='TRUE';
 									}
 
 								}
 								typing.save();
 
 							});
-					      	callback();
+							interpreteSuccess();
 					  }
 					,
 					  function(err){

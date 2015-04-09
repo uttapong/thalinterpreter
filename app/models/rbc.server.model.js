@@ -22,11 +22,24 @@ var RbcSchema = new Schema({
 		required: 'Please fill Rbc Unit',
 		trim: true
 	},
+	label: {
+		type: String,
+		required: 'Please specify label',
+		trim: true
+	},
 	min: {
 		type: Number
 	},
 	max:{
 		type:Number
+	},
+	comment:{
+		type: String,
+		trim:true
+	},
+	warning:{
+		type: String,
+		trim:true
 	},
 	created: {
 		type: Date,

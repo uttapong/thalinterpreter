@@ -12,6 +12,7 @@
   "PROFILE":"User Profile",
   "REGISTER":"Register",
   "SIGN_IN":"Sign in",
+  "SUGGESTION":"Suggestion",
 
   "SEARCH":"Search...",
   "DASHBOARD":"Dashboard",
@@ -19,9 +20,11 @@
   "TYPING_DATA":"Hemoglobin Profile",
   "BATCH_UPLOAD":"Batch Upload",
   "HOSPITALS_DATA":"Hospitals Data",
-  "HEMOGLOBIN_TYPE":"Hemoglobin Type",
+  "HEMO_DICTIONARY":"Interpretation Dictionary",
+  "ADD_HEMOGLOBIN_TYPE":"Add New Dictionary",
   "PARAMETER_DATA":"Parameters",
-  "CURATORS_DATA":"Curators",
+  "PARAMETERS":"Parameters",
+  "CURATORS_DATA":"Online Experts",
   "INTERPRETE_REPORT":"Interpreted Report",
   "STATISTICS_REPORT":"Statistical Report",
   "DISTRIBUTION":"Distribution Report",
@@ -78,6 +81,7 @@
   "ADD_HOSPITAL":"Add Hospital",
 
   "HEMO_TYPE":"Thalassemia Trait Type",
+
   "POSTED_ON":"Posted on",
   "HEMO_NAME_LIST":"Trait Name",
   "BACK":"Back",
@@ -86,12 +90,14 @@
   "CODE_NAME":"Code Name",
   "UPDATE":"Update",
 
-  "TYPING_PROFILE_TYPE":"Hemoglobin Profile",
-  "NEW_HEMO_PROFILE":"New Hemoglobin Profile",
+  "TYPING_PROFILE_TYPE":"Parameters",
+  "NEW_HEMO_PROFILE":"New Parameters",
+  "EDIT_TYPING_PROFILE_TYPE":"Edit Parameters",
   "NAME":"Name",
   "UNIT":"Unit",
   "MIN_VALUE":"Minimum Value",
   "MAX_VALUE":"Maximum Value",
+  "LABEL":"Label",
 
   "USERNAME":" Profile",
   "MANAGE":"Name",
@@ -108,9 +114,17 @@
   "CURATORS_COUNT":"Curators",
   "TYPING_STATISTICS_REPORT":"Hemoglobin Profile Statistics",
   "MONTHLY_REPORT":"Monthly Report",
-  "VIEW_DETAILS":"View Detail"
+  "VIEW_DETAILS":"View Detail",
+  "INTERPRETED_RESULT":"Interpreted Result",
+  "COLOR_CODE":"Color Code",
+  "COMMENTS":"Comments",
+  "WARNING":"Warning",
+  "OTHER_POSSIBLE_RESULT":"Other possible results",
 
-
+  "NEW_SUGGESTION":"New Suggestion",
+  "NO_SUGGESTION":"No Suggestions yet?",
+  "NEW_SUGGESTION":"New Suggestion",
+  "NEW_SUGGESTION":"New Suggestion"
 
 
 

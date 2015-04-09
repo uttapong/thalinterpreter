@@ -4,14 +4,9 @@
     </div>
     <div class="list-group">
         <a data-ng-repeat="resultmap in resultmaps" data-ng-href="#!/resultmaps/{{resultmap._id}}" class="list-group-item">
-			<small class="list-group-item-text">
-        {{ 'POSTED_ON' | translate }}
-				<span data-ng-bind="resultmap.created | date:'medium'"></span>
-        {{ 'BY' | translate }}
-				<span data-ng-bind="resultmap.user.displayName"></span>
-			</small>
-			<h4 class="list-group-item-heading" > <span class="label label-warning" data-ng-bind="resultmap.numcode"></span> <span data-ng-bind="resultmap.code"></span> </h4>
-            <p data-ng-bind="resultmap.results"></p>
+
+			<h5 style="color: {{resultmap.color}};" class="list-group-item-heading" > <span class="label label-warning" data-ng-bind="resultmap.numcode"></span> <span data-ng-bind="resultmap.code"></span> </h5>
+            <p style="font-size:1.2rem;" data-ng-bind="resultmap.results"></p>
         </a>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!resultmaps.$resolved || resultmaps.length">

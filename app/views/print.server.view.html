@@ -92,8 +92,13 @@
 		</table>
 		<hr />
 		<div class="result">
+
 			<h3>Interpretation</h3>
-			<p class="result">Interpreted Result : {{typing.resultmap.results.join(', ')}}</p>
+			<p class="result"><span style="border-radius: 5px;padding: 5px;color: white; background-color:{{typing.resultmap.color}};"> {{typing.resultmap.results[0]}}</span></p>
+			<strong>Other possible results</strong>
+			<p>{{typing.resultmap.results.slice(1)}}</p>
+			<strong>Comments</strong>
+			<p>{{typing.resultmap.comment}}</p>
 		</div>
 
 		{% if typing.image %}

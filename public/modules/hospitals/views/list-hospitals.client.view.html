@@ -5,7 +5,7 @@
     <div class="list-group">
         <a data-ng-repeat="hospital in hospitals" data-ng-href="#!/hospitals/{{hospital._id}}" class="list-group-item">
 			<small class="list-group-item-text">
-        {{ 'ADD_DATE' | translate }}
+        {{ 'POSTED_ON' | translate }}
 				<span data-ng-bind="hospital.created | date:'medium'"></span>
         {{ 'BY' | translate }}
 				<span data-ng-bind="hospital.user.displayName"></span>

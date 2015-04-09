@@ -54,10 +54,16 @@
         </tbody>
       </table>
       <hr />
-      <h4>{{ 'SUBMITTED_DATE' | translate }}</h4>
-      <p style="color: #dc4136;">
-        <strong>{{typing.resultmap.results.join(', ')}}</strong>
+      <h4>{{ 'INTERPRETED_RESULT' | translate }}</h4>
+      <p >
+        <strong class='color-code' style="background-color: {{typing.resultmap.color}};">{{typing.resultmap.results[0]}}</strong>
       </p>
+      <strong>{{ 'OTHER_POSSIBLE_RESULT' | translate }}</strong>
+      <p>
+      {{typing.resultmap.results.slice(1).join(', ')}}
+      </p>
+      <strong>{{ 'COMMENTS' | translate }}</strong>
+      <p>{{typing.resultmap.comment}}</p>
     </div>
 
     <div class="page-content col-xs-12" style="margin-bottom: 20px;" ng-show="typing.image">

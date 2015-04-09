@@ -34,8 +34,7 @@ var UploadSchema = new Schema({
 	},
 	user: {
 		type: Schema.ObjectId,
-		ref: 'User',
-		trim:true
+		ref: 'User'
 	}
 });
 

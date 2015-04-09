@@ -27,11 +27,20 @@ var ResultMapSchema = new Schema({
 	},
 	results: [{
 		type: String,
-		required: 'list cannot be blank'
+		required: 'Dictionary list cannot be blank',
+		trim:true
 	}],
+	color:{
+		type:String,
+		default: '#ccc'
+	},
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
+	},
+	comment: {
+		type: String,
+		trim: true
 	}
 });
 

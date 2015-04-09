@@ -10,11 +10,14 @@ angular.module('rbcs').controller('RbcsController', ['$scope', '$stateParams', '
 			// Create new Rbc object
 			var rbc = new Rbcs ({
 				name: this.name,
+				label:this.label,
 				unit:this.unit,
 				min:this.min,
-				max:this.max
+				max:this.max,
+				comment:this.comment,
+				warning:this.warning
 			});
-			
+
 			// Redirect after save
 			rbc.$save(function(response) {
 				$location.path('rbcs/' + response._id);
