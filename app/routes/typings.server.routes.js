@@ -47,4 +47,6 @@ module.exports = function(app) {
 
 	app.param('pdfreport',typings.pdfreport);
 
+	app.route('/typingreport/:printid').get(users.requiresLogin,typings.typingreport);
+
 };

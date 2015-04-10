@@ -12,11 +12,12 @@
   "PROFILE":"User Profile",
   "REGISTER":"Register",
   "SIGN_IN":"Sign in",
-  "SUGGESTION":"Suggestion",
+  "SUGGESTION":"Suggestions",
 
   "SEARCH":"Search...",
   "DASHBOARD":"Dashboard",
   "TYPINGDATA":"Hemoglobin Profile",
+  "EDIT_TYPING_DATA":"Edit Hemoglobin Profile",
   "TYPING_DATA":"Hemoglobin Profile",
   "BATCH_UPLOAD":"Batch Upload",
   "HOSPITALS_DATA":"Hospitals Data",
@@ -123,7 +124,7 @@
 
   "NEW_SUGGESTION":"New Suggestion",
   "NO_SUGGESTION":"No Suggestions yet?",
-  "NEW_SUGGESTION":"New Suggestion",
+  "EDIT_SUGGESTION":"Edit Suggestion",
   "NEW_SUGGESTION":"New Suggestion"
 
 

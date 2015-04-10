@@ -4,7 +4,6 @@
 angular.module('typings').controller('TypingsController', ['$http','$scope', '$stateParams', '$location', 'Authentication', 'AllTypings','PageTypings','ResultMap','Uploads', '$upload','SweetAlert','$sce',
 	function($http,$scope, $stateParams, $location, Authentication, Typings,PageTypings,ResultMap,Upload, $upload,sweet,$sce) {
 		$scope.authentication = Authentication;
-		$scope.testis="adfadfadf";
 		$scope.genderchoice = [{
 			  id: 'Male',
 			  label: 'Male',
@@ -43,7 +42,7 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 	  };
 
 	  $scope.pageChanged = function() {
-	    $log.log('Page changed to: ' + $scope.currentPage);
+	    console.log('Page changed to: ' + $scope.currentPage);
 	  };
 
 	  $scope.maxSize =10;
@@ -139,6 +138,30 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 
 		};
 
+		$scope.typingReport = function() {
+			/*scope.typing = Typings.get({
+				typingId: $stateParams.typingId
+			});*/
+			$http({url:'/typingreport/'+$stateParams.typingId}).success(function(data){
+				$scope.typing=data.typing;
+				$scope.suggestions=[];
+				angular.forEach(data.suggestion,function(value,key){
+					$scope.suggestions.push(value.suggestion);
+					console.log(data.typing.insd);
+					console.log(value.param.name);
+					if(data.typing.insd.indexOf(value.param.name)!==-1)$scope.suggestions.push(value.warning);
+				});
+			});
+
+			$scope.printurl = $sce.trustAsResourceUrl('/printview/'+$stateParams.typingId);
+
+		/*	$http.get('/printview/'+$stateParams.typingId).
+  success(function(data, status, headers, config) {
+		$scope.printhtml_trusted = $sce.trustAsHtml(data);
+  }).error(function(data, status, headers, config) {});*/
+
+		};
+
 
 		$scope.findOneReport = function() {
 			$scope.typing = Typings.get({
@@ -164,7 +187,7 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 		  error(function(data, status, headers, config) {
 				console.log('error get rbcs');
 		  });
-		}
+		};
 
 		$scope.uploadFile = function() {
 				var file = $scope.selectedFile[0];
@@ -208,7 +231,7 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 			var myWindow=window.open('/printview/'+$id);
 	    myWindow.focus();
 	    myWindow.print();
-		}
+		};
 
 		$scope.getDashboardInfo = function() {
 			console.log('adfadf');
@@ -238,8 +261,8 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 		    });
 		};
 
-		$scope.callPage = function callServer(tableState) {
-
+		/*$scope.callPage = function callServer(tableState) {
+			var ctrl={};
 	    ctrl.isLoading = true;
 
 	    var pagination = tableState.pagination;
@@ -252,6 +275,6 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 	      tableState.pagination.numberOfPages = result.numberOfPages;//set the number of pages so the pagination can update
 	      ctrl.isLoading = false;
 	    });
-	  };
+	  };*/
 	}
 ]);

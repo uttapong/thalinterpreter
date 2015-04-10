@@ -37,7 +37,7 @@ exports.read = function(req, res) {
 
 exports.getcombo=function(req,res){
 	var result={};
-	ResultMap.find().sort({'results[0]':1}).exec(function(err, resultmaps) {
+	ResultMap.find().sort({'numcode':1}).exec(function(err, resultmaps) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -56,7 +56,7 @@ exports.getcombo=function(req,res){
 			});
 		}
 	});
-}
+};
 /**
  * Update a Suggestion
  */
@@ -97,7 +97,7 @@ exports.delete = function(req, res) {
  * List of Suggestions
  */
 exports.list = function(req, res) {
-	Suggestion.find().sort('-created').populate('user', 'displayName').exec(function(err, suggestions) {
+	Suggestion.find().sort({'resultmap':1,'created':1}).populate('user', 'displayName').populate('resultmap param').exec(function(err, suggestions) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -112,7 +112,7 @@ exports.list = function(req, res) {
  * Suggestion middleware
  */
 exports.suggestionByID = function(req, res, next, id) {
-	Suggestion.findById(id).populate('user', 'displayName').exec(function(err, suggestion) {
+	Suggestion.findById(id).populate('user', 'displayName').populate('resultmap param').exec(function(err, suggestion) {
 		if (err) return next(err);
 		if (! suggestion) return next(new Error('Failed to load Suggestion ' + id));
 		req.suggestion = suggestion ;

@@ -7,9 +7,9 @@ var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Typing = mongoose.model('Typing'),
 	ResultMap = mongoose.model('ResultMap'),
+	Suggestion=mongoose.model('Suggestion'),
 	thal=require('thal-interpreter'),
 	mongoosePaginate = require('mongoose-paginate'),
-	jsreport=require("jsreport"),
 	_ = require('lodash');
 
 /**
@@ -192,7 +192,7 @@ exports.printview=function(req,res,next){
 
 	Typing.findById(req.params.id).populate('user', 'displayName').populate('resultmap','code results color comment').exec(function(err, typing) {
 		if (err) return next(err);
-		if (! typing) return next(new Error('Failed to load Typing ' + id));
+		if (!typing) return next(new Error('Failed to load Typing ' + req.params.id));
 		console.log(typing.typing);
 		var baseUrl = req.protocol + '://' + req.get('host');
 		res.render('print', {
@@ -205,7 +205,21 @@ exports.printview=function(req,res,next){
 	});
 
 
-}
+};
+
+exports.typingreport = function(req, res, next) {
+
+	Typing.findById(req.params.printid).populate('user', 'displayName').populate('resultmap','code results color comment').exec(function(err, typing) {
+		if (err) return next(err);
+		if (! typing) return next(new Error('Failed to load Typing ' + req.params.printid));
+		Suggestion.find({resultmap:typing.resultmap}).populate('param','name').sort('param').exec(function(err2, suggestions) {
+			if (err2) return next(err2);
+			typing.suggestion=suggestions;
+			res.json({typing:typing,suggestion:suggestions}) ;
+			res.end();
+	});
+	});
+};
 
 exports.pdfreport=function(req,res,next,id){
 

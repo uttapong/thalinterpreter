@@ -88,6 +88,9 @@ var TypingSchema = new Schema({
 		default: '',
 		trim: true,
 	},
+	insd:[{
+		type:String
+	}],
 	test_result: {
 		type: String,
 		default: '',

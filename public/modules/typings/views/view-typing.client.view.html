@@ -1,4 +1,4 @@
-<div class="row" data-ng-controller="TypingsController" data-ng-init="findOne()">
+<div class="row" data-ng-controller="TypingsController" data-ng-init="typingReport()">
   <div class="col-xs-12 page-header">
     <h1>Typing ID: {{typing.typingid}} </h1>
   </div>
@@ -64,6 +64,10 @@
       </p>
       <strong>{{ 'COMMENTS' | translate }}</strong>
       <p>{{typing.resultmap.comment}}</p>
+      <strong>{{ 'SUGGESTION' | translate }}</strong>
+      <ul>
+        <li ng-repeat="suggest in suggestions">{{suggest}}</li>
+      </ul>
     </div>
 
     <div class="page-content col-xs-12" style="margin-bottom: 20px;" ng-show="typing.image">

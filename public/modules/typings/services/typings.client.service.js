@@ -20,9 +20,9 @@ angular.module('typings').factory('PageTypings', ['$resource','$http',
 						url: 'pagetypings/',
 						method: 'POST',
 						data:{page:page,perpage:perpage}
-				})
+				});
 		}
-	}
+	};
 	}
 ]);
 

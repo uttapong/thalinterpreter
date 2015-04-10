@@ -66,4 +66,4 @@ exports.getcurators=function(req,res){
 		}
 
 	});
-}
+};

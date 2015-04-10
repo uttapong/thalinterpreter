@@ -8,6 +8,7 @@ angular.module('suggestions').controller('SuggestionsController', ['$http','$sco
 		// Create new Suggestion
 		//$scope.combo={};
 
+
 		$scope.getcombo=function(){
 
 			$http({method:'GET',url:'/suggestcombo'}).success(function(data){
@@ -18,11 +19,14 @@ angular.module('suggestions').controller('SuggestionsController', ['$http','$sco
 				$scope.resultmap=$scope.resultmapcombo[0];
 				$scope.param=$scope.rbccombo[0];
 			});
-		}
+		};
 		$scope.create = function() {
 			// Create new Suggestion object
 			var suggestion = new Suggestions ({
-				name: this.name
+				resultmap: this.resultmap._id,
+				param:this.param._id,
+				suggestion:this.comment,
+				warning:this.warning
 			});
 
 			// Redirect after save
@@ -71,6 +75,7 @@ angular.module('suggestions').controller('SuggestionsController', ['$http','$sco
 
 		// Find existing Suggestion
 		$scope.findOne = function() {
+			$scope.getcombo();
 			$scope.suggestion = Suggestions.get({
 				suggestionId: $stateParams.suggestionId
 			});

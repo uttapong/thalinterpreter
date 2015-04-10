@@ -21,8 +21,8 @@ angular.module('uploads').factory('Typings', ['$resource','$http',
         return $http({
             url: 'uploadresults/'+uploadid,
             method: 'GET'
-        })
+        });
     }
- 	}
+	};
 }
 ]);

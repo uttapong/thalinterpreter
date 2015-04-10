@@ -17,6 +17,6 @@ angular.module('core').controller('SystemController', ['$scope', 'Authentication
 		    // called asynchronously if an error occurs
 		    // or server returns response with an error status.
 		  });
-		}
+		};
 	}
 ]);

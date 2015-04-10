@@ -81,11 +81,11 @@ exports.reInterprete = function(req, res, next, uploadid) {
 					csv.parse(data, {}, function(err, outputs){
 
 						var interpreteSuccess=function(){
-							res.end("success");
-							console.log("interpreted successfull");
-						}
+							res.end('success');
+							console.log('interpreted successfull');
+						};
 					var rowcount=outputs.length-1;
-					console.log("row count "+rowcount);
+					console.log('row count '+rowcount);
 					var inserted_count=0;
 					async.each(outputs,
 						// 2nd param is the function that each item is passed to
@@ -93,29 +93,33 @@ exports.reInterprete = function(req, res, next, uploadid) {
 
 
 						function(output, callback){
+
 							// Call an asynchronous function, often a save() to DB
-							if(row_count==1){row_count++;return; }
+							if(row_count===1){row_count++;return; }
 
 							var typing=new Typing();
 							var typingdata={};
 							typing.typingid=output[0];
 							typing.gender=output[1];
 							typing.age=output[2];
-							typingdata['dcip']=thal.numtidy(output[3]);
-							typingdata['hb']=thal.numtidy(output[4]);
-							typingdata['mcv']=thal.numtidy(output[5]);
-							typingdata['mch']=thal.numtidy(output[6]);
-							typingdata['a']=thal.numtidy(output[7]);
-							typingdata['a2']=thal.numtidy(output[8]);
-							typingdata['f']=thal.numtidy(output[9]);
-							typingdata['hbe']=thal.numtidy(output[10]);
-							typingdata['hbcs']=thal.numtidy(output[11]);
-							typingdata['bart_h']=thal.numtidy(output[12]);
-							typing['typing']=typingdata;
+							typingdata.dcip=thal.numtidy(output[3]);
+							typingdata.hb=thal.numtidy(output[4]);
+							typingdata.mcv=thal.numtidy(output[5]);
+							typingdata.mch=thal.numtidy(output[6]);
+							typingdata.a=thal.numtidy(output[7]);
+							typingdata.a2=thal.numtidy(output[8]);
+							typingdata.f=thal.numtidy(output[9]);
+							typingdata.hbe=thal.numtidy(output[10]);
+							typingdata.hbcs=thal.numtidy(output[11]);
+							typingdata.bart_h=thal.numtidy(output[12]);
+							typing.typing=typingdata;
 							typing.clinical_result=output[13];
 							typing.user=req.user;
 							typing.upload=uploadid;
-							typing.interprete_code=thal.interprete(typing,'batch');
+							var interpreted=thal.interprete(typing,'batch')
+							typing.interprete_code=interpreted.result;
+
+						  typing.insd=interpreted.boundary;
 							//console.log(typing);
 
 							ResultMap.findOne({ 'code':  typing.interprete_code },function(error,code_doc){
@@ -125,36 +129,37 @@ exports.reInterprete = function(req, res, next, uploadid) {
 									console.log(error);
 								}
 								if(code_doc){
-									console.log(typing);
+									//console.log(typing);
 									typing.resultmap=code_doc._id;
 									typing.test_result='FALSE';
 									for(var j=0;j<code_doc.results.length;j++){
-										if(code_doc.results[j].toUpperCase().trim()==typing.clinical_result.toUpperCase().trim())typing.test_result='TRUE';
+										if(code_doc.results[j].toUpperCase().trim()===typing.clinical_result.toUpperCase().trim())typing.test_result='TRUE';
 									}
 
 								}
 								typing.save(function(err,doc){
-									if(err){ } else {
+									if(err){ console.log(err);} else {
 										++inserted_count;
 									//	res.json({percent:Math.floor(inserted_count/rowcount)});
 									}
-									console.log("inserted count "+inserted_count);
+									console.log('inserted count '+inserted_count);
+
+
 									if(inserted_count>=rowcount)res.end('Success');
 								});
 
 							});
 							callback();
-						}
-					,
+						},
 						function(err){
-							res.json({result:"end of interprete"});
+							res.json({result:'end of interprete'});
 							if( err ) {
-								res.end("fail");
+								res.end('fail');
 					      // One of the iterations produced an error.
 					      // All processing will now stop.
 					      console.log('A file failed to process');
 					    } else {
-								res.end("success");
+								res.end('success');
 					      console.log('All typings have been processed successfully');
 					    }
 						}
@@ -195,9 +200,9 @@ exports.create = function (req, res, next) {
 					var row_count=1;
 					csv.parse(data, {}, function(err, outputs){
 					var interpreteSuccess=function(){
-						res.end("success");
-						console.log("interpreted successfull");
-					}
+						res.end('success');
+						console.log('interpreted successfull');
+					};
 					async.each(outputs,
 					  // 2nd param is the function that each item is passed to
 
@@ -205,24 +210,24 @@ exports.create = function (req, res, next) {
 
 					  function(output, interpreteSuccess){
 					    // Call an asynchronous function, often a save() to DB
-							if(row_count==1){row_count++;return; }
+							if(row_count===1){row_count++;return; }
 
 					    var typing=new Typing();
 							var typingdata={};
 					    typing.typingid=output[0];
 							typing.gender=output[1];
 							typing.age=output[2];
-							typingdata['dcip']=thal.numtidy(output[3]);
-							typingdata['hb']=thal.numtidy(output[4]);
-							typingdata['mcv']=thal.numtidy(output[5]);
-							typingdata['mch']=thal.numtidy(output[6]);
-							typingdata['a']=thal.numtidy(output[7]);
-							typingdata['a2']=thal.numtidy(output[8]);
-							typingdata['f']=thal.numtidy(output[9]);
-							typingdata['hbe']=thal.numtidy(output[10]);
-							typingdata['hbcs']=thal.numtidy(output[11]);
-							typingdata['bart_h']=thal.numtidy(output[12]);
-							typing['typing']=typingdata;
+							typingdata.dcip=thal.numtidy(output[3]);
+							typingdata.hb=thal.numtidy(output[4]);
+							typingdata.mcv=thal.numtidy(output[5]);
+							typingdata.mch=thal.numtidy(output[6]);
+							typingdata.a=thal.numtidy(output[7]);
+							typingdata.a2=thal.numtidy(output[8]);
+							typingdata.f=thal.numtidy(output[9]);
+							typingdata.hbe=thal.numtidy(output[10]);
+							typingdata.hbcs=thal.numtidy(output[11]);
+							typingdata.bart_h=thal.numtidy(output[12]);
+							typing.typing=typingdata;
 							typing.clinical_result=output[13];
 							typing.user=req.user;
 							typing.upload=uploadid;
@@ -240,7 +245,7 @@ exports.create = function (req, res, next) {
 									typing.resultmap=code_doc._id;
 									typing.test_result='FALSE';
 									for(var j=0;j<code_doc.results.length;j++){
-										if(code_doc.results[j].toUpperCase().trim()==typing.clinical_result.toUpperCase().trim())typing.test_result='TRUE';
+										if(code_doc.results[j].toUpperCase().trim()===typing.clinical_result.toUpperCase().trim())typing.test_result='TRUE';
 									}
 
 								}
@@ -248,11 +253,9 @@ exports.create = function (req, res, next) {
 
 							});
 							interpreteSuccess();
-					  }
-					,
-					  function(err){
+					  },function(err){
 							res.writeHead(500, {'Content-Type': 'application/json'});
-							res.write('{error: "' + err + '"}');
+							res.write('{error: ' + err + '}');
 							res.end();
 						}
 					);

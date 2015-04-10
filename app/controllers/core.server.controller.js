@@ -49,7 +49,7 @@ Typing.aggregate(
 
            Typing.aggregate(
                { $group : {
-                    '_id' : {$dayOfYear:"$created" },
+                    '_id' : {$dayOfYear:'$created"' },
                     'count' : { $sum : 1 }}
                     },
                function (err, obj2)
@@ -80,4 +80,4 @@ Typing.aggregate(
          });
 
 
-}
+};
