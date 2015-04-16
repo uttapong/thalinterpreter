@@ -1,13 +1,14 @@
 'use strict';
 
-angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', 'Authentication',
-	function($scope, $http, $location, Authentication) {
+angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', 'Authentication','Hospitals',
+	function($scope, $http, $location, Authentication,Hospitals) {
 		$scope.authentication = Authentication;
 
 		// If user is signed in then redirect back home
 		if ($scope.authentication.user) $location.path('/');
 
 		$scope.signup = function() {
+			$scope.credentials.hospital=$scope.hospital._id;
 			$http.post('/auth/signup', $scope.credentials).success(function(response) {
 				// If successful we assign the response to the global user model
 				$scope.authentication.user = response;
@@ -38,6 +39,17 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 			}).error(function(response) {
 				$scope.error = response.message;
 			});
+		};
+
+
+		$scope.findHospitals = function() {
+			 Hospitals.query(function(data){
+				$scope.hospitals =data;
+				$scope.hospital=$scope.hospitals[0];
+			});
+
+			//console.log($scope.hospitals);
+
 		};
 
 		$scope.signin = function() {

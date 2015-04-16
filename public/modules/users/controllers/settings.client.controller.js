@@ -1,13 +1,13 @@
 'use strict';
 
-angular.module('users').controller('SettingsController', ['$scope', '$http', '$location', 'Users', 'Authentication',
-	function($scope, $http, $location, Users, Authentication) {
+angular.module('users').controller('SettingsController', ['$scope', '$http', '$location', 'Users', 'Authentication','Hospitals','SweetAlert',
+	function($scope, $http, $location, Users, Authentication,Hospitals,sweet) {
 		$scope.user = Authentication.user;
 
 		// If user is not signed in then redirect back home
 		if (!$scope.user) $location.path('/');
 
-		// Check if there are additional accounts 
+		// Check if there are additional accounts
 		$scope.hasConnectedAdditionalSocialAccounts = function(provider) {
 			for (var i in $scope.user.additionalProvidersData) {
 				return true;
@@ -38,14 +38,33 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 			});
 		};
 
+		$scope.findHospitals = function() {
+			 Hospitals.query(function(data){
+				$scope.hospitals =data;
+				$scope.hospital=$scope.user.hospital;
+				angular.forEach($scope.hospitals,function(hos){
+					if(hos._id===$scope.user.hospital)$scope.hospital=hos;
+				});
+			});
+
+			//console.log($scope.hospitals);
+
+		};
+
 		// Update a user profile
 		$scope.updateUserProfile = function(isValid) {
 			if (isValid) {
 				$scope.success = $scope.error = null;
 				var user = new Users($scope.user);
+				user.hospital=$scope.hospital._id;
 
 				user.$update(function(response) {
-					$scope.success = true;
+					//$scope.success = true;
+					sweet.swal({
+							title: 'Update Success',
+							text: 'Information has been updated.',
+							type: 'success'
+					}, function() {	});
 					Authentication.user = response;
 				}, function(response) {
 					$scope.error = response.data.message;

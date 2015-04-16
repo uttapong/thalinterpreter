@@ -69,7 +69,8 @@
       <div  class="typing_suggestion" ng-show="suggestions">
       <strong>{{ 'SUGGESTION' | translate }}</strong>
       <ul>
-        <li ng-repeat="suggest in suggestions">{{suggest}}</li>
+        <li ng-repeat="suggest in suggestions">{{suggest}} </li>
+        <li ng-repeat="warning in warnings">{{warning}} <span class="label label-danger"><i class="fa fa-exclamation-circle fa-lg"></i> Warning</span></li>
       </ul>
     </div>
     </div>

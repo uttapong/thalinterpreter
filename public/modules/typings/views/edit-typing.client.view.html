@@ -27,7 +27,7 @@
                 <div class="form-group" ng-repeat="rbc in rbcs">
                     <label class="control-label col-md-4" for="name">{{rbc.label}}</label>
                     <div class="col-md-6">
-                        <input type="text" ng-change="livecheck()" data-ng-model="typing.typing[rbc.name]" id="name" class="form-control" placeholder="0">
+                        <input type="text" ng-change="relivecheck()" data-ng-model="typing.typing[rbc.name]" id="name" class="form-control" placeholder="0">
                     </div>
                     <div class="col-md-2">{{rbc.unit}}</div>
                 </div>

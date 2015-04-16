@@ -1,5 +1,5 @@
 <!-- Navigation -->
-<div class="top-navigation">
+<div class="top-navigation" data-ng-controller="HeaderController">
         <script>
         $('#side-menu').metisMenu();
         </script>
@@ -14,7 +14,7 @@
             </div>
             <!-- /.navbar-header -->
 
-            <ul class="nav navbar-top-links navbar-right" data-ng-controller="HeaderController">
+            <ul class="nav navbar-top-links navbar-right" >
 
 
                 <!-- /.dropdown -->
@@ -74,8 +74,6 @@
             <li ui-route="/signin" ng-class="{active: $uiRoute}" data-ng-hide="authentication.user">
                 <a href="/#!/signin">{{ 'SIGN_IN' | translate }}</a>
             </li>
-
-
                 <li class="dropdown" data-ng-show="authentication.user" >
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <div class='round'  style="
@@ -86,8 +84,6 @@
                         <li><a href="/#!/settings/profile"><i class="fa fa-user fa-fw"></i> {{ 'PROFILE' | translate }}</a>
                         </li>
                           <li><a href="/#!/settings/accounts"><i class="fa fa-user fa-fw"></i> {{ 'SOCIAL_ACCOUNTS' | translate }}</a>
-
-
                         </li>
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> {{ 'SETTINGS' | translate }}</a>
                         </li>
@@ -103,7 +99,7 @@
             </ul>
             <!-- /.navbar-top-links -->
 
-            <div class="sidebar" role="navigation">
+            <div class="sidebar" role="navigation" ng-show="sidebar">
               <img ng-src="/modules/core/img/brand/menu_doctor.png" />
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
@@ -120,8 +116,6 @@
                         <li>
                             <a ui-sref="home"><i class="fa fa-dashboard fa-fw"></i> {{ 'DASHBOARD' | translate }}</a>
                         </li>
-
-
                         <li>
                             <a ui-sref="listTypings"><i class="fa fa-file-o"></i> {{ 'TYPINGDATA' | translate }}</a>
                         </li>
@@ -146,7 +140,7 @@
 
                             <!-- /.nav-second-level -->
                         </li>
-                        <li>
+                      <!--  <li>
                             <a href="#"><i class="fa fa-tasks fa-fw"></i> {{ 'INTERPRETE_REPORT' | translate }}<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -156,8 +150,7 @@
                                     <a href="notifications.html">{{ 'DISTRIBUTION' | translate }}</a>
                                 </li>
                             </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
+                        </li>-->
 
                         <li>
                             <a href="#"><i class="fa fa-cogs fa-fw"></i> {{ 'SERVER_MANAGEMENT' | translate }}<span class="fa arrow"></span></a>
@@ -165,11 +158,9 @@
                                 <li>
                                     <a ui-sref="system"> {{ 'SERVER_RESOURCE' | translate }}</a>
                                 </li>
+
                                 <li>
-                                    <a href="buttons.html"> {{ 'SETTINGS' | translate }}</a>
-                                </li>
-                                <li>
-                                    <a href="notifications.html"> {{ 'BACKUP_DATA' | translate }}</a>
+                                    <a ui-sref="mongobackup"> {{ 'BACKUP_DATA' | translate }}</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

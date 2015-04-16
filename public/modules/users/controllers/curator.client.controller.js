@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users').controller('CuratorController', ['$scope', '$http', '$location', 'Authentication','Curators',
-	function($scope, $http, $location, Authentication,Curators) {
+angular.module('users').controller('CuratorController', ['$scope', '$http', '$location', 'Authentication','Curators','Hospitals',
+	function($scope, $http, $location, Authentication,Curators,Hospitals) {
 		$scope.authentication = Authentication;
 
 		// If user is signed in then redirect back home
@@ -12,7 +12,7 @@ angular.module('users').controller('CuratorController', ['$scope', '$http', '$lo
 		$scope.find = function() {
 			$scope.allcurators = Curators.query();
 			//console.log($scope.hospitals);
-
+			$scope.findHospitals();
 		};
 
 
@@ -32,9 +32,20 @@ angular.module('users').controller('CuratorController', ['$scope', '$http', '$lo
 
 				// And redirect to the index page
 			$location.path('/signupcurator');
+			$scope.find();
 			}).error(function(response) {
 				$scope.error = response.message;
 			});
+		};
+
+		$scope.findHospitals = function() {
+			 Hospitals.query(function(data){
+				$scope.hospitals =data;
+				$scope.hospital=$scope.hospitals[0];
+			});
+
+			//console.log($scope.hospitals);
+
 		};
 
 		$scope.signin = function() {

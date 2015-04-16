@@ -1,14 +1,13 @@
 'use strict';
 
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication','$http',
-	function($scope, Authentication,$http) {
+angular.module('core').controller('HomeController', ['$rootScope','$scope', 'Authentication','$http','SweetAlert',
+	function($rootScope,$scope, Authentication,$http,sweet) {
 		// This provides Authentication context.
 		$scope.authentication = Authentication;
 		//$scope.dashboard={};
-		$scope.testis='xxx';
 		//this.testis='adfdaf';
-
+		$rootScope.sidebar=true;
 		$scope.getDashboardInfo = function() {
 			$http.get('/dashboard').
 		    success(function(data, status, headers, config) {
@@ -36,5 +35,21 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 
 		};
+
+		$scope.startBackupDB=function(){
+			$http.get('/mongobackup').success(function(data){
+				console.log(data);
+				$scope.stdout=data;
+				sweet.swal({
+						title: 'Backup Success',
+						text: 'Your database has been backedup.',
+						type: 'success'
+				}, function() {	});
+			});
+		}
+
+		$scope.index=function(){
+			$rootScope.sidebar=false;
+		}
 	}
 ]);

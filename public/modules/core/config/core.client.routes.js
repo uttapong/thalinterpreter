@@ -15,6 +15,13 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 		state('system', {
 			url: '/system',
 			templateUrl: 'modules/core/views/system.client.view.html'
+		}).
+		state('mongobackup', {
+			url: '/mongobackup',
+			templateUrl: 'modules/core/views/mongobackup.client.view.html'
+		}).state('index', {
+			url: '/index',
+			templateUrl: 'modules/core/views/intro.client.view.html'
 		});
 	}
 ]);

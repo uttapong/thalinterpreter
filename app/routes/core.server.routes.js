@@ -7,4 +7,5 @@ module.exports = function(app) {
 
 	app.route('/systeminfo').get(core.system);
 	app.route('/dashboard').get(core.dashboard);
+	app.route('/mongobackup').get(core.mongobackup);
 };

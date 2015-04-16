@@ -5,9 +5,9 @@
     <div class="list-group">
         <a data-ng-repeat="suggestion in suggestions" data-ng-href="#!/suggestions/{{suggestion._id}}" class="list-group-item">
 
-			<h5 class="list-group-item-heading">
+			<li class="items-list">
         {{suggestion.param.label}} <span style='color:#888'>found on</span> {{suggestion.resultmap.results[0]}}
-			</h5>
+			</li>
         </a>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!suggestions.$resolved || suggestions.length">

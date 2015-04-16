@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module('core').controller('HeaderController', ['$scope', 'Authentication', 'Menus','$translate','Gravatar',
-	function($scope, Authentication, Menus,$translate,Gravatar) {
+angular.module('core').controller('HeaderController', ['$rootScope','$scope', 'Authentication', 'Menus','$translate','Gravatar',
+	function($rootScope,$scope, Authentication, Menus,$translate,Gravatar) {
 		$scope.authentication = Authentication;
 		$scope.isCollapsed = false;
 		$scope.menu = Menus.getMenu('topbar');
-
+		$rootScope.sidebar=true;
 		//console.log(Authentication);
 		$scope.lang='en';
 		$translate.use($scope.lang);

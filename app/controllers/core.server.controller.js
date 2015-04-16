@@ -9,6 +9,8 @@
  ResultMap=mongoose.model('ResultMap'),
  	Hospital = mongoose.model('Hospital'),
    os = require('os'),
+sys = require('sys'),
+exec = require('child_process').exec,
 	_ = require('lodash');
 
 exports.index = function(req, res) {
@@ -17,6 +19,20 @@ exports.index = function(req, res) {
 		request: req
 	});
 };
+
+exports.mongobackup=function(req,res){
+  var child;
+  child = exec("grunt mongobackup:dump", function (error, stdout, stderr) {
+    sys.print('stdout: ' + stdout);
+    sys.print('stderr: ' + stderr);
+    //console.log(stdout);
+    res.jsonp(stdout);
+
+    if (error !== null) {
+      console.log('exec error: ' + error);
+    }
+  });
+}
 
 exports.system=function(req,res){
 	res.jsonp({
@@ -70,7 +86,7 @@ Typing.aggregate(
                             ResultMap.find({}, function (err, resultmaps) {
                               result.resultmaps=resultmaps;
                               res.jsonp(result);
-                            }); 
+                            });
                           });
                         });
                        });

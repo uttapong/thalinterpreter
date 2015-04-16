@@ -64,3 +64,36 @@ box-shadow: 2px 2px 5px 2px rgba(0,0,0,0.32);
 .navbar-right  a {
   color: #fff !important;
 }
+.navbar-right  a:hover {
+  background-color: #353A42 !important;
+}
+.items-list{
+	list-style-type:none;
+}
+.intro{
+	background-color: #1A9BAB;
+	height: 400px;
+	padding: 0px 220px;
+}
+.intro h1,.intro h3{
+	color: #fff;
+}
+.intro h1{
+	font-size: 3.6rem;
+}
+.intro h3{
+	font-size: 2rem;
+	font-family: "roboto_thin";
+}
+.intro_text{
+	padding: 80px 0px;
+	color: #fff;
+}
+.intro_img{
+	background: url('../img/brand/doctors_l.png') no-repeat right bottom;
+	height: 400px;
+}
+.intro_btn{
+	height: 100px;
+	padding: 40px;
+}
