@@ -101,10 +101,11 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 
 		// Update existing Typing
 		$scope.update = function() {
-			var typing = $scope.typing;
 
+			var typing = $scope.typing;
+			console.log(typing);
 			typing.$update(function() {
-				$location.path('typings/' + typing._id);
+				$location.path('typings/' + typing.typing._id);
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -125,9 +126,15 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 
 		// Find existing Typing
 		$scope.findOne = function() {
-			$scope.typing = Typings.get({
+			Typings.get({
 				typingId: $stateParams.typingId
+			},function(typing){
+				$scope.typing = typing;
+				$scope.livecheck();
+				//console.log($scope.typing);
 			});
+
+			$scope.getRBC();
 
 			$scope.printurl = $sce.trustAsResourceUrl('/printview/'+$stateParams.typingId);
 
@@ -147,8 +154,8 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 				$scope.suggestions=[];
 				angular.forEach(data.suggestion,function(value,key){
 					$scope.suggestions.push(value.suggestion);
-					console.log(data.typing.insd);
-					console.log(value.param.name);
+			//		console.log(data.typing.insd);
+			//		console.log(value.param.name);
 					if(data.typing.insd.indexOf(value.param.name)!==-1)$scope.suggestions.push(value.warning);
 				});
 			});
@@ -251,9 +258,10 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 
 
 		$scope.livecheck=function(){
-			$http.post('/typings/live',{dcip:$scope.typingdata.dcip,hb:$scope.typingdata.hb,mcv:$scope.typingdata.mcv,a:$scope.typingdata.a,a2:$scope.typingdata.a2,hbe:$scope.typingdata.hbe,hbcs:$scope.typingdata.hbcs,bart_h:$scope.typingdata.bart_h}).
+			$http.post('/typings/live',{dcip:$scope.typing.typing.dcip,hb:$scope.typing.typing.hb,mcv:$scope.typing.typing.mcv,a:$scope.typing.typing.a,a2:$scope.typing.typing.a2,hbe:$scope.typing.typing.hbe,hbcs:$scope.typing.typing.hbcs,bart_h:$scope.typing.typing.bart_h}).
 		    success(function(data, status, headers, config) {
-		      $scope.liveresult = data;
+		      $scope.liveresult = data.code;
+					$scope.suggestions=data.suggestion;
 
 		    }).
 		    error(function(data, status, headers, config) {

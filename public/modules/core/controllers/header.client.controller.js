@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HeaderController', ['$scope', 'Authentication', 'Menus','$translate',
-	function($scope, Authentication, Menus,$translate) {
+angular.module('core').controller('HeaderController', ['$scope', 'Authentication', 'Menus','$translate','Gravatar',
+	function($scope, Authentication, Menus,$translate,Gravatar) {
 		$scope.authentication = Authentication;
 		$scope.isCollapsed = false;
 		$scope.menu = Menus.getMenu('topbar');
@@ -17,7 +17,9 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 		$scope.lang=langKey;
     $translate.use(langKey);
   };
-
+	$scope.gravatarUrl=function(email){
+		return Gravatar(email);
+	}
 		// Collapsing the menu after navigation
 		$scope.$on('$stateChangeSuccess', function() {
 			$scope.isCollapsed = false;

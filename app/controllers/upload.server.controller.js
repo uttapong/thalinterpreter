@@ -133,7 +133,8 @@ exports.reInterprete = function(req, res, next, uploadid) {
 									typing.resultmap=code_doc._id;
 									typing.test_result='FALSE';
 									for(var j=0;j<code_doc.results.length;j++){
-										if(code_doc.results[j].toUpperCase().trim()===typing.clinical_result.toUpperCase().trim())typing.test_result='TRUE';
+										if(code_doc.results[j].toUpperCase().trim()==typing.clinical_result.toUpperCase().trim())typing.test_result='TRUE';
+										else console.log(code_doc.results[j].toUpperCase().trim()+","+typing.clinical_result.toUpperCase().trim())
 									}
 
 								}
@@ -206,8 +207,6 @@ exports.create = function (req, res, next) {
 					async.each(outputs,
 					  // 2nd param is the function that each item is passed to
 
-
-
 					  function(output, interpreteSuccess){
 					    // Call an asynchronous function, often a save() to DB
 							if(row_count===1){row_count++;return; }
@@ -231,7 +230,8 @@ exports.create = function (req, res, next) {
 							typing.clinical_result=output[13];
 							typing.user=req.user;
 							typing.upload=uploadid;
-							typing.interprete_code=thal.interprete(typing,'batch');
+							var interpreted=thal.interprete(typing,'batch')
+							typing.interprete_code=interpreted.result;
 							//console.log(typing);
 
 							ResultMap.findOne({ 'code':  typing.interprete_code },function(error,code_doc){
@@ -245,7 +245,7 @@ exports.create = function (req, res, next) {
 									typing.resultmap=code_doc._id;
 									typing.test_result='FALSE';
 									for(var j=0;j<code_doc.results.length;j++){
-										if(code_doc.results[j].toUpperCase().trim()===typing.clinical_result.toUpperCase().trim())typing.test_result='TRUE';
+										if(code_doc.results[j].toUpperCase().trim()==typing.clinical_result.toUpperCase().trim())typing.test_result='TRUE';
 									}
 
 								}

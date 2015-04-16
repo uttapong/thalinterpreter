@@ -1,4 +1,5 @@
 <!-- Navigation -->
+<div class="top-navigation">
         <script>
         $('#side-menu').metisMenu();
         </script>
@@ -17,7 +18,7 @@
 
 
                 <!-- /.dropdown -->
-                <li class="dropdown">
+              <!--  <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
@@ -47,19 +48,18 @@
                             </a>
                         </li>
                     </ul>
-                    <!-- /.dropdown-alerts -->
-                </li>
+                </li>-->
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                      {{lang}}  <i class="fa fa-caret-down"></i>
+                      {{lang | uppercase}}  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-alerts">
-                        <li ng-click="changeLanguage('en')"><a href="#">en</a>
+                        <li ng-click="changeLanguage('en')"><a href="#">EN</a>
 
                         </li>
                         <li ng-click="changeLanguage('th')">
-                            <a href="#">th
+                            <a href="#">TH
                             </a>
                         </li>
                     </ul>
@@ -78,7 +78,9 @@
 
                 <li class="dropdown" data-ng-show="authentication.user" >
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i> <span data-ng-bind="authentication.user.displayName"></span> <i class="fa fa-caret-down"></i>
+                    <div class='round'  style="
+                    	background: url({{gravatarUrl(authentication.user.email)}}); float: left;"></div>
+                        <span data-ng-bind="authentication.user.displayName"></span> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="/#!/settings/profile"><i class="fa fa-user fa-fw"></i> {{ 'PROFILE' | translate }}</a>
@@ -101,10 +103,11 @@
             </ul>
             <!-- /.navbar-top-links -->
 
-            <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar" role="navigation">
+              <img ng-src="/modules/core/img/brand/menu_doctor.png" />
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
+                        <!--<li class="sidebar-search">
                             <div class="input-group custom-search-form">
                                 <input type="text" class="form-control" placeholder="{{ 'SEARCH' | translate }}">
                                 <span class="input-group-btn">
@@ -113,8 +116,7 @@
                                 </button>
                             </span>
                             </div>
-                            <!-- /input-group -->
-                        </li>
+                        </li>-->
                         <li>
                             <a ui-sref="home"><i class="fa fa-dashboard fa-fw"></i> {{ 'DASHBOARD' | translate }}</a>
                         </li>
@@ -178,3 +180,4 @@
                 <!-- /.sidebar-collapse -->
             </div>
             <!-- /.navbar-static-side -->
+</div>

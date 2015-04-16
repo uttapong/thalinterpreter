@@ -61,20 +61,52 @@ exports.read = function(req, res) {
 /**
  * Update a Typing
  */
-exports.update = function(req, res) {
+exports.update = function(req, res,next) {
+
+
+
 	var typing = req.typing ;
 
 	typing = _.extend(typing , req.body);
 
-	typing.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(typing);
+	typing.user = req.user;
+	var interprete_result=thal.interprete(req.typing,'single');
+	typing.interprete_code=interprete_result.result;
+
+	ResultMap.findOne({ 'code':  typing.interprete_code },function(error,code_doc){
+		if(error) {
+		//	console.log(typing);
+
+			console.log(error);
 		}
-	});
+		if(code_doc){
+			// console.log(typing);
+			typing.resultmap=code_doc._id;
+
+		}
+		typing.save(function(err) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+				//exports.typingreport(req,res,next);
+				//res.jsonp(typing);
+				Typing.findById(req.params.typingId).populate('user', 'displayName').populate('resultmap','code results color comment').exec(function(err, typing_result) {
+					if (err) return next(err);
+					if (! typing_result) return next(new Error('Failed to load Typing ' + req.params.printid));
+					Suggestion.find({resultmap:typing_result.resultmap}).populate('param','name').sort('param').exec(function(err2, suggestions) {
+						if (err2) return next(err2);
+						res.json({typing:typing_result,suggestion:suggestions}) ;
+						res.end();
+				});
+				});
+			}
+		});
+
+		});
+
+
 };
 
 /**
@@ -125,7 +157,6 @@ exports.list = function(req, res) {
 	  }
 	});*/
 };
-
 /**
  * Typing middleware
  */
@@ -149,12 +180,18 @@ exports.hasAuthorization = function(req, res, next) {
 exports.liveinterprete = function(req, res, next) {
 	//console.log(req);
 	var result=thal.interprete(req,'live');
-	ResultMap.findOne({ 'code':  result },function(error,code_doc){
+	ResultMap.findOne({ 'code':  result.result },function(error,code_doc){
 		if(error) {
 		  console.log(error);
 		}
 		if(code_doc){
-			res.jsonp(code_doc);
+
+			Suggestion.find({resultmap:code_doc._id}).populate('param','name').sort('param').exec(function(err2, suggestions) {
+				if (err2) return next(err2);
+				res.json({code:code_doc,suggestion:suggestions}) ;
+				res.end();
+			});
+
 
 		}
 		});
@@ -184,7 +221,6 @@ exports.typingimage = function (req, res, next) {
 		});
 	});
 
-
 };
 
 exports.printview=function(req,res,next){
@@ -203,7 +239,6 @@ exports.printview=function(req,res,next){
 
 		});
 	});
-
 
 };
 

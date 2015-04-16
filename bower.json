@@ -16,6 +16,7 @@
     "angular-ui-router": "~0.2.11",
     "ng-file-upload": "~3.1.0",
     "angular-sweetalert": "latest",
-    "angular-chart.js": "~0.5.3"
+    "angular-chart.js": "~0.6.0",
+    "cryptojslib": "~3.1.2"
   }
 }

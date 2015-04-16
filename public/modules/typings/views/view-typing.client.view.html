@@ -44,7 +44,7 @@
       <table class="table-striped table col-xs-12">
         <thead>
           <tr>
-            <th ng-repeat="(key, value) in typing.typing">{{key}}</th>
+            <th ng-repeat="(key, value) in typing.typing">{{key | uppercase}}</th>
           </tr>
         </thead>
         <tbody>
@@ -62,12 +62,16 @@
       <p>
       {{typing.resultmap.results.slice(1).join(', ')}}
       </p>
-      <strong>{{ 'COMMENTS' | translate }}</strong>
-      <p>{{typing.resultmap.comment}}</p>
+      <div class="typing_comemnt" ng-show="typing.resultmap.comment">
+        <strong>{{ 'COMMENTS' | translate }}</strong>
+        <p>{{typing.resultmap.comment}}</p>
+      </div>
+      <div  class="typing_suggestion" ng-show="suggestions">
       <strong>{{ 'SUGGESTION' | translate }}</strong>
       <ul>
         <li ng-repeat="suggest in suggestions">{{suggest}}</li>
       </ul>
+    </div>
     </div>
 
     <div class="page-content col-xs-12" style="margin-bottom: 20px;" ng-show="typing.image">

@@ -18,7 +18,8 @@ var ApplicationConfiguration = (function() {
 	'ui.bootstrap',
 	'smart-table',
 	'angular-loading-bar',
-	'pascalprecht.translate'];
+	'pascalprecht.translate',
+	'chart.js'];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {

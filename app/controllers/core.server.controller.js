@@ -6,6 +6,7 @@
  var mongoose = require('mongoose'),
  User = mongoose.model('User'),
  Typing = mongoose.model('Typing'),
+ ResultMap=mongoose.model('ResultMap'),
  	Hospital = mongoose.model('Hospital'),
    os = require('os'),
 	_ = require('lodash');
@@ -39,7 +40,7 @@ var result={};
 
 Typing.aggregate(
     { $group : {
-         '_id' : '$interprete_code',
+         '_id' : '$resultmap',
          'count' : { $sum : 1 }}
          },
     function (err, obj)
@@ -65,9 +66,12 @@ Typing.aggregate(
                         Typing.count({ }, function (err, typingcount) {
                          result.hemocount=typingcount;
                          User.count({roles:'curator' }, function (err, crcount) {
-                          result.curatercount=crcount;
-                          res.jsonp(result);
-                         });
+                          result.curatorcount=crcount;
+                            ResultMap.find({}, function (err, resultmaps) {
+                              result.resultmaps=resultmaps;
+                              res.jsonp(result);
+                            }); 
+                          });
                         });
                        });
                       });

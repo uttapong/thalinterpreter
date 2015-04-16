@@ -13,6 +13,7 @@
   "REGISTER":"Register",
   "SIGN_IN":"Sign in",
   "SUGGESTION":"Suggestions",
+  "ADD":"Add",
 
   "SEARCH":"Search...",
   "DASHBOARD":"Dashboard",
@@ -45,6 +46,7 @@
   "AGE":"Age",
   "POSSIBLE_TYPING":"Possible Interpreted Result",
   "ADD_BTN":"Add",
+  "UPDATE_BTN":"Update",
   "TYPING_ID":"Hemoglobin profile ID",
   "UPLOAD_FILE":"Upload File",
   "ACCEPT_ONLY_JPG_PNG":"Accepted only image file(jpg,png)",
@@ -125,7 +127,8 @@
   "NEW_SUGGESTION":"New Suggestion",
   "NO_SUGGESTION":"No Suggestions yet?",
   "EDIT_SUGGESTION":"Edit Suggestion",
-  "NEW_SUGGESTION":"New Suggestion"
+  "NEW_SUGGESTION":"New Suggestion",
+  "OTHER_POSSIBLE_TYPING":"Other possible results"
 
 
 

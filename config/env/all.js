@@ -17,7 +17,8 @@ module.exports = {
 				'public/lib/fontawesome/css/font-awesome.min.css',
 				'public/lib/morrisjs/morris.css',
 				'public/lib/sweetalert/lib/sweet-alert.css',
-				'public/lib/angular-loading-bar/build/loading-bar.css'
+				'public/lib/angular-loading-bar/build/loading-bar.css',
+				'public/lib/angular-chart.js/dist/angular-chart.css'
 			],
 			js: [
 				'public/lib/jquery/dist/jquery.min.js',
@@ -42,7 +43,11 @@ module.exports = {
 				'public/lib/angular-translate/angular-translate.min.js',
 				'public/lib/angular-translate/angular-translate-loader-url.min.js',
 				'public/lib/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js',
-				'public/lib/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js'
+				'public/lib/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js',
+				'public/lib/chartjs/Chart.min.js',
+				'public/lib/angular-chart.js/dist/angular-chart.min.js',
+				'public/lib/cryptojslib/rollups/md5.js'
+
 
 			]
 		},

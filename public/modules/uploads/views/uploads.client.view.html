@@ -1,6 +1,6 @@
 <div class="row" ng-app="thal" data-ng-controller="UploadController as uploadCtl">
 <div class="page-header">
-        <h1>{{ 'UPLOAD_TYPING_FILE' | translate }} <button  type="button" class="btn btn-info" ng-click="isCollapsed = !isCollapsed" aria-expanded="false" aria-controls="addFile"  ><i class="fa fa-plus fa-lg"></i> เพิ่มไฟล์ </button></h1>
+        <h1>{{ 'UPLOAD_TYPING_FILE' | translate }} <button style="float:right"  type="button" class="btn btn-info" ng-click="isCollapsed = !isCollapsed" aria-expanded="false" aria-controls="addFile"  ><i class="fa fa-plus fa-lg"></i> {{ 'ADD' | translate }} </button></h1>
     </div>
 <div ng-repeat="(key,val) in alerts" class="alert {{key}}">
         <div ng-repeat="msg in val">{{msg}}</div>

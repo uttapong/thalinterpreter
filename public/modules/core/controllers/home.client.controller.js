@@ -16,9 +16,17 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 					$scope.doughnut_value=[];
 		      $scope.dashboard = data;
 					for(var i=0;i<data.hemotype.length;i++){
-						$scope.doughnut_label.push(data.hemotype._id);
-						$scope.doughnut_value.push(data.hemotype.count);
+					//	console.log(data.hemotype[i]);
+
+
+						$scope.doughnut_value.push(data.hemotype[i].count);
+						for(var j=0;j<data.resultmaps.length;j++){
+							if(data.resultmaps[j]._id==data.hemotype[i]._id)
+							$scope.doughnut_label.push(data.resultmaps[j].results[0]);
+						}
 					}
+					//console.log($scope.dashboard);
+					$scope.doughnut_options={segmentShowStroke : false};
 					console.log($scope.dashboard);
 
 		    }).
