@@ -24,10 +24,6 @@ angular.module('typings').config(['$stateProvider',
 		state('viewTypingReport', {
 			url: '/typingreport/:typingId',
 			templateUrl: 'modules/typings/views/report-typing.client.view.html'
-		}).
-		state('dashboard', {
-			url: '/dashboard',
-			templateUrl: 'modules/typings/views/dashboard.client.view.html'
 		});
 	}
 ]);

@@ -5,7 +5,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 		$scope.authentication = Authentication;
 
 		// If user is signed in then redirect back home
-		if ($scope.authentication.user) $location.path('/');
+		if ($scope.authentication.user) $location.path('/dashboard');
 
 		$scope.signup = function() {
 			$scope.credentials.hospital=$scope.hospital._id;
@@ -14,7 +14,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				$scope.authentication.user = response;
 
 				// And redirect to the index page
-				$location.path('/');
+				$location.path('/dashboard');
 			}).error(function(response) {
 				$scope.error = response.message;
 			});
@@ -58,7 +58,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				$scope.authentication.user = response;
 
 				// And redirect to the index page
-				$location.path('/');
+				$location.path('/dashboard');
 			}).error(function(response) {
 				$scope.error = response.message;
 			});

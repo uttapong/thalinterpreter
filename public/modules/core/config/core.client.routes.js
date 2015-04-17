@@ -8,8 +8,8 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 
 		// Home state routing
 		$stateProvider.
-		state('home', {
-			url: '/',
+		state('dashboard', {
+			url: '/dashboard',
 			templateUrl: 'modules/core/views/home.client.view.html'
 		}).
 		state('system', {
@@ -20,7 +20,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 			url: '/mongobackup',
 			templateUrl: 'modules/core/views/mongobackup.client.view.html'
 		}).state('index', {
-			url: '/index',
+			url: '/',
 			templateUrl: 'modules/core/views/intro.client.view.html'
 		});
 	}
