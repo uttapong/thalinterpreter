@@ -33,6 +33,29 @@ var mongoose = require('mongoose'),
 	});
 };
 
+exports.delete = function(req, res) {
+	var upload = req.upload ;
+
+	upload.remove(function(err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(upload);
+		}
+	});
+};
+
+exports.uploadByID = function(req, res, next, id) {
+	Upload.findById(id).populate('user', 'displayName').exec(function(err, upload) {
+		if (err) return next(err);
+		if (! upload) return next(new Error('Failed to load Typing ' + id));
+		req.upload = upload ;
+		next();
+	});
+};
+
 exports.listFalse = function(req, res, next, uploadid) {
 //	res.json(uploadid);
 var results={};

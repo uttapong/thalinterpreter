@@ -23,7 +23,8 @@ exports.create = function(req, res) {
 	});*/
 
 	typing.user = req.user;
-	typing.interprete_code=thal.interprete(typing,'single');
+	var interprete_result=thal.interprete(typing,'single');
+	typing.interprete_code=interprete_result.result;
 
 	ResultMap.findOne({ 'code':  typing.interprete_code },function(error,code_doc){
 		if(error) {

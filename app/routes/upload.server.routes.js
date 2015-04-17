@@ -26,6 +26,17 @@ var typing_dir=multer({ dest: './uploads/',
 		  }
 	});
 
+/*	app.route('/batchupload')
+		.get(upload.list)
+		.post(users.requiresLogin, upload.create);
+
+	app.route('/batchupload/:uploadId')
+		.get(users.requiresLogin,upload.read)
+	//	.put(users.requiresLogin, upload.hasAuthorization, upload.update)
+		.delete(users.requiresLogin, upload.hasAuthorization, upload.delete);
+
+app.param('uploadId', upload.uploadByID);*/
+
 
 app.route('/batchupload')
 		.get(users.requiresLogin,upload.list)
