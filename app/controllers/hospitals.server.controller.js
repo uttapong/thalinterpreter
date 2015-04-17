@@ -16,8 +16,7 @@ exports.create = function(req, res) {
 
 	hospital.user = req.user;
 
-
-	hospital.save(function(err) {	
+	hospital.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 
@@ -75,7 +74,7 @@ exports.delete = function(req, res) {
 /**
  * List of Hospitals
  */
-exports.list = function(req, res) { 
+exports.list = function(req, res) {
 	Hospital.find().sort('-created').populate('user', 'displayName').exec(function(err, hospitals) {
 		if (err) {
 			return res.status(400).send({
@@ -90,7 +89,7 @@ exports.list = function(req, res) {
 /**
  * Hospital middleware
  */
-exports.hospitalByID = function(req, res, next, id) { 
+exports.hospitalByID = function(req, res, next, id) {
 	Hospital.findById(id).populate('user', 'displayName').exec(function(err, hospital) {
 		if (err) return next(err);
 		if (! hospital) return next(new Error('Failed to load Hospital ' + id));
