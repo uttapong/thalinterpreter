@@ -3,6 +3,16 @@
 angular.module('users').controller('SettingsController', ['$scope', '$http', '$location', 'Users', 'Authentication','Hospitals','SweetAlert',
 	function($scope, $http, $location, Users, Authentication,Hospitals,sweet) {
 		$scope.user = Authentication.user;
+		$scope.devicechoice = [{
+					id: 'HPLC_LPLC',
+					label: 'HPLC, LPLC',
+					subItem: { name: 'HPLC, LPLC' }
+				}, {
+					id: 'CE',
+					label: 'CE',
+					subItem: { name: 'CE' }
+				}];
+		$scope.device=$scope.devicechoice[0];
 
 		// If user is not signed in then redirect back home
 		if (!$scope.user) $location.path('/');
@@ -57,6 +67,7 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 				$scope.success = $scope.error = null;
 				var user = new Users($scope.user);
 				user.hospital=$scope.hospital._id;
+				user.device=$scope.device.id;
 
 				user.$update(function(response) {
 					//$scope.success = true;

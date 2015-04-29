@@ -78,6 +78,15 @@ var UserSchema = new Schema({
 	updated: {
 		type: Date
 	},
+	hospital: {
+		type: Schema.ObjectId,
+		ref: 'Hospital'
+	},
+	device: {
+		type: String,
+		trim:true,
+		required: 'Please specify type of device.'
+	},
 	created: {
 		type: Date,
 		default: Date.now

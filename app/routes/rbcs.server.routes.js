@@ -9,6 +9,9 @@ module.exports = function(app) {
 		.get(rbcs.list)
 		.post(users.requiresLogin, rbcs.create);
 
+	app.route('/rbcs_by_machine')
+			.post(rbcs.list);
+
 	app.route('/rbcs/:rbcId')
 		.get(rbcs.read)
 		.put(users.requiresLogin, rbcs.hasAuthorization, rbcs.update)

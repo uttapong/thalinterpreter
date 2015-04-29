@@ -74,7 +74,6 @@ Typing.aggregate(
                       //console.log(res);
                       result.monthly=obj2;
 
-
                       User.count({ }, function (err, usercount) {
                        result.usercount=usercount;
                        Hospital.count({ }, function (err, hpcount) {
@@ -93,9 +92,6 @@ Typing.aggregate(
                       });
                       //res.jsonp(obj);
                     });
-
-
-
            //res.jsonp(obj);
          });
 

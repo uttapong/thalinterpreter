@@ -72,22 +72,37 @@ exports.delete = function(req, res) {
 /**
  * List of Rbcs
  */
-exports.list = function(req, res) { 
-	Rbc.find().sort('-created').populate('user', 'displayName').exec(function(err, rbcs) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(rbcs);
-		}
-	});
+exports.list = function(req, res) {
+	if(req.body.device=='CE')
+	{
+		Rbc.find({name:{'$ne':'a2e'}}).sort('-created').populate('user', 'displayName').exec(function(err, rbcs) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+				res.jsonp(rbcs);
+			}
+		});
+	}
+	else{
+		Rbc.find({name:{'$nin':['hbe','a2']}}).sort('-created').populate('user', 'displayName').exec(function(err, rbcs) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+				res.jsonp(rbcs);
+			}
+		});
+
+	}
 };
 
 /**
  * Rbc middleware
  */
-exports.rbcByID = function(req, res, next, id) { 
+exports.rbcByID = function(req, res, next, id) {
 	Rbc.findById(id).populate('user', 'displayName').exec(function(err, rbc) {
 		if (err) return next(err);
 		if (! rbc) return next(new Error('Failed to load Rbc ' + id));

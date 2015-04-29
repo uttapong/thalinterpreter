@@ -13,7 +13,17 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 			  label: 'Female',
 			  subItem: { name: 'Female' }
 			}];
+		$scope.devicechoice = [{
+				  id: 'Male',
+				  label: 'Male',
+				  subItem: { name: 'Male' }
+				}, {
+				  id: 'Female',
+				  label: 'Female',
+				  subItem: { name: 'Female' }
+				}];
 		$scope.gender=$scope.genderchoice[0];
+		$scope.device=$scope.devicechoice[0];
 
 
 		//pagination setting
@@ -185,7 +195,7 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 			$scope.getRBC();
 		};
 		$scope.getRBC=function(){
-			$scope.rbcs=$http.get('/rbcs').
+			$scope.rbcs=$http.post('/rbcs_by_machine',{device:$scope.authentication.user.device}).
 		  success(function(data, status, headers, config) {
 				$scope.rbcs=data;
 			/*	for(i=0;i<data.length;i++){
@@ -258,10 +268,23 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 
 
 		};
+		$scope.getTypingParams=function(device,relive){
+			var typing={};
+			if(!relive)typing=$scope.typingdata;
+			else typing=$scope.typing.typing;
 
+			console.log(typing);
+			if(device==='CE')
+				return {dcip:typing.dcip,hb:typing.hb,mcv:typing.mcv,a:typing.a,a2:typing.a2,hbe:typing.hbe,hbcs:typing.hbcs,bart_h:typing.bart_h};
+			else
+				return {dcip:typing.dcip,hb:typing.hb,mcv:typing.mcv,a:typing.a,a2e:typing.a2e,hbcs:typing.hbcs,bart_h:typing.bart_h};
+		}
 
 		$scope.livecheck=function(){
-			$http.post('/typings/live',{dcip:$scope.typingdata.dcip,hb:$scope.typingdata.hb,mcv:$scope.typingdata.mcv,a:$scope.typingdata.a,a2:$scope.typingdata.a2,hbe:$scope.typingdata.hbe,hbcs:$scope.typingdata.hbcs,bart_h:$scope.typingdata.bart_h}).
+
+
+
+			$http.post('/typings/live',$scope.getTypingParams($scope.authentication.user.device,false)).
 		    success(function(data, status, headers, config) {
 		      $scope.liveresult = data.code;
 					$scope.suggestions=data.suggestion;
@@ -273,7 +296,7 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 		};
 
 		$scope.relivecheck=function(){
-			$http.post('/typings/live',{dcip:$scope.typing.typing.dcip,hb:$scope.typing.typing.hb,mcv:$scope.typing.typing.mcv,a:$scope.typing.typing.a,a2:$scope.typing.typing.a2,hbe:$scope.typing.typing.hbe,hbcs:$scope.typing.typing.hbcs,bart_h:$scope.typing.typing.bart_h}).
+			$http.post('/typings/live',$scope.getTypingParams($scope.authentication.user.device,true)).
 		    success(function(data, status, headers, config) {
 		      $scope.liveresult = data.code;
 					$scope.suggestions=data.suggestion;

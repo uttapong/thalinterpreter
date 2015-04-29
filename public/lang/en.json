@@ -138,7 +138,9 @@
   "NO_SUGGESTION":"No Suggestions yet?",
   "EDIT_SUGGESTION":"Edit Suggestion",
   "NEW_SUGGESTION":"New Suggestion",
-  "OTHER_POSSIBLE_TYPING":"Other possible results"
+  "OTHER_POSSIBLE_TYPING":"Other possible results",
+
+  "ANALYZED_MACHINE":"Anylyzed Machine"
 
 
 
