@@ -21,7 +21,15 @@ angular.module('typings').factory('PageTypings', ['$resource','$http',
 						method: 'POST',
 						data:{page:page,perpage:perpage}
 				});
-		}
+		},
+		search : function(page,perpage,keyword) {
+				return $http({
+						url: 'searchtypings/',
+						method: 'POST',
+						data:{page:page,perpage:perpage,keyword:keyword}
+				});
+		},
+
 	};
 	}
 ]);

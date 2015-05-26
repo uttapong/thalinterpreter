@@ -13,6 +13,18 @@ angular.module('uploads').factory('Uploads', ['$resource',
 	}
 ]);
 
+angular.module('uploads').factory('UploadsService', ['$resource',
+	function($resource) {
+		return $resource('upload/:id', {
+			uploadId: '@_id'
+		}, {
+			update: {
+				method: 'PUT'
+			}
+		});
+	}
+]);
+
 angular.module('uploads').factory('Typings', ['$resource','$http',
 
 	function($resource,$http) {

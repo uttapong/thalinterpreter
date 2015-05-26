@@ -111,6 +111,10 @@ var TypingSchema = new Schema({
 		type: Schema.ObjectId,
 		ref:'Upload'
 	},
+	device:{
+		type:String,
+		required: 'Device cannot be blank'
+	},
 	typing:
 		{
 			type:Schema.Types.Mixed,

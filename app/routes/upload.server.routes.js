@@ -36,11 +36,12 @@ var typing_dir=multer({ dest: './uploads/',
 		.delete(users.requiresLogin, upload.hasAuthorization, upload.delete);
 
 app.param('uploadId', upload.uploadByID);*/
-
-
 app.route('/batchupload')
-		.get(users.requiresLogin,upload.list)
-		.post(typing_dir,users.requiresLogin, upload.create);
+.get(users.requiresLogin,upload.list)
+.post(typing_dir,users.requiresLogin, upload.create);
+
+app.route('/batchupload/:id')
+		.delete(users.requiresLogin, upload.hasAuthorization, upload.delete);
 
 app.route('/uploadresults/:uploadid')
 				.get(users.requiresLogin,upload.listFalse);
@@ -51,6 +52,7 @@ app.route('/reinterprete/:reinterpreteid')
 	app.param('uploadid', upload.listFalse);
 
 	app.param('reinterpreteid', upload.reInterprete);
+	app.param('id', upload.uploadByID);
 	// Finish by binding the Resultmap middleware
 	//app.param('resultmapId', resultmaps.resultmapByID);
 };

@@ -65,6 +65,7 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 				typingid: this.typingid,
 				gender: this.gender.id,
 				age: this.age,
+				device: $scope.authentication.user.device,
 				typing: this.typingdata
 			/*	dcip: this.dcip,
 				hb:this.hb,
@@ -75,8 +76,6 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 				hbcs:this.hbcs,
 				bart_h:this.bart_h*/
 			});
-
-
 
 
 			// Redirect after save
@@ -134,17 +133,56 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 
 		};
 
+		$scope.search = function() {
+		PageTypings.search($scope.currentPage,$scope.perPage,$scope.keyword).success(function(data,status,header,config){
+			console.log(data);
+			$scope.typingslist=data.typings;
+			$scope.totalItems=data.count;
+			//$scope.numPages=Math.ceil($scope.totalItems/$scope.perPage);
+			//console.log($scope.numPages);
+		});
+
+
+		};
+
+		$scope.findbydate = function() {
+			var date=$stateParams.date;
+			var month= $stateParams.month;
+			var year=$stateParams.year;
+			$scope.currentdate=new Date(year,month-1,date);
+			$http({
+					url: '/typingsbydate',
+					method: 'POST',
+					data: {page:$scope.currentPage,perpage:$scope.perPage,date:date, month:month, year:year}
+			}).success(function(data){
+				//console.log(data);
+				$scope.typingslist=data.typings;
+				$scope.totalItems=data.count;
+			});
+	/*	PageTypings.getResults($scope.currentPage,$scope.perPage).success(function(data,status,header,config){
+			console.log(data);
+			$scope.typingslist=data.typings;
+			$scope.totalItems=data.count;
+			//$scope.numPages=Math.ceil($scope.totalItems/$scope.perPage);
+			//console.log($scope.numPages);
+		});*/
+
+
+		};
+
 		// Find existing Typing
 		$scope.findOne = function() {
 			Typings.get({
 				typingId: $stateParams.typingId
 			},function(typing){
 				$scope.typing = typing;
-				$scope.livecheck();
+				console.log(typing.typing);
+				$scope.getRBC(typing);
+
 				//console.log($scope.typing);
 			});
 
-			$scope.getRBC();
+
 
 			$scope.printurl = $sce.trustAsResourceUrl('/printview/'+$stateParams.typingId);
 
@@ -161,6 +199,11 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 			});*/
 			$http({url:'/typingreport/'+$stateParams.typingId}).success(function(data){
 				$scope.typing=data.typing;
+
+				var alpha_arr=['ALPHA_THAL_2','ALPHA_THAL1_TRAIT','Hb_H','Hb_H_CS','HB_HOMO_CS','HB_CS'];
+				//console.log($scope.typing.interprete_code);
+				$scope.isalpha=alpha_arr.indexOf($scope.typing.interprete_code)!==-1?true:false;
+				console.log($scope.isalpha);
 				$scope.suggestions=[];
 				$scope.warnings=[];
 				angular.forEach(data.suggestion,function(value,key){
@@ -187,6 +230,7 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 			$scope.typing = Typings.get({
 				typingId: $stateParams.typingId
 			});
+
 		};
 
 
@@ -194,14 +238,14 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 			$scope.resultmaps=ResultMap.query();
 			$scope.getRBC();
 		};
-		$scope.getRBC=function(){
-			$scope.rbcs=$http.post('/rbcs_by_machine',{device:$scope.authentication.user.device}).
+		$scope.getRBC=function(typing){
+			$scope.rbcs=$http.post('/rbcs_by_machine',{device:typing.device}).
 		  success(function(data, status, headers, config) {
 				$scope.rbcs=data;
 			/*	for(i=0;i<data.length;i++){
 					$scope.typingdata.push(data[i].name);
 				}*/
-
+				$scope.livecheck();
 				console.log(data);
 		  }).
 		  error(function(data, status, headers, config) {
@@ -306,6 +350,8 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 		      console.log('error');
 		    });
 		};
+
+
 
 		/*$scope.callPage = function callServer(tableState) {
 			var ctrl={};

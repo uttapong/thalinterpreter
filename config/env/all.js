@@ -18,10 +18,12 @@ module.exports = {
 				'public/lib/morrisjs/morris.css',
 				'public/lib/sweetalert/lib/sweet-alert.css',
 				'public/lib/angular-loading-bar/build/loading-bar.css',
-				'public/lib/angular-chart.js/dist/angular-chart.css'
+				'public/lib/angular-chart.js/dist/angular-chart.css',
+				'public/lib/fullcalendar/fullcalendar.css',
 			],
 			js: [
 				'public/lib/jquery/dist/jquery.min.js',
+				'public/lib/moment/min/moment.min.js',
 				'public/lib/angular/angular.js',
 				'public/lib/bootstrap/dist/js/bootstrap.min.js',
 				'public/lib/angular-resource/angular-resource.js',
@@ -46,8 +48,10 @@ module.exports = {
 				'public/lib/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js',
 				'public/lib/chartjs/Chart.min.js',
 				'public/lib/angular-chart.js/dist/angular-chart.min.js',
-				'public/lib/cryptojslib/rollups/md5.js'
-
+				'public/lib/cryptojslib/rollups/md5.js',
+				'public/lib/angular-ui-calendar/src/calendar.js',
+				'public/lib/fullcalendar/fullcalendar.min.js',
+				'public/lib/fullcalendar/gcal.js'
 
 			]
 		},

@@ -8,8 +8,15 @@
 
 <div class="row" collapse="isCollapsed" id="addFile" style="margin-top: 20px;">
 	<div class="col-xs-12" style="background-color: #f8f8f8;border-radius: 5px;">
-	<form class="form-inline" data-ng-submit="uploadFile()" method="post" enctype="multipart/form-data" >
+	<form class="form-inline" data-ng-submit="uploadFile()" method="post" enctype="multipart/form-data" style="padding:15px;" >
 
+  <div class="row">
+    <div class="form-group">
+        <label for="name">{{ 'SYSTEM_NAME' | translate }}</label>
+
+            <select class="form-control" ng-options="item.label for item in systemchoice track by item.id" ng-model="system">
+            </select>
+    </div>
 	<div class="form-group">
 		<label for="exampleInputEmail1">{{ 'INTERPRETATION_NAME' | translate }}</label>
 		<input class="form-control" type="text" name="title"  data-ng-model="title" placeholder="{{ 'INTERPRETATION_NAME' | translate }}" required/>
@@ -18,7 +25,8 @@
     <label for="exampleInputEmail1">{{ 'INTERPRETATION_DETAIL' | translate }}</label>
 		<input class="form-control" type="text" name="note"  data-ng-model="note" placeholder="{{ 'INTERPRETATION_DETAIL' | translate }}" required/>
 	</div>
-
+</div>
+<div class="row">
 	<div class="form-group">
 
 		<label for="exampleInputEmail1">{{ 'FILE_UPLOAD' | translate }}</label>
@@ -31,6 +39,7 @@
    <span ng-bind="uploadProgress"></span>
     <span class="sr-only">%</span>
   </div>
+</div>
 </div>
 
 	</form>
@@ -60,7 +69,7 @@
         <td><span class="label label-default">{{upload.status}}</span></td>
         <td><button ng-click="reinterprete(upload._id);" class='btn btn-xs btn-info'><i class="fa fa-retweet"></i> {{ 'RE_INTERPRETE' | translate }}</a></td>
         <td><a class="btn btn-xs btn-warning" href="/#!/uploads/{{upload._id}}"><i class="glyphicon glyphicon-question-sign"></i></a></td>
-        <td><button class='btn btn-xs btn-danger'><i class="fa fa-times"></i></button></td>
+        <td><button data-ng-click="confirmRemove(upload);" class='btn btn-xs btn-danger'><i class="fa fa-times"></i></button></td>
 	</tr>
 	</tbody>
 <tfoot>

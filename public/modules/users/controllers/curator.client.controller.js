@@ -38,6 +38,21 @@ angular.module('users').controller('CuratorController', ['$scope', '$http', '$lo
 			});
 		};
 
+		$scope.searchCurator = function() {
+			$http.post('/searchcurator',{searchName:$scope.curator.searchName} ).success(function(response) {
+				// If successful we assign the response to the global user model
+			//	$scope.authentication.user = response;
+
+
+			// Clear form fields
+			//$scope.curator.searchName = '';
+
+			$scope.searchResult=response;
+			}).error(function(response) {
+				$scope.error = response.message;
+			});
+		};
+
 		$scope.findHospitals = function() {
 			 Hospitals.query(function(data){
 				$scope.hospitals =data;
@@ -59,5 +74,37 @@ angular.module('users').controller('CuratorController', ['$scope', '$http', '$lo
 				$scope.error = response.message;
 			});
 		};
+
+		$scope.addFromList=function(userid){
+			console.log(userid);
+
+			$http.post('/addcuratorfromlist', {id:userid}).success(function(response) {
+				// If successful we assign the response to the global user model
+			//	$scope.authentication.user = response;
+
+				// And redirect to the index page
+			$location.path('/signupcurator');
+			$scope.find();
+			}).error(function(response) {
+				$scope.error = response.message;
+			});
+
+		}
+
+		$scope.removeCurator=function(userid){
+			console.log(userid);
+
+			$http.post('/removecurator', {id:userid}).success(function(response) {
+				// If successful we assign the response to the global user model
+			//	$scope.authentication.user = response;
+
+				// And redirect to the index page
+			$location.path('/signupcurator');
+			$scope.find();
+			}).error(function(response) {
+				$scope.error = response.message;
+			});
+
+		}
 	}
 ]);

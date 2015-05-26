@@ -9,6 +9,10 @@ angular.module('typings').config(['$stateProvider',
 			url: '/typings',
 			templateUrl: 'modules/typings/views/list-typings.client.view.html'
 		}).
+		state('listTypingsByDate', {
+			url: '/typingsdate/:date/:month/:year',
+			templateUrl: 'modules/typings/views/list-typings-date.client.view.html'
+		}).
 		state('createTyping', {
 			url: '/typings/create',
 			templateUrl: 'modules/typings/views/create-typing.client.view.html'

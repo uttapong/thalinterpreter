@@ -19,7 +19,8 @@ var ApplicationConfiguration = (function() {
 	'smart-table',
 	'angular-loading-bar',
 	'pascalprecht.translate',
-	'chart.js'];
+	'chart.js',
+	'ui.calendar'];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {

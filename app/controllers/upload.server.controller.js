@@ -42,9 +42,27 @@ exports.delete = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(upload);
+
+			Typing.remove({upload:upload._id},function(err2) {
+				if (err2) {
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				} else {
+
+					res.jsonp(upload);
+				}
+			});
+
 		}
 	});
+};
+
+exports.hasAuthorization = function(req, res, next) {
+	if (req.upload.user.id !== req.user.id && _.indexOf(req.upload.user.roles,'admin')!==-1) {
+		return res.status(403).send('User is not authorized');
+	}
+	next();
 };
 
 exports.uploadByID = function(req, res, next, id) {
@@ -236,6 +254,7 @@ exports.create = function (req, res, next) {
 
 					    var typing=new Typing();
 							var typingdata={};
+							typing.device=upload.device;
 					    typing.typingid=output[0];
 							typing.gender=output[1];
 							typing.age=output[2];

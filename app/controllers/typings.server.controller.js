@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
 	Typing = mongoose.model('Typing'),
 	ResultMap = mongoose.model('ResultMap'),
 	Suggestion=mongoose.model('Suggestion'),
+	Upload=mongoose.model('Upload'),
 	thal=require('thal-interpreter'),
 	mongoosePaginate = require('mongoose-paginate'),
 	_ = require('lodash');
@@ -146,6 +147,48 @@ exports.list = function(req, res) {
 
 		}
 	});
+};
+
+exports.search = function(req, res) {
+	console.log(req.body);
+	var keyword=req.body.keyword;
+	var page=req.body.page || 1;
+	var perpage=req.body.perpage || 10;
+	Typing.find({typingid: { $regex : new RegExp(keyword,'i') } }).sort('-created').populate('user', 'displayName').skip(page*perpage-perpage).limit(perpage).exec(function(err, typings) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			Typing.count({},function(err,count){
+				res.jsonp({typings:typings,count:count});
+			});
+
+		}
+	});
+};
+
+
+exports.listbydate = function(req, res) {
+	console.log(req.body);
+	var page=req.body.page || 1;
+	var perpage=req.body.perpage || 10;
+	var qDate=new Date(req.body.year,parseInt(req.body.month)-1,req.body.date);
+	console.log(qDate);
+	var qDateAfter=new Date(req.body.year,parseInt(req.body.month)-1,parseInt(req.body.date)+1);
+	console.log(qDateAfter);
+	Typing.find({"created":{"$gte":qDate,"$lt":qDateAfter}}).sort('-created').populate('user', 'displayName').skip(page*perpage-perpage).limit(perpage).exec(function(err, typings) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			Typing.count({},function(err,count){
+				res.jsonp({typings:typings,count:count});
+			});
+
+		}
+	});
 //	Typing.find(function(err,doc){ });
 	/*Typing.paginate=mongoosePaginate;
 	Typing.paginate({}, req.body.page, req.body.perpage, function(error, pageCount, paginatedResults, itemCount) {
@@ -227,7 +270,7 @@ exports.typingimage = function (req, res, next) {
 exports.printview=function(req,res,next){
 
 
-	Typing.findById(req.params.id).populate('user', 'displayName').populate('resultmap','code results color comment').exec(function(err, typing) {
+	Typing.findById(req.params.printid).populate('user', 'displayName').populate('resultmap','code results color comment').exec(function(err, typing) {
 		if (err) return next(err);
 		if (!typing) return next(new Error('Failed to load Typing ' + req.params.id));
 		console.log(typing.typing);
@@ -280,3 +323,93 @@ exports.pdfreport=function(req,res,next,id){
 	});*/
 
 };
+
+exports.typingbycalendar=function(req,res,next){
+	var result={};
+	console.log( typeof req.params.month);
+	console.log(typeof req.params.year);
+	var param_month=parseInt(req.params.month);
+	var param_year=parseInt(req.params.year);
+	var startDate=new Date(param_year,param_month-1,1);
+	var endDate=new Date(param_year,param_month,1);
+
+	console.log(startDate);
+	var typingsarr={};
+	var uploadsarr={};
+	var result={};
+	Typing.find({"created":{"$gte":startDate,"$lt":endDate}},{'created':1,_id:0}).exec(function(err, typings) {
+		if (err) {
+		res.jsonp({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			for(var i=0;i<typings.length;i++){
+				var date=typings[i].created.getDate();
+				if(typingsarr[String(date)])typingsarr[String(date)]++;
+				else typingsarr[String(date)]=1
+			}
+				result.typing=typingsarr;
+
+				Upload.find({"created":{"$gte":startDate,"$lt":endDate}},{'created':1,_id:0}).exec(function(err, uploads) {
+					if (err) {
+					res.jsonp({
+							message: errorHandler.getErrorMessage(err)
+						});
+					} else {
+						for(var i=0;i<uploads.length;i++){
+							var date=uploads[i].created.getDate();
+							if(uploadsarr[String(date)])uploadsarr[String(date)]++;
+							else uploadsarr[String(date)]=1
+						}
+							result.upload=uploadsarr;
+							res.jsonp(result);
+
+
+					}
+				});
+
+
+		}
+	});
+}
+/*
+
+{id: 999,title: 'Repeating Event',start: new Date(y, m, d - 3, 16, 0),allDay: false}
+{
+$project:{
+	day:{$dayOfMonth:"$created"},
+	month:{$month:"$created"},
+	year:{$year:"$created"}
+}
+},
+		{ $group : {
+				_id : { date: '$day',  'count' : { $sum : 1 } },
+				dailyusage: { $push: { day: '$_id.day', count: '$count' }}
+				}
+		},{ $match:{
+			month:{$eq:req.params.month},
+			year:{$eq:req.params.year}
+		}
+		}
+*/
+
+/*
+{
+$project:{
+	day:{$dayOfMonth:"$created"},
+	month:{$month:"$created"},
+	year:{$year:"$created"},
+
+
+}
+},
+{ $group : {
+	_id :  {$dayOfMonth:"$created"},  count : { $sum : 1 }
+	}
+},
+	{ $match:{
+			month:param_month,
+			year:param_year
+		}
+		}
+*/

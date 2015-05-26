@@ -36,17 +36,26 @@ module.exports = function(app) {
 		.post(typings.liveinterprete);
 	app.route('/pagetypings')
 			.post(typings.list);
+			
+	app.route('/searchtypings')
+					.post(typings.search);
 	// Finish by binding the Typing middleware
 	app.param('typingId', typings.typingByID);
 
 	app.route('/uploadimagetyping')
 			.post(typing_dir,users.requiresLogin, typings.typingimage);
 
-	app.route('/printview/:id')
+	app.route('/printview/:printid')
 					.get(users.requiresLogin,typings.printview);
 
 	app.param('pdfreport',typings.pdfreport);
 
 	app.route('/typingreport/:printid').get(users.requiresLogin,typings.typingreport);
+
+	app.route('/typingcalendar/:month/:year')
+		.get(typings.typingbycalendar);
+
+	app.route('/typingsbydate')
+			.post(typings.listbydate);
 
 };

@@ -1,8 +1,21 @@
 <div class="row" data-ng-controller="TypingsController" ng-init="find()">
     <div class="page-header">
-        <h1>{{ 'TYPING_DATA' | translate }} <a    class="btn btn-info" ui-sref="createTyping" style="float:right"><i class="fa fa-plus fa-lg"></i> {{ 'ADD_TYPING' | translate }} </a></h1>
+        <h1>{{ 'TYPING_DATA' | translate }}
+
+          <a    class="btn btn-info" ui-sref="createTyping" style="float:right"><i class="fa fa-plus fa-lg"></i> {{ 'ADD_TYPING' | translate }} </a></h1>
     </div>
+    <div id="custom-search-input" style="margin-bottom: 15px;">
+                      <div class="input-group col-xs-4">
+                          <input type="text" class="  search-query form-control" ng-model="keyword" placeholder="Typing ID" ng-change='search()' />
+                          <span class="input-group-btn">
+                              <button class="btn btn-info" type="button">
+                                  <span class=" glyphicon glyphicon-search"></span>
+                              </button>
+                          </span>
+                      </div>
+                  </div>
     <pre>{{ 'PAGE' | translate }}: {{currentPage}} / {{numPages}}</pre>
+
 
 
     <div class="alert alert-warning text-center" data-ng-hide="!typings.$resolved || typings.length">

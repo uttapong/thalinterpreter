@@ -1,0 +1,51 @@
+<div class="row" data-ng-controller="TypingsController" ng-init="findbydate()">
+    <div class="page-header">
+        <h1>{{ 'TYPING_DATA' | translate }} on {{currentdate| date}}
+
+          
+          <a    class="btn btn-info" ui-sref="createTyping" style="float:right">
+          <i class="fa fa-plus fa-lg"></i> {{ 'ADD_TYPING' | translate }} </a></h1>
+    </div>
+    <pre>{{ 'PAGE' | translate }}: {{currentPage}} / {{numPages}}</pre>
+
+
+    <div class="alert alert-warning text-center" data-ng-hide="!typings.$resolved || typings.length">
+      {{ 'NO_TYPING_YET' | translate }} <a href="/#!/typings/create">{{ 'ADD_TYPING' | translate }}</a>?
+    </div>
+    <div class="col-xs-12 text-center">
+
+    <pagination total-items="totalItems" items-per-page="perPage" ng-model="currentPage" max-size="maxSize" ng-change="setPage(currentPage)" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages"></pagination>
+
+    </div>
+    <div class="col-xs-12">
+    <table class="table-striped table" >
+    <thead>
+    			<tr>
+    				<th>Typing ID</th>
+    				<th>{{ 'CREATED' | translate }}</th>
+            <th>{{ 'INTERPRETE_RESULT' | translate }}</th>
+            <th>{{ 'CLINICAL_RESULT' | translate }}</th>
+            <th>{{ 'SUBMITTER' | translate }}</th>
+    				<th>{{ 'VIEW' | translate }}</th>
+    			</tr>
+    			</thead>
+    <tbody>
+    	<tr ng-repeat="typing in typingslist">
+    		<td>{{typing.typingid}}</td>
+            <td>{{typing.created|date}}</td>
+            <td>{{typing.interprete_code}}</td>
+            <td>{{typing.clinical_result}}</td>
+            <td>{{typing.user.displayName}}</td>
+            <td><a data-ng-href="#!/typings/{{typing._id}}" class='btn btn-xs btn-info'><i class="fa fa-eye"></i> {{ 'DETAIL' | translate }}</a></td>
+    	</tr>
+    	</tbody>
+
+    </table>
+  </div>
+
+    <div class="col-xs-12 text-center">
+
+    <pagination total-items="totalItems" items-per-page="perPage" ng-model="currentPage" max-size="maxSize" ng-change="setPage(currentPage)" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages"></pagination>
+
+    </div>
+</div >

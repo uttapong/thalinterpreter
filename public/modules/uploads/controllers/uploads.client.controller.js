@@ -2,8 +2,8 @@
 //inject angular file upload directives and services.
 
 
-var uploadMod = angular.module('uploads').controller('UploadController', ['$http','$scope', '$stateParams', '$location', 'Authentication', 'Uploads', '$upload', 'SweetAlert','Typings',
-    function($http,$scope, $stateParams, $location, Authentication, Upload, $upload, sweet,typing) {
+var uploadMod = angular.module('uploads').controller('UploadController', ['$http','$scope', '$stateParams', '$location', 'Authentication', 'Uploads', '$upload', 'SweetAlert','Typings','UploadsService',
+    function($http,$scope, $stateParams, $location, Authentication, Upload, $upload, sweet,typing,uploadservice) {
         $scope.authentication = Authentication;
 
         $scope.dropzoneConfig = {
@@ -16,7 +16,16 @@ var uploadMod = angular.module('uploads').controller('UploadController', ['$http
         $scope.selectedFile = [];
         $scope.uploadProgress = 0;
         $scope.isCollapsed = true;
-
+        $scope.systemchoice = [{
+    				  id: 'LPLC,HPLC',
+    				  label: 'LPLC,HPLC',
+    				  subItem: { name: 'LPLC,HPLC' }
+    				}, {
+    				  id: 'CE',
+    				  label: 'CE',
+    				  subItem: { name: 'CE' }
+    				}];
+    		$scope.system=$scope.systemchoice[0];
 
         $scope.uploadFile = function() {
             var file = $scope.selectedFile[0];
@@ -26,6 +35,7 @@ var uploadMod = angular.module('uploads').controller('UploadController', ['$http
                 fields: {
                     title: $scope.title,
                     note: $scope.note,
+                    device:$scope.system.id,
                     filedir: 'hbtyping'
                 },
                 file: file
@@ -47,6 +57,7 @@ var uploadMod = angular.module('uploads').controller('UploadController', ['$http
                         function(inputElem) {
                             angular.element(inputElem).val(null);
                         });
+                    $scope.find();
 
                 });
                 $scope.isCollapsed = true;
@@ -84,6 +95,41 @@ var uploadMod = angular.module('uploads').controller('UploadController', ['$http
            console.log(data);
          });
        };
+       $scope.confirmRemove=function(upload){
+        sweet.swal({
+           title: "Are you sure?",
+           text: "This will remove the uploaded file and the conresponded typing profiles!",
+           type: "warning",
+           showCancelButton: true,
+           confirmButtonColor: "#DD6B55",
+           confirmButtonText: "Yes, delete it!",
+           closeOnConfirm: true},
+        function(){
+           $scope.remove(upload);
+        });
+       }
+       $scope.remove = function(upload) {
+   			if ( upload ) {
+   				upload.$remove(function(){
+             for (var i in $scope.typings) {
+     					if ($scope.typings [i] === upload) {
+
+     						$scope.typings.splice(i, 1);
+     					}
+     				}
+             $scope.find();
+            $location.path('uploads');
+
+           });
+
+
+
+   			} else {
+   				$scope.upload.$remove(function() {
+   					$location.path('uploads');
+   				});
+   			}
+   		};
 
     }
 ]);

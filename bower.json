@@ -18,6 +18,11 @@
     "angular-sweetalert": "latest",
     "angular-chart.js": "~0.6.0",
     "cryptojslib": "~3.1.2",
-    "angular-nl2br": "~1.0.3"
+    "angular-nl2br": "~1.0.3",
+    "angular-ui-calendar": "~0.8.1",
+    "moment": "~2.10.2"
+  },
+  "resolutions": {
+    "jquery": ">= 2.1.0"
   }
 }

@@ -1,6 +1,7 @@
 <section class="row" data-ng-controller="TypingsController" data-ng-init="findOne()">
     <div class="page-header">
         <h1>{{ 'EDIT_TYPING_DATA' | translate }}</h1>
+        <h3 >{{ 'ANALYZED_MACHINE' | translate }} :{{typing.device}}</h3>
     </div>
     <div class="col-xs-4">
         <form class="form-horizontal" data-ng-submit="update()" novalidate>

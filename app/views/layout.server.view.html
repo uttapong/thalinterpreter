@@ -59,7 +59,7 @@
 	</script>
 
 	<!--Application JavaScript Files-->
-	{% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %} 
+	{% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
 
 	{% if process.env.NODE_ENV === 'development' %}
 	<!--Livereload script rendered -->
@@ -68,4 +68,8 @@
 
 </body>
 
+
+<footer>
+	<div class='footer-container'><p>&copy; Copyright, Biostatistics and Bioinformatics Lab., BIOTEC <a target='_blank' href="http://www.freepik.com/free-photos-vectors/medical">Medical vector designed by Freepik</a></p></div>
+</footer>
 </html>

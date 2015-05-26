@@ -58,8 +58,10 @@ body{
 	table{
 		width: 100%;
 	}
+
 	th,td{
-		text-align:right;
+		text-align:left;
+    width: 8%;
 	}
 	.typingimage{
 		height: 150pt;
@@ -72,4 +74,9 @@ body{
 
 @page :right {
   margin-left: 1.5cm;
+}
+
+th,td{
+  text-align:left;
+  width: 8%;
 }

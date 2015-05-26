@@ -9,6 +9,8 @@ var _ = require('lodash'),
 	passport = require('passport'),
 	User = mongoose.model('User');
 
+
+	mongoose.set('debug', true);
 /**
  * Update user details
  */
@@ -65,5 +67,39 @@ exports.getcurators=function(req,res){
 			res.jsonp(curators);
 		}
 
+	});
+};
+
+exports.searchcurator = function(req, res) {
+	var name=req.body.searchName;
+	var reg_name=new RegExp(name,'i');
+	User.aggregate([
+		{$project:  {'fullname': {$concat:["$firstName",' ',"$lastName"]} , 'firstName':1,'email':1,'roles':1 }}
+		,{$match:	{ $or:[{firstName: { $regex : reg_name } }, {fullname : { $regex : reg_name} },{email:{ $regex : reg_name } } ] } }
+		,{$match:	{roles:{'$ne':'curator'}}  }
+		,{$limit: 5}],function(err,curators){
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(curators);
+		}
+
+	});
+};
+
+exports.removecurator = function(req, res) {
+	var userid=req.body.id;
+	User.update(
+		{_id:userid},{$pull:{roles:'curator'}},function(err,doc) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.json(doc);
+
+		}
 	});
 };

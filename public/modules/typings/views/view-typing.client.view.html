@@ -25,21 +25,15 @@
       </form>
     </div>
 
-
-    <small class="col-xs-12">
-      <em class="text-muted">
-        {{ 'POSTED_ON' | translate }}
-        <span data-ng-bind="typing.created | date:'mediumDate'"></span>
-        {{ 'BY' | translate }}
-        <span data-ng-bind="typing.user.displayName"></span>
-      </em>
-    </small>
     <div class="meta-typing">
       <p>{{ 'TYPING_ID' | translate }}: {{typing.typingid}}</p>
       <p>{{ 'SUBMITTED_DATE' | translate }}: {{typing.created|date}}</p>
       <p>{{ 'AGE' | translate }}: {{typing.age}}</p>
       <p>{{ 'GENDER' | translate }}: {{typing.gender}}</p>
+
     </div>
+    <div class='interprete_type alpha' ng-show="isalpha">&alpha;</div>
+    <div class='interprete_type beta' ng-hide="isalpha">&beta;</div>
     <div class="page-content col-xs-12">
 
       <table class="table-striped table col-xs-12">

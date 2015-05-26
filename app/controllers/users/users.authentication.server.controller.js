@@ -71,10 +71,32 @@ exports.addcurator = function(req, res) {
 			user.salt = undefined;
 
 			res.json(user);
-		
+
 		}
 	});
 };
+
+exports.addcuratorfromlist = function(req, res) {
+	// For security measurement we remove the roles from the req.body object
+	delete req.body.roles;
+
+	// Init Variables
+	var userid = req.body.id;
+
+	// Then save the user
+	User.update(
+		{_id:userid},{$push:{roles:'curator'}},function(err,doc) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.json(doc);
+
+		}
+	});
+};
+
 
 /**
  * Signin after passport authentication

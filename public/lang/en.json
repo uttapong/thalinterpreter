@@ -24,6 +24,8 @@
   "SIGN_UP":"Register",
   "FORGOR_PASSWORD?":"Forgot password?",
   "BACKUP_DB":"Backup Database",
+  "SYSTEM_NAME":"System",
+  "CALENDAR":"Calendar",
 
   "SEARCH":"Search...",
   "DASHBOARD":"Dashboard",
@@ -32,11 +34,11 @@
   "TYPING_DATA":"Hemoglobin Profile",
   "BATCH_UPLOAD":"Batch Upload",
   "HOSPITALS_DATA":"Hospitals Data",
-  "HEMO_DICTIONARY":"Interpretation Dictionary",
+  "HEMO_DICTIONARY":"Thalassemia Type Dictionary",
   "ADD_HEMOGLOBIN_TYPE":"Add New Dictionary",
-  "PARAMETER_DATA":"Parameters",
-  "PARAMETERS":"Parameters",
-  "CURATORS_DATA":"Online Experts",
+  "PARAMETER_DATA":"Input Parameters",
+  "PARAMETERS":"Input Parameters",
+  "CURATORS_DATA":"Expert list",
   "INTERPRETE_REPORT":"Interpreted Report",
   "STATISTICS_REPORT":"Statistical Report",
   "DISTRIBUTION":"Distribution Report",
@@ -103,9 +105,9 @@
   "CODE_NAME":"Code Name",
   "UPDATE":"Update",
 
-  "TYPING_PROFILE_TYPE":"Parameters",
-  "NEW_HEMO_PROFILE":"New Parameters",
-  "EDIT_TYPING_PROFILE_TYPE":"Edit Parameters",
+  "TYPING_PROFILE_TYPE":"Input Parameters",
+  "NEW_HEMO_PROFILE":"New Input Parameters",
+  "EDIT_TYPING_PROFILE_TYPE":"Edit Input Parameters",
   "NAME":"Name",
   "UNIT":"Unit",
   "MIN_VALUE":"Minimum Value",
@@ -114,7 +116,7 @@
 
   "USERNAME":" Profile",
   "MANAGE":"Name",
-  "ADD_CURATOR":"Add Curator",
+  "ADD_CURATOR":"Add Expert",
   "FIRSTNAME":"First Name",
   "LASTNAME":"Last Name",
   "EMAIL":"Email",
@@ -124,7 +126,7 @@
   "TYPINGDATA_COUNT":"Hemoglobin Profile",
   "HOSPITALS_COUNT":"Hospitals",
   "USERS_COUNT":"Users",
-  "CURATORS_COUNT":"Curators",
+  "CURATORS_COUNT":"Experts",
   "TYPING_STATISTICS_REPORT":"Hemoglobin Profile Statistics",
   "MONTHLY_REPORT":"Monthly Report",
   "VIEW_DETAILS":"View Detail",
@@ -140,8 +142,10 @@
   "NEW_SUGGESTION":"New Suggestion",
   "OTHER_POSSIBLE_TYPING":"Other possible results",
 
-  "ANALYZED_MACHINE":"Anylyzed Machine"
-
-
+  "ANALYZED_MACHINE":"Anylyzed Machine",
+  "MANUALLY_ADD_EXPERT": "Add manually",
+  "SEARCH_ADD_EXPERT":"Add by existed user",
+  "SEARCH_NAME":"Name/Full name/Email",
+  "REMOVE":"Remove"
 
 }

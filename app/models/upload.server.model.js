@@ -29,6 +29,10 @@ var UploadSchema = new Schema({
 		type: String,
 		required: 'File cannot be blank'
 	},
+	device:{
+		type:String,
+		required: 'Device cannot be blank'
+	},
 	status: {
 		type: String
 	},

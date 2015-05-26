@@ -57,4 +57,7 @@ module.exports = function(app) {
 
 	app.route('/curators').get(users.getcurators);
 	app.route('/addcurator').post(users.addcurator);
+	app.route('/addcuratorfromlist').post(users.addcuratorfromlist);
+	app.route('/searchcurator').post(users.searchcurator);
+	app.route('/removecurator').post(users.removecurator);
 };
