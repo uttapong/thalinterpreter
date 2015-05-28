@@ -44,6 +44,14 @@ angular.module('users').config(['$stateProvider',
 		state('signupcurator', {
 			url: '/signupcurator',
 			templateUrl: 'modules/users/views/authentication/signup-curator.client.view.html'
+		}).
+		state('curatorgroup', {
+			url: '/curatorgroup',
+			templateUrl: 'modules/users/views/authentication/curator-grouplist.client.view.html'
+		}).
+		state('editgroup', {
+			url: '/editgroup/:groupId/edit',
+			templateUrl: 'modules/users/views/authentication/curator-group.client.view.html'
 		});
 	}
 ]);

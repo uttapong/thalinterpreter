@@ -39,6 +39,7 @@
   "PARAMETER_DATA":"Input Parameters",
   "PARAMETERS":"Input Parameters",
   "CURATORS_DATA":"Expert list",
+  "CURATOR_GROUP":"Expert's Group",
   "INTERPRETE_REPORT":"Interpreted Report",
   "STATISTICS_REPORT":"Statistical Report",
   "DISTRIBUTION":"Distribution Report",
@@ -115,13 +116,14 @@
   "LABEL":"Label",
 
   "USERNAME":" Profile",
-  "MANAGE":"Name",
+  "MANAGE":"Tools",
   "ADD_CURATOR":"Add Expert",
   "FIRSTNAME":"First Name",
   "LASTNAME":"Last Name",
   "EMAIL":"Email",
   "USERNAME":"Username",
   "PASSWORD":"Password",
+  "MEMBER_COUNT": "Members",
 
   "TYPINGDATA_COUNT":"Hemoglobin Profile",
   "HOSPITALS_COUNT":"Hospitals",

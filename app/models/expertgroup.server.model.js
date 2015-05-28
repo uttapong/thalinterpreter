@@ -9,7 +9,7 @@ var mongoose = require('mongoose'),
 /**
  * Article Schema
  */
-var ArticleSchema = new Schema({
+var ExpertGroupSchema = new Schema({
 	created: {
 		type: Date,
 		default: Date.now
@@ -18,17 +18,18 @@ var ArticleSchema = new Schema({
 		type: String,
 		default: '',
 		trim: true,
-		required: 'Title cannot be blank'
+		required: 'Title cannot be blank',
+		unique: true
 	},
-	content: {
-		type: String,
-		default: '',
-		trim: true
-	},
+	members: [{
+		type: Schema.ObjectId,
+		ref: 'User',
+		unique:true
+	}],
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
 	}
 });
 
-mongoose.model('Article', ArticleSchema);
+mongoose.model('ExpertGroup', ExpertGroupSchema);

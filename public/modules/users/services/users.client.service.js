@@ -11,6 +11,16 @@ angular.module('users').factory('Users', ['$resource',
 	}
 ]);
 
+angular.module('users').factory('ExpertGroups', ['$resource',
+	function($resource) {
+		return $resource('expertgroups/:groupId', { groupId: '@_id'
+	},{	update: {
+				method: 'PUT'
+			}
+		});
+	}
+]);
+
 angular.module('users').factory('Curators', ['$resource',
 	function($resource) {
 		return $resource('curators/:userId', { userId: '@_id'

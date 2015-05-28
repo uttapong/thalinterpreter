@@ -138,7 +138,16 @@
                             <a ui-sref="listSuggestions"><i class="fa fa-comment"></i> {{ 'SUGGESTION' | translate }}</a>
                         </li>
                         <li>
-                            <a ui-sref="signupcurator"><i class="fa fa-user-md"></i> {{ 'CURATORS_DATA' | translate }}</a>
+                            <a href="#"><i class="fa fa-user-md"></i> {{ 'CURATORS_DATA' | translate }}<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                  <a ui-sref="signupcurator"><i class="fa fa-user-md"></i> {{ 'ADD_CURATOR' | translate }}</a>
+                                </li>
+
+                                <li>
+                                  <a ui-sref="curatorgroup"><i class="fa fa-users"></i> {{ 'CURATOR_GROUP' | translate }}</a>
+                                </li>
+                            </ul>
                         </li>
 
                             <!-- /.nav-second-level -->
