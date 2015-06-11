@@ -12,3 +12,15 @@ angular.module('core').factory('Gravatar', [
 		}
 	}
 ]);
+
+angular.module('core').factory('IsAdmin', ['$scope',
+
+	function IsAdminFactory() {
+		// Define a set of default roles
+		var roles=$scope.authentication.user.roles;
+		$scope.authentication.user.admin= roles.indexOf('admin')>=0?true:false;
+	/*	return function(email){
+			return avatarUrl+CryptoJS.MD5(email)+'?size='+avatarSize.toString();
+		}*/
+	}
+]);

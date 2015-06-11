@@ -11,7 +11,14 @@ var mongoose = require('mongoose'),
 	Upload=mongoose.model('Upload'),
 	thal=require('thal-interpreter'),
 	mongoosePaginate = require('mongoose-paginate'),
+	nodemailer=require('nodemailer'),
+	sendmailTransport = require('nodemailer-sendmail-transport'),
+//	transporter=nodemailer.createTransport(sendmailTransport()),
+	hbs = require('nodemailer-express-handlebars'),
+	smtpTransport = require('nodemailer-smtp-transport'),
 	_ = require('lodash');
+
+
 
 /**
  * Create a Typing
@@ -149,6 +156,8 @@ exports.list = function(req, res) {
 	});
 };
 
+
+
 exports.search = function(req, res) {
 	console.log(req.body);
 	var keyword=req.body.keyword;
@@ -224,6 +233,8 @@ exports.hasAuthorization = function(req, res, next) {
 exports.liveinterprete = function(req, res, next) {
 	//console.log(req);
 	var result=thal.interprete(req,'live');
+	if(result){
+
 	ResultMap.findOne({ 'code':  result.result },function(error,code_doc){
 		if(error) {
 		  console.log(error);
@@ -239,6 +250,8 @@ exports.liveinterprete = function(req, res, next) {
 
 		}
 		});
+	}
+	else res.jsonp({});
 
 };
 
@@ -372,6 +385,109 @@ exports.typingbycalendar=function(req,res,next){
 		}
 	});
 }
+
+exports.addadvice = function(req, res) {
+
+	// Init Variables
+	var typingid = req.body.typing_id;
+	var advice = mongoose.Types.ObjectId(req.body.advice);
+	var comment = req.body.comment;
+//	var userid = req.body.userid;
+
+	// Then save the user
+	Typing.update(
+		{_id:typingid},{$push:{suggest:{advice:advice,comment:comment,user:req.user._id}}},function(err,doc) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.json(doc);
+
+		}
+	});
+};
+
+exports.sendmail = function(req, res) {
+	var base_url = req.protocol + '://' + req.get('host') ;
+	console.log(base_url);
+	var transporter = nodemailer.createTransport(smtpTransport({
+    host: 'smtp.mailgun.org',
+	    port: 25,
+	    auth: {
+	        user: 'postmaster@www4a.biotec.or.th',
+	        pass: 'aac6cecca06dc7f47a91f66c728c9d15'
+	    }
+	}));
+
+
+	// Init Variables
+	var typingid = req.body.typing_id;
+	var members = req.body.members;
+	var members_emails='';
+
+	var html='<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml" style="font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; margin: 0; padding: 0;">'+
+	  '<head><meta name="viewport" content="width=device-width" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Request for Interpretation result</title></head>'+
+		'<body style="font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: none; width: 100% !important; height: 100%; line-height: 1.6; background-color: #f6f6f6; margin: 0; padding: 0;" bgcolor="#f6f6f6">'+
+		'<table class="body-wrap" style="font-family: Helvetica Neue, sans-serif; box-sizing: border-box; font-size: 14px; width: 100%; background-color: #f6f6f6; margin: 0; padding: 0;" bgcolor="#f6f6f6"><tr style="font-family: Helvetica Neue, sans-serif; box-sizing: border-box; font-size: 14px; margin: 0; padding: 0;"><td style="font-family: Helvetica Neue, sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0;" valign="top"></td>'+
+		'<td class="container" width="600" style="font-family: Helvetica Neue, sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; display: block !important; max-width: 600px !important; clear: both !important; width: 100% !important; margin: 0 auto; padding: 0;" valign="top">'+
+		'<div class="content" style="font-family: Helvetica Neue, sans-serif; box-sizing: border-box; font-size: 14px; max-width: 600px; display: block; margin: 0 auto; padding: 10px;">'+
+		'<table class="main" width="100%" cellpadding="0" cellspacing="0" style="font-family: Helvetica Neue, sans-serif; box-sizing: border-box; font-size: 14px; border-radius: 3px; background-color: #fff; margin: 0; padding: 0; border: 1px solid #e9e9e9;" bgcolor="#fff"><tr style="font-family: Helvetica Neue, sans-serif; box-sizing: border-box; font-size: 14px; margin: 0; padding: 0;"><td class="alert alert-warning" style="font-family: Helvetica Neue, sans-serif; box-sizing: border-box; font-size: 16px; vertical-align: top; color: #fff; font-weight: 500; text-align: center; border-radius: 3px 3px 0 0; background-color: #1A9BAB; margin: 0; padding: 20px;" align="center" bgcolor="#1A9BAB" valign="top">'+
+		'Thalassemia Interpreter,  Typing ID: '+typingid+
+							'</td>'+
+							'</tr><tr style="font-family: Helvetica Neue, sans-serif; box-sizing: border-box; font-size: 14px; margin: 0; padding: 0;"><td class="content-wrap" style="font-family: Helvetica Neue, sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 20px;" valign="top">'+
+							'<table width="100%" cellpadding="0" cellspacing="0" style="font-family: Helvetica Neue, sans-serif; box-sizing: border-box; font-size: 14px; margin: 0; padding: 0;"><tr style="font-family: Helvetica Neue, sans-serif; box-sizing: border-box; font-size: 14px; margin: 0; padding: 0;"><td class="content-block" style="font-family: Helvetica Neue, sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">'+
+							'<strong>An ambiguous result of Thalassemia interpretation found and we need your help!</strong>'+
+							'</td>'+
+							'</tr><tr style="font-family: Helvetica Neue, sans-serif; box-sizing: border-box; font-size: 14px; margin: 0; padding: 0;"><td class="content-block" style="font-family: Helvetica Neue, sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">'+
+							'Please kindly click the following link to suggest for an correct interpretation<br />'+
+							'</td>'+
+							'</tr><tr style="font-family: Helvetica Neue, sans-serif; box-sizing: border-box; font-size: 14px; margin: 0; padding: 0;"><td class="content-block" style="font-family: Helvetica Neue, sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">'+
+							'<a href="'+base_url+'/#!/advicetyping/'+typingid+'" class="btn-primary" style="font-family: Helvetica Neue, sans-serif; box-sizing: border-box; font-size: 14px; color: #FFF; text-decoration: none; line-height: 2; font-weight: bold; text-align: center; cursor: pointer; display: inline-block; border-radius: 5px; text-transform: capitalize; background-color: #1ABC9C; margin: 0; padding: 0; border-color: #1ABC9C; border-style: solid; border-width: 10px 20px;">Click Here!</a>'+
+							'</td>'+
+							'</tr><tr style="font-family: Helvetica Neue, sans-serif; box-sizing: border-box; font-size: 14px; margin: 0; padding: 0;"><td class="content-block" style="font-family: Helvetica Neue, sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">'+
+							'	<p>	Thank you for your help.</p>'+
+							' <p>Thalassemia Interpreter Admin</p>'+
+							'</td>'+
+							'</tr></table></td>'+
+							'</tr></table><div class="footer" style="font-family: Helvetica Neue, sans-serif; box-sizing: border-box; font-size: 14px; width: 100%; clear: both; color: #999; margin: 0; padding: 20px;">'+
+							'<table width="100%" style="font-family: Helvetica Neue, sans-serif; box-sizing: border-box; font-size: 14px; margin: 0; padding: 0;"><tr style="font-family: Helvetica Neue, sans-serif; box-sizing: border-box; font-size: 14px; margin: 0; padding: 0;"><td class="aligncenter content-block" style="font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 12px; vertical-align: top; text-align: center; margin: 0; padding: 0 0 20px;" align="center" valign="top">&copy; Copyright, Biostatistics and Bioinformatics Lab., Genome Technology Research Unit, BIOTEC, NSTDA, Thailand</td>'+
+							'</tr></table></div></div>'+
+							'</td>'+
+							'<td style="font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0;" valign="top"></td>'+
+							'</tr></table></body>'+
+							'</html>';
+	//console.log(members);
+	for(var i=0;i<members.length;i++){
+		//console.log(members[i]);
+			members_emails=members[i].email+', '+members_emails;
+	}
+	console.log(members_emails);
+	var mailOptions = {
+    from: 'Thalassemia Interpreter Admin <bsi@biotec.or.th>', // sender address
+    to: members_emails, // list of receivers
+    subject: 'Request for Interpretation result for Thalassemia typing ID:'+typingid, // Subject line
+//    text: 'Hello world ✔', // plaintext body
+    html: html // html body
+};
+
+transporter.sendMail(mailOptions, function(error, info){
+    if(error){
+        console.log(error);
+    }else{
+			res.json(members_emails);
+        console.log('Message sent: ' + info.response);
+    }
+});
+
+/*	Typing.findById(typingid).populate('user', 'displayName').exec(function(err, typing) {
+		if (err) return next(err);
+		if (! typing) return next(new Error('Failed to load Typing ' + id));
+
+
+		transporter.use('compile', hbs(options));
+	});*/
+};
 /*
 
 {id: 999,title: 'Repeating Event',start: new Date(y, m, d - 3, 16, 0),allDay: false}

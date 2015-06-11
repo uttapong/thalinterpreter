@@ -1,8 +1,8 @@
 'use strict';
 
 // Typings controller
-angular.module('typings').controller('TypingsController', ['$http','$scope', '$stateParams', '$location', 'Authentication', 'AllTypings','PageTypings','ResultMap','Uploads', '$upload','SweetAlert','$sce',
-	function($http,$scope, $stateParams, $location, Authentication, Typings,PageTypings,ResultMap,Upload, $upload,sweet,$sce) {
+angular.module('typings').controller('TypingsController', ['$http','$scope', '$stateParams', '$location', 'Authentication', 'AllTypings','PageTypings','ResultMap','Uploads', '$upload','SweetAlert','$sce','ExpertGroups',
+	function($http,$scope, $stateParams,$location, Authentication, Typings,PageTypings,ResultMap,Upload, $upload,sweet,$sce,ExpertGroups) {
 		$scope.authentication = Authentication;
 		$scope.genderchoice = [{
 			  id: 'Male',
@@ -24,7 +24,8 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 				}];
 		$scope.gender=$scope.genderchoice[0];
 		$scope.device=$scope.devicechoice[0];
-
+		$scope.add_btn=true;
+		$scope.advice_added=false;
 
 		//pagination setting
 		$scope.totalItems = 0;
@@ -197,6 +198,7 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 			/*scope.typing = Typings.get({
 				typingId: $stateParams.typingId
 			});*/
+
 			$http({url:'/typingreport/'+$stateParams.typingId}).success(function(data){
 				$scope.typing=data.typing;
 
@@ -218,6 +220,14 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 
 			$scope.printurl = $sce.trustAsResourceUrl('/printview/'+$stateParams.typingId);
 
+			$http({method:'GET',url:'/suggestcombo'}).success(function(data){
+
+				$scope.resultmapcombo=data.resultmaps;
+				$scope.resultmap=$scope.resultmapcombo[0];
+			});
+
+			$scope.findGroup();
+
 		/*	$http.get('/printview/'+$stateParams.typingId).
   success(function(data, status, headers, config) {
 		$scope.printhtml_trusted = $sce.trustAsHtml(data);
@@ -236,10 +246,10 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 
 		$scope.getResultMap=function(){
 			$scope.resultmaps=ResultMap.query();
-			$scope.getRBC();
+			$scope.getRBC($scope.authentication.user.device);
 		};
 		$scope.getRBC=function(typing){
-			$scope.rbcs=$http.post('/rbcs_by_machine',{device:typing.device}).
+			$scope.rbcs=$http.post('/rbcs_by_machine',{device:$scope.authentication.user.device}).
 		  success(function(data, status, headers, config) {
 				$scope.rbcs=data;
 			/*	for(i=0;i<data.length;i++){
@@ -317,7 +327,7 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 			if(!relive)typing=$scope.typingdata;
 			else typing=$scope.typing.typing;
 
-			console.log(typing);
+			//console.log(typing);
 			if(device==='CE')
 				return {dcip:typing.dcip,hb:typing.hb,mcv:typing.mcv,a:typing.a,a2:typing.a2,hbe:typing.hbe,hbcs:typing.hbcs,bart_h:typing.bart_h};
 			else
@@ -332,7 +342,7 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 		    success(function(data, status, headers, config) {
 		      $scope.liveresult = data.code;
 					$scope.suggestions=data.suggestion;
-
+					$scope.checkPercent(false);
 		    }).
 		    error(function(data, status, headers, config) {
 		      console.log('error');
@@ -344,6 +354,24 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 		    success(function(data, status, headers, config) {
 		      $scope.liveresult = data.code;
 					$scope.suggestions=data.suggestion;
+					$scope.checkPercent(true);
+		    }).
+		    error(function(data, status, headers, config) {
+		      console.log('error');
+		    });
+		};
+
+		$scope.addadvice=function(){
+			$http.post('/addtypingsadvice',{advice:$scope.resultmap._id,comment: $scope.advicecomment,typing_id:$stateParams.typingId}).
+		    success(function(data, status, headers, config) {
+					sweet.swal({
+							title: 'Success',
+							text: 'Your suggestion has been succesfully added.',
+							type: 'success'
+					}, function() {
+
+					});
+					$scope.advice_added=true;
 
 		    }).
 		    error(function(data, status, headers, config) {
@@ -351,8 +379,89 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 		    });
 		};
 
+		$scope.findGroup=function(){
+		//	console.log(userid);
+
+		 ExpertGroups.query(function(data){
+			$scope.allgroups =data;
+			$scope.expertgroup =data[0];
+		});
+		//console.log($scope.hospitals);
+		//$scope.findHospitals();
+		}
+
+		$scope.checkPercent=function(relive){
+			var sum;
+			var typing=	$scope.getTypingParams($scope.authentication.user.device,relive);
+
+			var a2e=parseFloat($scope.typingdata['a2e']) || 0;
+			var bart_h=parseFloat($scope.typingdata['bart_h']) || 0;
+			var hbcs=parseFloat($scope.typingdata['hbcs']) || 0;
+			var a2e=parseFloat($scope.typingdata['a2e']) || 0;
+			var a=parseFloat($scope.typingdata['a']) || 0;
+			var a2=parseFloat($scope.typingdata['a2']) || 0;
+			var e=parseFloat($scope.typingdata['hbe']) || 0;
+
+			if($scope.authentication.user.device=='HPLC_LPLC'){
+
+			 sum=	a2e+bart_h+hbcs+a;
+			console.log(sum);
+
+				if(sum >100 ){
+					sweet.swal("Warning!", "The summary of typing in percent can not exceed 100%!", "error");
+					$scope.add_btn=true;
+				}
+				else {
+					if(sum!=0)
+					$scope.add_btn=false;
+				}
+			}
+			else if($scope.authentication.user.device=='CE'){
+				sum=	a2+e+bart_h+hbcs+a;
+				console.log(sum);
+				if( sum>100 ){
+					sweet.swal("Warning!", "The summary of typing in percent can not exceed 100%!", "error");
+					$scope.add_btn=true;
+				}
+				else 	if(sum!=0)$scope.add_btn=false;
+			}
+		}
+
+		$scope.sendMail=function(){
+			console.log($scope.expertgroup);
+			var recipients="";
+			angular.forEach($scope.expertgroup.members,function(value,key){
+				recipients+="<li>"+value.displayName+"</li>";
+			});
+			sweet.swal({
+   title: "Are you sure?",
+   text: "You are sending an email to following recipients<br /><ol style='text-align:left;'>"+recipients+'</ol>',
+   type: "warning",
+	html:true,
+   showCancelButton: true,
+   confirmButtonColor: "#DD6B55",
+   confirmButtonText: "Send",
+   closeOnConfirm: false},
+		function(){
+				$http.post('/sendmail',{members:$scope.expertgroup.members,typing_id:$stateParams.typingId}).
+				success(function(data, status, headers, config) {
+					sweet.swal({
+							title: 'Success',
+							text: 'Your suggestion has been succesfully added.',
+							type: 'success'
+					}, function() {
+						$('.collapse').collapse();
+					});
+
+				}).
+				error(function(data, status, headers, config) {
+					console.log('error');
+				});
+		});
 
 
+
+		}
 		/*$scope.callPage = function callServer(tableState) {
 			var ctrl={};
 	    ctrl.isLoading = true;

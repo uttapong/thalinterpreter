@@ -36,7 +36,7 @@ module.exports = function(app) {
 		.post(typings.liveinterprete);
 	app.route('/pagetypings')
 			.post(typings.list);
-			
+
 	app.route('/searchtypings')
 					.post(typings.search);
 	// Finish by binding the Typing middleware
@@ -57,5 +57,12 @@ module.exports = function(app) {
 
 	app.route('/typingsbydate')
 			.post(typings.listbydate);
+
+	app.route('/addtypingsadvice')
+					.post(typings.addadvice);
+
+	app.route('/sendmail')
+									.post(typings.sendmail);				
+
 
 };

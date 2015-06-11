@@ -56,7 +56,8 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 			$http.post('/auth/signin', $scope.credentials).success(function(response) {
 				// If successful we assign the response to the global user model
 				$scope.authentication.user = response;
-
+				$scope.authentication.user.admin= $scope.authentication.user.roles.indexOf('admin')>=0?true:false;//IsAdmin();
+				console.log($scope.authentication.user);
 				// And redirect to the index page
 				$location.path('/dashboard');
 			}).error(function(response) {

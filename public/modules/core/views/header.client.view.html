@@ -85,8 +85,6 @@
                         </li>
                           <li><a href="/#!/settings/accounts"><i class="fa fa-user fa-fw"></i> {{ 'SOCIAL_ACCOUNTS' | translate }}</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> {{ 'SETTINGS' | translate }}</a>
-                        </li>
                         <li class="divider"></li>
 
                         <li><a href="/auth/signout"><i class="fa fa-sign-out fa-fw"></i> {{ 'SIGNOUT' | translate }}</a>
@@ -113,7 +111,7 @@
                             </span>
                             </div>
                         </li>-->
-                        <li>
+                        <li >
                             <a ui-sref="dashboard"><i class="fa fa-dashboard fa-fw"></i> {{ 'DASHBOARD' | translate }}</a>
                         </li>
                         <li>
@@ -125,19 +123,19 @@
                         <li>
                             <a ui-sref="uploads"><i class="fa fa-upload"></i> {{ 'BATCH_UPLOAD' | translate }}</a>
                         </li>
-                        <li>
+                        <li ng-show="isAdmin()">
                             <a ui-sref="listHospitals"><i class="fa fa-hospital-o"></i> {{ 'HOSPITALS_DATA' | translate }}</a>
                         </li>
-                        <li>
+                        <li ng-show="isAdmin()">
                             <a ui-sref="listResultmaps"><i class="fa fa-book"></i> {{ 'HEMO_DICTIONARY' | translate }}</a>
                         </li>
-                        <li>
+                        <li ng-show="isAdmin()">
                             <a ui-sref="listRbcs"><i class="fa fa-cubes"></i> {{ 'PARAMETER_DATA' | translate }}</a>
                         </li>
-                        <li>
+                        <li ng-show="isAdmin()">
                             <a ui-sref="listSuggestions"><i class="fa fa-comment"></i> {{ 'SUGGESTION' | translate }}</a>
                         </li>
-                        <li>
+                        <li ng-show="isAdmin()">
                             <a href="#"><i class="fa fa-user-md"></i> {{ 'CURATORS_DATA' | translate }}<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -151,7 +149,7 @@
                         </li>
 
                             <!-- /.nav-second-level -->
-                        </li>
+
                       <!--  <li>
                             <a href="#"><i class="fa fa-tasks fa-fw"></i> {{ 'INTERPRETE_REPORT' | translate }}<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -164,7 +162,7 @@
                             </ul>
                         </li>-->
 
-                        <li>
+                        <li ng-show="isAdmin()">
                             <a href="#"><i class="fa fa-cogs fa-fw"></i> {{ 'SERVER_MANAGEMENT' | translate }}<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>

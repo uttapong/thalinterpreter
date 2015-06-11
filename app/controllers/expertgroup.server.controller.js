@@ -74,7 +74,7 @@ exports.delete = function(req, res) {
  * List of Articles
  */
 exports.list = function(req, res) {
-	ExpertGroup.find().sort('-created').populate('user', 'displayName').exec(function(err, articles) {
+	ExpertGroup.find().sort('-created').populate('user', 'displayName').populate('members','displayName email').exec(function(err, articles) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)

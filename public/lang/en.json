@@ -148,6 +148,8 @@
   "MANUALLY_ADD_EXPERT": "Add manually",
   "SEARCH_ADD_EXPERT":"Add by existed user",
   "SEARCH_NAME":"Name/Full name/Email",
-  "REMOVE":"Remove"
+  "REMOVE":"Remove",
+  "ADVICE_RESULT":"Suggest Thalassemia Type",
+  "ADVICE_COMMENT":"Comment"
 
 }

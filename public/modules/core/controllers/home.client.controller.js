@@ -9,6 +9,8 @@ angular.module('core').controller('HomeController', ['$rootScope','$scope', 'Aut
 		//this.testis='adfdaf';
 		$rootScope.sidebar=true;
 		$scope.getDashboardInfo = function() {
+
+			console.log($scope.authentication.user);
 			$http.get('/dashboard').
 		    success(function(data, status, headers, config) {
 					$scope.doughnut_label=[];
@@ -50,6 +52,12 @@ angular.module('core').controller('HomeController', ['$rootScope','$scope', 'Aut
 
 		$scope.index=function(){
 			$rootScope.sidebar=false;
+		}
+
+		$scope.isAdmin=function(){
+			var admin=$scope.authentication.user.roles.indexOf('admin')>=0?true:false;//IsAdmin();
+			console.log(admin);
+			return admin;
 		}
 	}
 ]);

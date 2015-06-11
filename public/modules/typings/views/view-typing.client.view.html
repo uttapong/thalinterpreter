@@ -91,10 +91,27 @@
 			<button class="btn btn-info" href="/typingreport/{{typing._id}}" ng-click="printChart(typing._id)">
 				<i class="fa fa-print"></i> {{ 'PRINT_REPORT' | translate }}
 			</button>
+      <button class="btn btn-warning"  ng-click="showMailList(typing._id)" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+				<i class="fa fa-envelope-o"></i> Mail for Suggestion
+			</button>
+
 			<a class="btn btn-danger" data-ng-click="remove();">
         <i class="glyphicon glyphicon-trash"></i>
       </a>
 		</div>
+    <div class="collapse col-xs-6" id="collapseExample">
+      <div class="well">
+        <div class="form-group">
+						<label class="control-label" for="name">Mail Group</label>
+
+							<select class="form-control" ng-options="item.title  for item in allgroups track by item._id" ng-model="expertgroup">
+							</select>
+				</div>
+        <button class="btn btn-warning"  ng-click="sendMail(typing._id)">
+  				<i class="fa fa-envelope-o"></i> Send Mail
+  			</button>
+      </div>
+    </div>
     <iframe id="frame" ng-src="{{printurl}}"></iframe>
   </div>
 </div>

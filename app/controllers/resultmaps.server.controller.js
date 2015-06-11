@@ -11,7 +11,7 @@ var mongoose = require('mongoose'),
 
 /**
  * Create a Resultmap
- */ 
+ */
 exports.create = function(req, res) {
 	var resultmap = new Resultmap(req.body);
 	resultmap.user = req.user;
@@ -87,6 +87,18 @@ exports.delete = function(req, res) {
  */
 exports.list = function(req, res) {
 	Resultmap.find().sort({'numcode':1}).populate('user', 'displayName').exec(function(err, resultmaps) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(resultmaps);
+		}
+	});
+};
+
+exports.choicelist = function(req, res) {
+	Resultmap.find({code:{$not:/FAIL/}}).sort({'numcode':1}).populate('user', 'displayName').exec(function(err, resultmaps) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)

@@ -122,7 +122,13 @@ var TypingSchema = new Schema({
 		},
 	image:{
 		type: String
-	}
+	},
+	suggest:[
+		{
+			type:Schema.Types.Mixed,
+			trim:true
+		}
+	]
 
 
 });

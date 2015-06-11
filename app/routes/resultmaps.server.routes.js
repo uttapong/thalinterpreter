@@ -16,4 +16,7 @@ module.exports = function(app) {
 
 	// Finish by binding the Resultmap middleware
 	app.param('resultmapId', resultmaps.resultmapByID);
+
+	app.route('/resultmapschoice')
+				.get(resultmaps.choicelist)
 };
