@@ -1,64 +1,11 @@
-<div class="row" data-ng-controller="CuratorController" data-ng-init="findGroup()">
-
-	<div class="page-content col-xs-4" style="border-right: 1px solid #eee;">
-		<div class="page-header">
-		<h3>Add Mail Group</h3>
-	</div>
-
-	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-		<form class='form' name="userForm" data-ng-submit="createGroup()" novalidate autocomplete="off">
-
-					<div class="form-group">
-						<label for="firstName">E-Mail Group Name</label>
-						<input type="text"  id="titleName" name="titleName" class="form-control" data-ng-model="titleName" placeholder="Group Name">
-					</div>
-
-
-					<div class="form-group">
-						<button type="submit" class="btn btn-info">{{ 'ADD' | translate }}</button>
-					</div>
-					<table class="table" ng-show="searchResult" style="width: 100%; font-size: 1.2rem;">
-					<tr>
-						<th>{{ 'NAME' | translate }}</th>
-						<th>{{ 'EMAIL' | translate }}</th>
-						<th>{{ 'ADD' | translate }}</th>
-					</tr>
-					<tr ng-repeat="result in searchResult">
-						<td>{{result.fullname}}</td>
-						<td>{{result.email}}</td>
-						<td><button class='btn btn-xs btn-info' ng-click="addFromList(result._id)">{{ 'ADD' | translate }}</button></td>
-					</tr>
-				</table>
-					<div data-ng-show="error" class="text-center text-danger">
-						<strong data-ng-bind="error"></strong>
-					</div>
-			</form>
-</div>
-
-	</div>
-	<div class="page-content col-xs-8" >
-		<div class="page-header">
-		<h3>E-Mail Group List</h3>
-	</div>
-		<table class="table-striped table col-xs-12">
-			<thead>
-				<tr>
-					<th>{{ 'Group' | translate }}</th>
-					<th>{{ 'MEMBER_COUNT' | translate }}</th>
-					<th>{{ 'MANAGE' | translate }}</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="group in allgroups">
-				<td>{{ group.title}}</td>
-				<td>{{ group.members.length}}</td>
-				<td><a href="/#!/editgroup/{{group._id}}/edit" class='btn btn-xs btn-info' ><i class="glyphicon glyphicon-edit"></i> Edit Members</a> <button class='btn btn-xs btn-danger' ng-click="removeGroup(group)"><i class="glyphicon glyphicon-trash"></i></button></td>
-				</tr>
-			</tbody>
-		</table>
-
-
-	</div>
-
-
-</div>
+/*
+ * Copyright (C) 2015 Thalassemia Interpreter Software
+ *
+ * This file is part of the Thalassemia Interpreter Software project.
+ *
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ *
+ * Thalassemia Interpreter Software project can not be copied and/or distributed without the express
+ * permission of National Science and Technology Development Agency,111 Thailand Science Park (TSP),
+ * Phahonyothin Road, Khlong Nueng, Khlong Luang, Pathum Thani 12120, Thailand
+ */

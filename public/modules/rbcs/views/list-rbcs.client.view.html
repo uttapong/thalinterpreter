@@ -1,19 +1,11 @@
-<div class="row" data-ng-controller="RbcsController" data-ng-init="find()">
-    <div class="page-header">
-        <h1>{{ 'TYPING_PROFILE_TYPE' | translate }} <a style="float:right" class="btn btn-info" ui-sref="createRbc" ><i class="fa fa-plus fa-lg"></i> {{ 'ADD' | translate }}</a></h1>
-    </div>
-    <div class="list-group">
-        <a data-ng-repeat="rbc in rbcs" data-ng-href="#!/rbcs/{{rbc._id}}" class="list-group-item">
-			<small class="list-group-item-text">
-        {{ 'POSTED_ON' | translate }}
-				<span data-ng-bind="rbc.created | date:'medium'"></span>
-        {{ 'BY' | translate }}
-				<span data-ng-bind="rbc.user.displayName"></span>
-			</small>
-			<h4 class="list-group-item-heading" data-ng-bind="rbc.label"></h4>
-        </a>
-    </div>
-    <div class="alert alert-warning text-center" data-ng-hide="!rbcs.$resolved || rbcs.length">
-      {{ 'NO_TYPING_PROFILE_YET' | translate }} <a href="/#!/rbcs/create">{{ 'CREATE_ONE' | translate }}</a>?
-    </div>
-</div>
+/*
+ * Copyright (C) 2015 Thalassemia Interpreter Software
+ *
+ * This file is part of the Thalassemia Interpreter Software project.
+ *
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ *
+ * Thalassemia Interpreter Software project can not be copied and/or distributed without the express
+ * permission of National Science and Technology Development Agency,111 Thailand Science Park (TSP),
+ * Phahonyothin Road, Khlong Nueng, Khlong Luang, Pathum Thani 12120, Thailand
+ */

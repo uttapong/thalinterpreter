@@ -1,27 +1,11 @@
-<div class="row" data-ng-controller="RbcsController" data-ng-init="findOne()">
-	<div class="page-header">
-		<h1 data-ng-bind="rbc.label"></h1>
-	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == rbc.user._id))">
-		<a class="btn btn-primary" href="/#!/rbcs/{{rbc._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
-	</div>
-	<small>
-		<em class="text-muted">
-			{{ 'POSTED_ON' | translate }}
-			<span data-ng-bind="rbc.created | date:'mediumDate'"></span>
-			{{ 'BY' | translate }}
-			<span data-ng-bind="rbc.user.displayName"></span>
-		</em>
-	</small>
-	<div class="page-content">
-		<p></p>
-			<p>Parameter's Name: {{rbc.name}}</p>
-			<p>Possible range: {{rbc.min}} - {{rbc.max}}</p>
-			<p>Unit: {{rbc.unit}}</p>
-	</div>
-</div>
+/*
+ * Copyright (C) 2015 Thalassemia Interpreter Software
+ *
+ * This file is part of the Thalassemia Interpreter Software project.
+ *
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ *
+ * Thalassemia Interpreter Software project can not be copied and/or distributed without the express
+ * permission of National Science and Technology Development Agency,111 Thailand Science Park (TSP),
+ * Phahonyothin Road, Khlong Nueng, Khlong Luang, Pathum Thani 12120, Thailand
+ */

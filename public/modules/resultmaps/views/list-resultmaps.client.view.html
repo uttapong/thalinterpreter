@@ -1,15 +1,11 @@
-<div class="row" data-ng-controller="ResultmapsController" data-ng-init="find()">
-    <div class="page-header">
-        <h1>{{ 'HEMO_TYPE' | translate }} <span><a ui-sref="createResultmap"  style="float:right" class="btn  btn-info"><i class="fa fa-plus fa-fw"></i> {{ 'ADD' | translate }}</a></span></h1>
-    </div>
-    <div class="list-group">
-        <a data-ng-repeat="resultmap in resultmaps" data-ng-href="#!/resultmaps/{{resultmap._id}}" class="list-group-item">
-
-			<h5 style="color: {{resultmap.color}};" class="list-group-item-heading" > <span class="label label-warning" data-ng-bind="resultmap.numcode"></span> <span data-ng-bind="resultmap.code"></span> </h5>
-            <p style="font-size:1.2rem;" data-ng-bind="resultmap.results"></p>
-        </a>
-    </div>
-    <div class="alert alert-warning text-center" data-ng-hide="!resultmaps.$resolved || resultmaps.length">
-      {{ 'NO_HOMO_YET' | translate }} <a href="/#!/resultmaps/create">{{ 'CREATE_ONE' | translate }}</a>?
-    </div>
-</div>
+/*
+ * Copyright (C) 2015 Thalassemia Interpreter Software
+ *
+ * This file is part of the Thalassemia Interpreter Software project.
+ *
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ *
+ * Thalassemia Interpreter Software project can not be copied and/or distributed without the express
+ * permission of National Science and Technology Development Agency,111 Thailand Science Park (TSP),
+ * Phahonyothin Road, Khlong Nueng, Khlong Luang, Pathum Thani 12120, Thailand
+ */

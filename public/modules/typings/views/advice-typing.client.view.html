@@ -1,92 +1,11 @@
-<div class="row" data-ng-controller="TypingsController" data-ng-init="typingReport()">
-  <div class="col-xs-12 page-header">
-    <h1>Interpretation Result Suggestion</h1>
-  </div>
-  <div class="row">
-		<div class="col-xs-6" ng-hide="advice_added">
-			<h3>Add Interpretation Suggestion</h3>
-			<form class="form-horizontal" data-ng-submit="addadvice()" novalidate>
-				<div class="form-group">
-						<label class="control-label col-md-4" for="name">{{ 'ADVICE_RESULT' | translate }}</label>
-						<div class="col-md-8">
-							<select class="form-control" ng-options="item.results[0]  for item in resultmapcombo track by item._id" ng-model="resultmap">
-							</select>
-						</div>
-				</div>
-							<div class="form-group">
-									<label class="control-label col-md-4" for="name">{{ 'ADVICE_COMMENT' | translate }}</label>
-									<div class="col-md-8">
-											<textarea  data-ng-model="advicecomment" id="advicecomment" class="form-control" rows="4"></textarea>
-									</div>
-							</div>
-
-
-							<div class="form-group">
-									<div class="col-sm-offset-4 col-sm-10">
-											<input  type="submit" class="btn btn-info" value="{{ 'SUBMIT' | translate }}">
-									</div>
-							</div>
-			<div data-ng-show="error" class="text-danger">
-				<strong data-ng-bind="error"></strong>
-			</div>
-
-			</form>
-		</div>
-  <div class="col-xs-6">
-
-
-
-    <div class="meta-typing">
-      <p>{{ 'TYPING_ID' | translate }}: {{typing.typingid}}</p>
-      <p>{{ 'SUBMITTED_DATE' | translate }}: {{typing.created|date}}</p>
-      <p>{{ 'AGE' | translate }}: {{typing.age}}</p>
-      <p>{{ 'GENDER' | translate }}: {{typing.gender}}</p>
-
-    </div>
-    <div class="page-content col-xs-12">
-
-      <table class="table-striped table col-xs-12">
-        <thead>
-          <tr>
-            <th ng-repeat="(key, value) in typing.typing">{{key | uppercase}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td ng-repeat="(key, value) in typing.typing">{{value| number: 2}}</td>
-          </tr>
-        </tbody>
-      </table>
-      <hr />
-      <h4>{{ 'INTERPRETED_RESULT' | translate }}</h4>
-      <p >
-        <strong class='color-code' style="background-color: {{typing.resultmap.color}};line-height: 29px;">{{typing.resultmap.results[0]}}</strong>
-      </p>
-      <strong>{{ 'OTHER_POSSIBLE_RESULT' | translate }}</strong>
-      <p>
-      {{typing.resultmap.results.slice(1).join(', ')}}
-      </p>
-      <div class="typing_comemnt" ng-show="typing.resultmap.comment">
-        <strong>{{ 'COMMENTS' | translate }}</strong>
-        <p>{{typing.resultmap.comment}}</p>
-      </div>
-      <div  class="typing_suggestion" ng-show="suggestions">
-      <strong>{{ 'SUGGESTION' | translate }}</strong>
-      <ul>
-        <li ng-repeat="suggest in suggestions">{{suggest}} </li>
-        <li ng-repeat="warning in warnings">{{warning}} <span class="label label-danger"><i class="fa fa-exclamation-circle fa-lg"></i> Warning</span></li>
-      </ul>
-    </div>
-    </div>
-
-    <div class="page-content col-xs-12" style="margin-bottom: 20px;" ng-show="typing.image">
-      <h4>{{ 'TYPING_IMAGE' | translate }}</h4>
-      <a target="_blank" href="/uploads/typingimage/{{typing.typingid}}/{{typing.image}}">
-        <img class="col-xs-6" ng-src="/uploads/typingimage/{{typing.typingid}}/{{typing.image}}" />
-      </a>
-    </div>
-  </div>
-
-</div>
-
-</div>
+/*
+ * Copyright (C) 2015 Thalassemia Interpreter Software
+ *
+ * This file is part of the Thalassemia Interpreter Software project.
+ *
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ *
+ * Thalassemia Interpreter Software project can not be copied and/or distributed without the express
+ * permission of National Science and Technology Development Agency,111 Thailand Science Park (TSP),
+ * Phahonyothin Road, Khlong Nueng, Khlong Luang, Pathum Thani 12120, Thailand
+ */

@@ -1,28 +1,11 @@
-<div class="row" data-ng-controller="HospitalsController" data-ng-init="findOne()">
-	<div class="page-header">
-		<h1 data-ng-bind="hospital.name"></h1>
-	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == hospital.user._id))">
-		<a class="btn btn-primary" href="/#!/hospitals/{{hospital._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
-	</div>
-	<small>
-		<em class="text-muted">
-			{{ 'POSTED_DATE' | translate }}
-			<span data-ng-bind="hospital.created | date:'mediumDate'"></span>
-			{{ 'BY' | translate }}
-			<span data-ng-bind="hospital.user.displayName"></span>
-		</em>
-	</small>
-	<div class="page-body">
-		<p>{{ 'HOSPITAL_ADDRESS' | translate }} <span data-ng-bind="hospital.address"></span></p>
-		<p>{{ 'CONTACT_PERSON' | translate }} <span data-ng-bind="hospital.contact_person"></span></p>
-		<p>{{ 'CONTACT_NO' | translate }} <span data-ng-bind="hospital.contact_number"></span></p>
-		<p>{{ 'HOSPITAL_LOCATION' | translate }}<span data-ng-bind="hospital.location"></span></p>
-
-	</div>
-</div>
+/*
+ * Copyright (C) 2015 Thalassemia Interpreter Software
+ *
+ * This file is part of the Thalassemia Interpreter Software project.
+ *
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ *
+ * Thalassemia Interpreter Software project can not be copied and/or distributed without the express
+ * permission of National Science and Technology Development Agency,111 Thailand Science Park (TSP),
+ * Phahonyothin Road, Khlong Nueng, Khlong Luang, Pathum Thani 12120, Thailand
+ */
