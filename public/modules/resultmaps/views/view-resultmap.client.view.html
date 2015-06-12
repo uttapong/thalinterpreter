@@ -1,11 +1,27 @@
-/*
- * Copyright (C) 2015 Thalassemia Interpreter Software
- *
- * This file is part of the Thalassemia Interpreter Software project.
- *
- * Unauthorized copying of this file, via any medium is strictly prohibited
- *
- * Thalassemia Interpreter Software project can not be copied and/or distributed without the express
- * permission of National Science and Technology Development Agency,111 Thailand Science Park (TSP),
- * Phahonyothin Road, Khlong Nueng, Khlong Luang, Pathum Thani 12120, Thailand
- */
+<div class="row" data-ng-controller="ResultmapsController" data-ng-init="findOne()">
+	<div class="page-header">
+		<h1 data-ng-bind="resultmap.code"></h1>
+	</div>
+	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == resultmap.user._id))">
+		<a class="btn btn-primary" href="/#!/resultmaps/{{resultmap._id}}/edit">
+			<i class="glyphicon glyphicon-edit"></i>
+		</a>
+		<a class="btn btn-primary" data-ng-click="remove();">
+			<i class="glyphicon glyphicon-trash"></i>
+		</a>
+	</div>
+	<small>
+		<em class="text-muted">
+			{{ 'POSTED_ON' | translate }}
+			<span data-ng-bind="resultmap.created | date:'mediumDate'"></span>
+			{{ 'BY' | translate }}
+			<span data-ng-bind="resultmap.user.displayName"></span>
+		</em>
+	</small>
+	<p></p>
+	<p>{{ 'HEMO_NAME_LIST' | translate }} : <span data-ng-bind="resultmap.results"></span></p>
+	<p>{{ 'COLOR_CODE' | translate }} : <span class="color-code" style="background-color: {{resultmap.color}};"data-ng-bind="resultmap.color"></span></p>
+	<p>{{ 'COMMENTS' | translate }} : <span data-ng-bind="resultmap.comment"></span></p>
+	<p></p>
+	<p><a class="btn btn-default" ui-sref="listResultmaps"><i class="fa fa-chevron-left"></i> {{ 'BACK' | translate }}</a></p>
+</div>

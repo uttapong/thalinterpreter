@@ -1,11 +1,47 @@
-/*
- * Copyright (C) 2015 Thalassemia Interpreter Software
- *
- * This file is part of the Thalassemia Interpreter Software project.
- *
- * Unauthorized copying of this file, via any medium is strictly prohibited
- *
- * Thalassemia Interpreter Software project can not be copied and/or distributed without the express
- * permission of National Science and Technology Development Agency,111 Thailand Science Park (TSP),
- * Phahonyothin Road, Khlong Nueng, Khlong Luang, Pathum Thani 12120, Thailand
- */
+<section class="row" data-ng-controller="ResultmapsController" data-ng-init="findOne()">
+    <div class="page-header">
+        <h1>{{ 'HEMO_EDIT' | translate }}</h1>
+    </div>
+    <div class="col-md-12">
+        <form class="form-horizontal" data-ng-submit="update()" novalidate>
+            <fieldset>
+                <div class="form-group">
+                    <label class="control-label" for="numcode">{{ 'CODE_NO' | translate }}</label>
+                    <div class="controls">
+                        <input type="number" data-ng-model="resultmap.numcode" id="numcode" class="form-control" placeholder="{{ 'CODE_NO' | translate }} Number"  maxlength="2" required>
+                    </div>
+                    <label class="control-label" for="code">{{ 'CODE_NAME' | translate }}</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="resultmap.code" id="code" class="form-control" placeholder="{{ 'CODE_NAME' | translate }}" required>
+                    </div>
+                     <label class="control-label" for="results">{{ 'HEMO_NAME_LIST' | translate }}</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="resultmap.results" id="results" class="form-control" placeholder="{{ 'HEMO_NAME_LIST' | translate }}" required>
+                    </div>
+                    <label class="control-label" for="results">{{ 'COLOR_CODE' | translate }}</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="resultmap.color" id="colors" class="form-control" placeholder="{{ 'COLOR_CODE' | translate }}" required>
+                    </div>
+                    <p></p>
+                    <div>Example:
+                      <span class="color-code" style="background-color: #B0CF71; ">#B0CF71 for normal/mild</span>
+                      <span class="color-code" style="background-color: #E0C200;" >#E0C200 for trait</span>
+                      <span class="color-code" style="background-color: #F07B2E;" >#F07B2E for disease</span>
+                      <span class="color-code" style="background-color: #C83A22;" >#C83A22 for severe</span>
+                    </div>
+                    <label class="control-label" for="results">{{ 'COMMENTS' | translate }}</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="resultmap.comment" id="results" class="form-control" placeholder="{{ 'COMMENTS' | translate }}" required>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="{{ 'UPDATE' | translate }}" class="btn btn-default">
+                </div>
+				<div data-ng-show="error" class="text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+            </fieldset>
+        </form>
+    </div>
+</section>

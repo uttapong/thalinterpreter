@@ -1,11 +1,19 @@
-/*
- * Copyright (C) 2015 Thalassemia Interpreter Software
- *
- * This file is part of the Thalassemia Interpreter Software project.
- *
- * Unauthorized copying of this file, via any medium is strictly prohibited
- *
- * Thalassemia Interpreter Software project can not be copied and/or distributed without the express
- * permission of National Science and Technology Development Agency,111 Thailand Science Park (TSP),
- * Phahonyothin Road, Khlong Nueng, Khlong Luang, Pathum Thani 12120, Thailand
- */
+<section data-ng-controller="CalendarsController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>Calendars</h1>
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="calendar in calendars" data-ng-href="#!/calendars/{{calendar._id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="calendar.created | date:'medium'"></span>
+				by
+				<span data-ng-bind="calendar.user.displayName"></span>
+			</small>
+			<h4 class="list-group-item-heading" data-ng-bind="calendar.name"></h4>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!calendars.$resolved || calendars.length">
+    	No Calendars yet, why don't you <a href="/#!/calendars/create">create one</a>?
+    </div>
+</section>

@@ -1,11 +1,29 @@
-/*
- * Copyright (C) 2015 Thalassemia Interpreter Software
- *
- * This file is part of the Thalassemia Interpreter Software project.
- *
- * Unauthorized copying of this file, via any medium is strictly prohibited
- *
- * Thalassemia Interpreter Software project can not be copied and/or distributed without the express
- * permission of National Science and Technology Development Agency,111 Thailand Science Park (TSP),
- * Phahonyothin Road, Khlong Nueng, Khlong Luang, Pathum Thani 12120, Thailand
- */
+<section data-ng-controller="ArticlesController">
+	<div class="page-header">
+		<h1>New Article</h1>
+	</div>
+	<div class="col-md-12">
+		<form name="articleForm" class="form-horizontal" data-ng-submit="create()" novalidate>
+			<fieldset>
+				<div class="form-group" ng-class="{ 'has-error': articleForm.title.$dirty && articleForm.title.$invalid }">
+					<label class="control-label" for="title">Title</label>
+					<div class="controls">
+						<input name="title" type="text" data-ng-model="title" id="title" class="form-control" placeholder="Title" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="content">Content</label>
+					<div class="controls">
+						<textarea name="content" data-ng-model="content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<input type="submit" class="btn btn-default">
+				</div>
+				<div data-ng-show="error" class="text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</section>

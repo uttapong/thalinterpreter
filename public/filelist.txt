@@ -1,3 +1,4 @@
+modules/articles/articles.client.module.js
 modules/articles/config/articles.client.config.js
 modules/articles/config/articles.client.routes.js
 modules/articles/controllers/articles.client.controller.js

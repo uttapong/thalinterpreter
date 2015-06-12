@@ -1,11 +1,39 @@
-/*
- * Copyright (C) 2015 Thalassemia Interpreter Software
- *
- * This file is part of the Thalassemia Interpreter Software project.
- *
- * Unauthorized copying of this file, via any medium is strictly prohibited
- *
- * Thalassemia Interpreter Software project can not be copied and/or distributed without the express
- * permission of National Science and Technology Development Agency,111 Thailand Science Park (TSP),
- * Phahonyothin Road, Khlong Nueng, Khlong Luang, Pathum Thani 12120, Thailand
- */
+<div class="row" data-ng-controller="SystemController" ng-init="getinfo()">
+<div class="col-xs-12 page-header">
+		<h1>Server Information</h1>
+	</div>
+	<table class="table-striped table col-xs-12" >
+<thead>
+			<tr>
+				<th>Host Name</th>
+				<th>Type</th>
+				<th>Platform</th>
+				<th>Architecture</th>
+				<th>OS Release</th>
+				<th>Uptime</th>
+				<th>Load Average</th>
+				<th>Memory</th>
+				<th>CPUs</th>
+			</tr>
+			</thead>
+<tbody>
+	<tr>
+        <td>{{os.hostname}}</td>
+        <td>{{os.type}}</td>
+        <td>{{os.platform}}</td>
+        <td>{{os.arch}}</td>
+        <td>{{os.release}}</td>
+        <td>{{os.uptime/3600 |number : 2}} hrs</td>
+        <td>
+        <li>1 mins: {{os.loadavg[0]}}</li>
+        <li>5 mins: {{os.loadavg[1]}}</li>
+        <li>15 mins: {{os.loadavg[2]}}</li></td>
+        <td>{{os.freemem}}/{{os.totalmem}}<br />({{os.freemem/os.totalmem*100 |number : 2}} % Used)</td>
+        <td>
+        <ol>
+        <li ng-repeat="cpu in os.cpus">Model: {{cpu.model}}, idle: {{cpu.times.idle}}</li>
+        </ol></td>
+	</tr>
+	</tbody>
+</table>
+</div>

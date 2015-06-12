@@ -1,11 +1,64 @@
-/*
- * Copyright (C) 2015 Thalassemia Interpreter Software
- *
- * This file is part of the Thalassemia Interpreter Software project.
- *
- * Unauthorized copying of this file, via any medium is strictly prohibited
- *
- * Thalassemia Interpreter Software project can not be copied and/or distributed without the express
- * permission of National Science and Technology Development Agency,111 Thailand Science Park (TSP),
- * Phahonyothin Road, Khlong Nueng, Khlong Luang, Pathum Thani 12120, Thailand
- */
+<div class="row" data-ng-controller="CuratorController" data-ng-init="findGroupOne()">
+	<div class="page-content col-xs-8" >
+		<div class="page-header">
+		<h3>Mailing list: {{group.title}} </h3>
+	</div>
+		<table class="table-striped table col-xs-12">
+			<thead>
+				<tr>
+					<th>{{ 'Name' | translate }}</th>
+					<th>{{ 'EMAIL' | translate }}</th>
+					<th>{{ 'MANAGE' | translate }}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="cr in group.members">
+				<td>{{ cr.displayName}}</td>
+				<td>{{cr.email}}</td>
+				<td><button class='btn btn-xs btn-danger' ng-click="removeGroupCurator(group._id,cr._id)"><i class="glyphicon glyphicon-trash"></i></button></td>
+				</tr>
+			</tbody>
+		</table>
+
+
+	</div>
+	<div class="page-content col-xs-4" style="border-right: 1px solid #eee;">
+		<div class="page-header">
+		<h3>{{ 'ADD_CURATOR' | translate }}</h3>
+	</div>
+
+	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+		<form class='form' name="userForm" data-ng-submit="searchGroupCurator()" novalidate autocomplete="off">
+
+					<div class="form-group">
+						<label for="firstName">{{ 'SEARCH_NAME' | translate }}</label>
+						<input type="text" required id="searchName" name="searchName" class="form-control" data-ng-model="curator.searchName" placeholder="{{ 'SEARCH_NAME' | translate }}">
+					</div>
+
+
+					<div class="form-group">
+						<button type="submit" class="btn btn-info">{{ 'SEARCH' | translate }}</button>
+					</div>
+					<table class="table" ng-show="searchResult" style="width: 100%; font-size: 1.2rem;">
+					<tr>
+						<th>{{ 'NAME' | translate }}</th>
+						<th>{{ 'EMAIL' | translate }}</th>
+						<th>{{ 'ADD' | translate }}</th>
+					</tr>
+					<tr ng-repeat="result in searchResult">
+						<td>{{result.fullname}}</td>
+						<td>{{result.email}}</td>
+						<td><button class='btn btn-xs btn-info' ng-click="addMailList(group._id,result._id)">{{ 'ADD' | translate }}</button></td>
+					</tr>
+				</table>
+					<div data-ng-show="error" class="text-center text-danger">
+						<strong data-ng-bind="error"></strong>
+					</div>
+			</form>
+</div>
+
+	</div>
+
+
+
+</div>

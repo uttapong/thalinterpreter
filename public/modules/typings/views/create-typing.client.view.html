@@ -1,11 +1,79 @@
-/*
- * Copyright (C) 2015 Thalassemia Interpreter Software
- *
- * This file is part of the Thalassemia Interpreter Software project.
- *
- * Unauthorized copying of this file, via any medium is strictly prohibited
- *
- * Thalassemia Interpreter Software project can not be copied and/or distributed without the express
- * permission of National Science and Technology Development Agency,111 Thailand Science Park (TSP),
- * Phahonyothin Road, Khlong Nueng, Khlong Luang, Pathum Thani 12120, Thailand
- */
+<div  class="row" data-ng-controller="TypingsController" data-ng-init="getResultMap()">
+    <div class="page-header">
+        <h1>{{ 'ADD_TYPING' | translate }}</h1>
+        <h3 >{{ 'ANALYZED_MACHINE' | translate }} :{{authentication.user.device}}</h3>
+    </div>
+    <div class="col-xs-4">
+        <form class="form-horizontal" data-ng-submit="create()" novalidate>
+                <div class="form-group">
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">{{ 'TYPING_ID' | translate }}</label>
+                    <div class="col-md-8">
+                        <input type="text" data-ng-model="typingid" id="typingid" class="form-control" placeholder="{{ 'TYPING_ID' | translate }}" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">{{ 'GENDER' | translate }}</label>
+                    <div class="col-md-8">
+                        <select class="form-control" ng-options="item.label for item in genderchoice track by item.id" ng-model="gender">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">{{ 'AGE' | translate }}</label>
+                    <div class="col-md-8">
+                        <input type="number" data-ng-model="age" id="name" class="form-control" placeholder="0">
+                    </div>
+                </div>
+                <div class="form-group">
+                <div class="col-md-offset-4 col-md-8">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" data-ng-model="abnormal"> Abnormal Hemoglobin
+                    </label>
+                  </div>
+                </div>
+              </div>
+                <div class="form-group" ng-repeat="rbc in rbcs">
+                    <label class="control-label col-md-4" for="name">{{rbc.label}}</label>
+                    <div class="col-md-6">
+                        <input type="text" ng-change="livecheck()" data-ng-model="typingdata[rbc.name]" id="name" class="form-control" placeholder="0">
+                    </div>
+                    <div class="col-md-2">{{rbc.unit}}</div>
+                </div>
+                <div class="form-group">
+                     <div class="col-sm-offset-4 col-sm-10">
+                        <input  type="submit" class="btn btn-info" value="{{ 'ADD_BTN' | translate }}" ng-disabled="add_btn">
+                    </div>
+                </div>
+				<div data-ng-show="error" class="text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+
+        </form>
+    </div>
+    <div class="col-xs-7 col-xs-offset-1 live-interprete" ng-show="liveresult">
+    <h2>{{ 'POSSIBLE_TYPING' | translate }}</h2>
+        <div ng-show="liveresult" class="interprete-type col-xs-12" style="background-color:{{liveresult.color}};">
+            <div>{{liveresult.results[0]}}</div>
+        </div>
+        <div class="other_result" ng-show="liveresult.results.length>1">
+          <strong>{{ 'OTHER_POSSIBLE_TYPING' | translate }}</strong>
+
+          <ul>
+            <li ng-repeat="result in liveresult.results.slice(1)" >{{result}}</li>
+          </ul>
+        </div>
+        <div class="typing_comemnt" ng-show="liveresult.comment">
+          <strong>{{ 'COMMENTS' | translate }}</strong>
+          <p>{{liveresult.comment}}</p>
+        </div>
+        <div  class="typing_suggestion" >
+        <strong>{{ 'SUGGESTION' | translate }}</strong>
+        <ul>
+          <li ng-repeat="suggest in suggestions" ng-show="typingdata[suggest.param.name]" >{{suggest.suggestion}} </li>
+        </ul>
+      </div>
+    </div>
+</div>

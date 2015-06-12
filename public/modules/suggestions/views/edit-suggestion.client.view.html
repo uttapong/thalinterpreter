@@ -1,11 +1,47 @@
-/*
- * Copyright (C) 2015 Thalassemia Interpreter Software
- *
- * This file is part of the Thalassemia Interpreter Software project.
- *
- * Unauthorized copying of this file, via any medium is strictly prohibited
- *
- * Thalassemia Interpreter Software project can not be copied and/or distributed without the express
- * permission of National Science and Technology Development Agency,111 Thailand Science Park (TSP),
- * Phahonyothin Road, Khlong Nueng, Khlong Luang, Pathum Thani 12120, Thailand
- */
+<section class="row" data-ng-controller="SuggestionsController" data-ng-init="findOne()">
+    <div class="page-header">
+        <h1>{{ 'EDIT_SUGGESTION' | translate }}</h1>
+    </div>
+    <div class="col-xs-5">
+        <form class="form-horizontal" data-ng-submit="update()" novalidate>
+
+          <div class="form-group">
+              <label class="control-label col-md-4" for="name">{{ 'INTERPRETED_RESULT' | translate }}</label>
+              <div class="col-md-8">
+                  <select class="form-control" ng-options="item.results[0]  for item in resultmapcombo track by item._id" ng-model="suggestion.resultmap">
+                  </select>
+              </div>
+          </div>
+          <div class="form-group">
+              <label class="control-label col-md-4" for="name">{{ 'PARAMETERS' | translate }}</label>
+              <div class="col-md-8">
+                  <select class="form-control" ng-options="item.label  for item in rbccombo track by item._id" ng-model="suggestion.param">
+                  </select>
+              </div>
+          </div>
+          <div class="form-group">
+          <label class="control-label  col-xs-4" for="name">{{ 'COMMENTS' | translate }}</label>
+          <div class="col-xs-8">
+            <textarea class="form-control" rows="4" data-ng-model="suggestion.suggestion" id="comment" class="form-control" placeholder="{{ 'COMMENTS' | translate }}" required></textarea>
+          </div>
+        </div>
+
+        <div class="form-group">
+        <label class="control-label  col-xs-4" for="name">{{ 'WARNING' | translate }}</label>
+        <div class="col-xs-8">
+          <textarea class="form-control" rows="4" data-ng-model="suggestion.warning" id="warning" class="form-control" placeholder="{{ 'WARNING' | translate }}" required></textarea>
+        </div>
+      </div>
+      <div class="form-group ">
+        <div class="col-sm-offset-4 col-sm-10">
+          <input type="submit" value="Update" class="btn btn-info">
+        </div>
+      </div>
+
+				<div data-ng-show="error" class="text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+
+        </form>
+    </div>
+</section>

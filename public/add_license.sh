@@ -1,10 +1,15 @@
 #!/bin/bash
 
-value=cat filelist.txt
-echo $value
-for file in $value
+for entry in 'modules'/*
 do
-
-    echo "$file"
-
+  if [ -f "$entry" ];then
+    echo "$entry"
+  else
+    for file in "$entry"/*
+    do
+      if [ -f "$file" ];then
+      echo "$file"
+    fi
+    done
+  fi
 done

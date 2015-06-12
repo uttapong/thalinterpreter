@@ -1,11 +1,16 @@
-/*
- * Copyright (C) 2015 Thalassemia Interpreter Software
- *
- * This file is part of the Thalassemia Interpreter Software project.
- *
- * Unauthorized copying of this file, via any medium is strictly prohibited
- *
- * Thalassemia Interpreter Software project can not be copied and/or distributed without the express
- * permission of National Science and Technology Development Agency,111 Thailand Science Park (TSP),
- * Phahonyothin Road, Khlong Nueng, Khlong Luang, Pathum Thani 12120, Thailand
- */
+<div class="row" data-ng-controller="SuggestionsController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>{{ 'SUGGESTION' | translate }} <a  style="float:right"  class="btn btn-info" ui-sref="createSuggestion" ><i class="fa fa-plus fa-lg"></i> {{ 'ADD_TYPING' | translate }} </a></h1>
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="suggestion in suggestions" data-ng-href="#!/suggestions/{{suggestion._id}}" class="list-group-item">
+
+			<li class="items-list">
+        {{suggestion.param.label}} <span style='color:#888'>found on</span> {{suggestion.resultmap.results[0]}}
+			</li>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!suggestions.$resolved || suggestions.length">
+    	No Suggestions yet, why don't you <a href="/#!/suggestions/create">create one</a>?
+    </div>
+</div>

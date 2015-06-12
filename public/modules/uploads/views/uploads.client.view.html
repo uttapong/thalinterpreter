@@ -1,11 +1,87 @@
-/*
- * Copyright (C) 2015 Thalassemia Interpreter Software
- *
- * This file is part of the Thalassemia Interpreter Software project.
- *
- * Unauthorized copying of this file, via any medium is strictly prohibited
- *
- * Thalassemia Interpreter Software project can not be copied and/or distributed without the express
- * permission of National Science and Technology Development Agency,111 Thailand Science Park (TSP),
- * Phahonyothin Road, Khlong Nueng, Khlong Luang, Pathum Thani 12120, Thailand
- */
+<div class="row" ng-app="thal" data-ng-controller="UploadController as uploadCtl">
+<div class="page-header">
+        <h1>{{ 'UPLOAD_TYPING_FILE' | translate }} <button style="float:right"  type="button" class="btn btn-info" ng-click="isCollapsed = !isCollapsed" aria-expanded="false" aria-controls="addFile"  ><i class="fa fa-plus fa-lg"></i> {{ 'ADD' | translate }} </button></h1>
+    </div>
+<div ng-repeat="(key,val) in alerts" class="alert {{key}}">
+        <div ng-repeat="msg in val">{{msg}}</div>
+</div>
+
+<div class="row" collapse="isCollapsed" id="addFile" style="margin-top: 20px;">
+	<div class="col-xs-12" style="background-color: #f8f8f8;border-radius: 5px;">
+	<form class="form-inline" data-ng-submit="uploadFile()" method="post" enctype="multipart/form-data" style="padding:15px;" >
+
+  <div class="row">
+    <div class="form-group">
+        <label for="name">{{ 'SYSTEM_NAME' | translate }}</label>
+
+            <select class="form-control" ng-options="item.label for item in systemchoice track by item.id" ng-model="system">
+            </select>
+    </div>
+	<div class="form-group">
+		<label for="exampleInputEmail1">{{ 'INTERPRETATION_NAME' | translate }}</label>
+		<input class="form-control" type="text" name="title"  data-ng-model="title" placeholder="{{ 'INTERPRETATION_NAME' | translate }}" required/>
+	</div>
+	<div class="form-group">
+    <label for="exampleInputEmail1">{{ 'INTERPRETATION_DETAIL' | translate }}</label>
+		<input class="form-control" type="text" name="note"  data-ng-model="note" placeholder="{{ 'INTERPRETATION_DETAIL' | translate }}" required/>
+	</div>
+</div>
+<div class="row">
+	<div class="form-group">
+
+		<label for="exampleInputEmail1">{{ 'FILE_UPLOAD' | translate }}</label>
+	  	<input name="uploadfile" type="file" ng-file-select="onFileSelect($files)"/>
+	  	<p class="help-block">{{ 'ACCEPT_ONLY_CSV' | translate }}</p>
+	</div>
+	  <button class="btn btn-info" type="submit" value="submit"><i class="fa fa-cloud-upload"></i> {{ 'UPLOAD' | translate }}</button>
+	  <div class="progress class="col-xs-12"">
+  <div class="progress-bar progress-bar-success progress-bar-striped" progress-bar="uploadProgress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+   <span ng-bind="uploadProgress"></span>
+    <span class="sr-only">%</span>
+  </div>
+</div>
+</div>
+
+	</form>
+	</div>
+</div>
+
+<table class="table-striped table" st-table="displayedCollection"  st-safe-src="rowCollection" data-ng-init="find()">
+<thead>
+			<tr>
+				<th st-sort="title">{{ 'INTERPRETATION_NAME' | translate }}</th>
+				<th st-sort="note">{{ 'INTERPRETATION_DETAIL' | translate }}</th>
+				<th st-sort="note">{{ 'CREATED' | translate }}</th>
+				<th st-sort="note">{{ 'STATUS' | translate }}</th>
+				<th st-sort="note">{{ 'RE_INTERPRETE' | translate }}</th>
+        <th st-sort="results">{{ 'NEGATIVE_TYPING_COUNT' | translate }}</th>
+				<th st-sort="note">{{ 'DELETE' | translate }}</th>
+			</tr>
+			<tr>
+				<th colspan="2"><input st-search=""  class="form-control" placeholder="{{ 'SEARCH' | translate }}" type="search"/></th>
+			</tr>
+			</thead>
+<tbody>
+	<tr ng-repeat="upload in displayedCollection">
+		<td>{{upload.title}}</td>
+        <td>{{upload.note}}</td>
+        <td>{{upload.created | date}}</td>
+        <td><span class="label label-default">{{upload.status}}</span></td>
+        <td><button ng-click="reinterprete(upload._id);" class='btn btn-xs btn-info'><i class="fa fa-retweet"></i> {{ 'RE_INTERPRETE' | translate }}</a></td>
+        <td><a class="btn btn-xs btn-warning" href="/#!/uploads/{{upload._id}}"><i class="glyphicon glyphicon-question-sign"></i></a></td>
+        <td><button data-ng-click="confirmRemove(upload);" class='btn btn-xs btn-danger'><i class="fa fa-times"></i></button></td>
+	</tr>
+	</tbody>
+<tfoot>
+			<tr>
+				<td colspan="7" class="text-center">
+					<div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+				</td>
+			</tr>
+		</tfoot>
+</table>
+
+
+
+
+</div>
