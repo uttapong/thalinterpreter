@@ -123,6 +123,10 @@ var TypingSchema = new Schema({
 	image:{
 		type: String
 	},
+	abnormal:{
+		type:Boolean,
+		default: false
+	},
 	suggest:[
 		{
 			type:Schema.Types.Mixed,

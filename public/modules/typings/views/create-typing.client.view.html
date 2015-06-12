@@ -26,6 +26,15 @@
                         <input type="number" data-ng-model="age" id="name" class="form-control" placeholder="0">
                     </div>
                 </div>
+                <div class="form-group">
+                <div class="col-md-offset-4 col-md-8">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" data-ng-model="abnormal"> Abnormal Hemoglobin
+                    </label>
+                  </div>
+                </div>
+              </div>
                 <div class="form-group" ng-repeat="rbc in rbcs">
                     <label class="control-label col-md-4" for="name">{{rbc.label}}</label>
                     <div class="col-md-6">

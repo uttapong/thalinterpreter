@@ -66,6 +66,7 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 				typingid: this.typingid,
 				gender: this.gender.id,
 				age: this.age,
+				abnormal: this.abnormal,
 				device: $scope.authentication.user.device,
 				typing: this.typingdata
 			/*	dcip: this.dcip,

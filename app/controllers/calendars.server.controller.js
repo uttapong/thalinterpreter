@@ -1,3 +1,14 @@
+/*
+ * Copyright (C) 2015 Thalassemia Interpreter Software
+ *
+ * This file is part of the Thalassemia Interpreter Software project.
+ *
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ *
+ * Thalassemia Interpreter Software project can not be copied and/or distributed without the express
+ * permission of National Science and Technology Development Agency,111 Thailand Science Park (TSP),
+ * Phahonyothin Road, Khlong Nueng, Khlong Luang, Pathum Thani 12120, Thailand
+ */
 'use strict';
 
 /**
@@ -72,7 +83,7 @@ exports.delete = function(req, res) {
 /**
  * List of Calendars
  */
-exports.list = function(req, res) { 
+exports.list = function(req, res) {
 	Calendar.find().sort('-created').populate('user', 'displayName').exec(function(err, calendars) {
 		if (err) {
 			return res.status(400).send({
@@ -87,7 +98,7 @@ exports.list = function(req, res) {
 /**
  * Calendar middleware
  */
-exports.calendarByID = function(req, res, next, id) { 
+exports.calendarByID = function(req, res, next, id) {
 	Calendar.findById(id).populate('user', 'displayName').exec(function(err, calendar) {
 		if (err) return next(err);
 		if (! calendar) return next(new Error('Failed to load Calendar ' + id));
