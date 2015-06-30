@@ -1507,3 +1507,24 @@ inserted count 44
 http://localhost:3000
 sasarupla@gmail.com, uttapong.rua@biotec.or.th, 
 Message sent: 250 Great success
+{ a2e: 0,
+  bart_h: 0,
+  hbcs: 0,
+  hbe: 2.4,
+  f: 0,
+  a2: 2.4,
+  a: 86.3,
+  mch: 27.5,
+  mcv: 81.3,
+  hb: 14,
+  dcip: 0 }
+{ page: 1, perpage: 50 }
+string
+string
+Mon Jun 01 2015 00:00:00 GMT+0700 (ICT)
+error: Forever detected script exited with code: null
+error: Script restart attempt #1
+Application loaded using the "production" environment configuration
+{ [Error: Cannot find module '../build/Release/bson'] code: 'MODULE_NOT_FOUND' }
+js-bson: Failed to load c++ bson extension, using pure JS version
+MEAN.JS application started on port 3000
