@@ -2,6 +2,7 @@
 
 module.exports = {
 	db: 'mongodb://localhost/thal-dev',
+	port:3000,
 	app: {
 		title: 'Thal Software - Development Environment'
 	},
