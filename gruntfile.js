@@ -138,6 +138,9 @@ module.exports = function(grunt) {
 			},
 			secure: {
 				NODE_ENV: 'secure'
+			},
+			development:{
+				NODE_ENV:'development'
 			}
 		},
 		mochaTest: {
@@ -164,14 +167,14 @@ module.exports = function(grunt) {
         },
         mongobackup: {
 		    options: {
-		      host : 'localhost',
-		      port: '27017',
-		      db : 'thal-dev',
+		      host : '172.16.0.56',
+		      port: '27000',
+		      db : 'thal',
 		      dump:{
 		        out : './dump',
 		      },
 		      restore:{
-		        path : './dump/thal-dev',
+		        path : './dump/thal',
 		        drop : true
 		      }
 		    }
@@ -195,8 +198,8 @@ module.exports = function(grunt) {
 	});
 
 	// Default task(s).
-	grunt.registerTask('default', ['lint', 'concurrent:default','less']);
-
+	//grunt.registerTask('default', ['lint', 'concurrent:default','less']);
+	grunt.registerTask('default', [ 'less']);
 	// Debug task.
 	grunt.registerTask('debug', ['lint', 'concurrent:debug']);
 
