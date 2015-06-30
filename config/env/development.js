@@ -1,7 +1,8 @@
 'use strict';
 
 module.exports = {
-	db: 'mongodb://localhost/thal-dev',
+	db: 'mongodb://172.16.0.56:27000/thal-dev',
+	port:3000,
 	app: {
 		title: 'Thal Software - Development Environment'
 	},

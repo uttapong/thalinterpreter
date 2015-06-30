@@ -1,14 +1,3 @@
-/*
- * Copyright (C) 2015 Thalassemia Interpreter Software
- *
- * This file is part of the Thalassemia Interpreter Software project.
- *
- * Unauthorized copying of this file, via any medium is strictly prohibited
- *
- * Thalassemia Interpreter Software project can not be copied and/or distributed without the express
- * permission of National Science and Technology Development Agency,111 Thailand Science Park (TSP),
- * Phahonyothin Road, Khlong Nueng, Khlong Luang, Pathum Thani 12120, Thailand
- */
 'use strict';
 
 // Typings controller
@@ -423,18 +412,20 @@ angular.module('typings').controller('TypingsController', ['$http','$scope', '$s
 					sweet.swal("Warning!", "The summary of typing in percent can not exceed 100%!", "error");
 					$scope.add_btn=true;
 				}
+				else if(sum===0 )$scope.add_btn=true;
 				else {
-					if(sum!=0)
+					if(sum!=0 )
 					$scope.add_btn=false;
 				}
 			}
 			else if($scope.authentication.user.device=='CE'){
 				sum=	a2+e+bart_h+hbcs+a;
 				console.log(sum);
-				if( sum>100 ){
+				if( sum>100  ){
 					sweet.swal("Warning!", "The summary of typing in percent can not exceed 100%!", "error");
 					$scope.add_btn=true;
 				}
+				else if(sum===0 )$scope.add_btn=true;
 				else 	if(sum!=0)$scope.add_btn=false;
 			}
 		}
