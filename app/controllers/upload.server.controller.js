@@ -151,7 +151,6 @@ exports.reInterprete = function(req, res, next, uploadid) {
 
 							var typing=new Typing();
 							var typingdata={};
-							typing.device=upload_doc.device;
 							typing.typingid=output[0];
 							typing.gender=output[1];
 							typing.age=output[2];

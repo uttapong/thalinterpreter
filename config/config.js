@@ -5,6 +5,7 @@
  */
 var _ = require('lodash'),
 	glob = require('glob');
+
 /**
  * Load app configurations
  */

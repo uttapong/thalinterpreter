@@ -15,7 +15,6 @@ var fs = require('fs'),
 	cookieParser = require('cookie-parser'),
 	helmet = require('helmet'),
 	passport = require('passport'),
-	mongoose=require('mongoose'),
 	mongoStore = require('connect-mongo')({
 		session: session
 	}),
@@ -32,7 +31,7 @@ var done=false;
 module.exports = function(db) {
 	// Initialize express app
 	var app = express();
-	app.set('base_url', 'thalinterpreter');
+
 	// Globbing model files
 	config.getGlobbedFiles('./app/models/**/*.js').forEach(function(modelPath) {
 		require(path.resolve(modelPath));
@@ -113,7 +112,7 @@ module.exports = function(db) {
 		resave: true,
 		secret: config.sessionSecret,
 		store: new mongoStore({
-			mongooseConnection: mongoose.connection,
+			db: db.connection.db,
 			collection: config.sessionCollection
 		})
 	}));
