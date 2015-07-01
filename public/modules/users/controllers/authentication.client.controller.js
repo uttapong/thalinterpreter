@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', 'Authentication','Hospitals',
-	function($scope, $http, $location, Authentication,Hospitals) {
+angular.module('users').controller('AuthenticationController', ['$rootScope','$scope', '$http', '$location', 'Authentication','Hospitals',
+	function($rootScope,$scope, $http, $location, Authentication,Hospitals) {
 		$scope.authentication = Authentication;
 
 		// If user is signed in then redirect back home
@@ -11,6 +11,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 			$scope.credentials.hospital=$scope.hospital._id;
 			$http.post('/auth/signup', $scope.credentials).success(function(response) {
 				// If successful we assign the response to the global user model
+				$rootScope.sidebar=true;
 				$scope.authentication.user = response;
 
 				// And redirect to the index page
@@ -59,6 +60,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				$scope.authentication.user.admin= $scope.authentication.user.roles.indexOf('admin')>=0?true:false;//IsAdmin();
 				console.log($scope.authentication.user);
 				// And redirect to the index page
+					$rootScope.sidebar=true;
 				$location.path('/dashboard');
 			}).error(function(response) {
 				$scope.error = response.message;

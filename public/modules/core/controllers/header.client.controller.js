@@ -5,7 +5,7 @@ angular.module('core').controller('HeaderController', ['$rootScope','$scope', 'A
 		$scope.authentication = Authentication;
 		$scope.isCollapsed = false;
 		$scope.menu = Menus.getMenu('topbar');
-		$rootScope.sidebar=true;
+		$rootScope.sidebar=false;
 		//console.log(Authentication);
 		$scope.lang='en';
 		$translate.use($scope.lang);
