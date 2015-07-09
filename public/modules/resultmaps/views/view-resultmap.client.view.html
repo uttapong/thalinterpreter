@@ -2,7 +2,7 @@
 	<div class="page-header">
 		<h1 data-ng-bind="resultmap.code"></h1>
 	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == resultmap.user._id))">
+	<div class="pull-right" data-ng-show="((authentication.user))">
 		<a class="btn btn-primary" href="/#!/resultmaps/{{resultmap._id}}/edit">
 			<i class="glyphicon glyphicon-edit"></i>
 		</a>
