@@ -22,8 +22,8 @@ module.exports = function(app) {
 
 	app.route('/resultmaps/:resultmapId')
 		.get(resultmaps.read)
-		.put(users.requiresLogin, resultmaps.hasAuthorization, resultmaps.update)
-		.delete(users.requiresLogin, resultmaps.hasAuthorization, resultmaps.delete);
+		.put(users.requiresLogin, resultmaps.update)
+		.delete(users.requiresLogin, resultmaps.delete);
 
 	// Finish by binding the Resultmap middleware
 	app.param('resultmapId', resultmaps.resultmapByID);
