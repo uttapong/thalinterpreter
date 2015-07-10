@@ -10,7 +10,13 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 		$stateProvider.
 		state('dashboard', {
 			url: '/dashboard',
-			templateUrl: 'modules/core/views/home.client.view.html'
+			templateUrl: 'modules/core/views/home.client.view.html',
+			data: {
+        permissions: {
+          except: ['anonymous'],
+          redirectTo: 'login'
+        }
+      }
 		}).
 		state('system', {
 			url: '/system',
