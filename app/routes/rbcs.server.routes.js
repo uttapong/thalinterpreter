@@ -24,7 +24,7 @@ module.exports = function(app) {
 			.post(users.requiresLogin,rbcs.list);
 
 	app.route('/rbcs/:rbcId')
-		.get(rbcs.read)
+		.get(users.requiresLogin,rbcs.read)
 		.put(users.requiresLogin, rbcs.hasAuthorization, rbcs.update)
 		.delete(users.requiresLogin, rbcs.hasAuthorization, rbcs.delete);
 
