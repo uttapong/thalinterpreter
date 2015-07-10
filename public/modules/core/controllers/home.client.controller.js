@@ -55,7 +55,8 @@ angular.module('core').controller('HomeController', ['$rootScope','$scope', 'Aut
 		}
 
 		$scope.isAdmin=function(){
-			var admin=$scope.authentication.user.roles.indexOf('admin')>=0?true:false;//IsAdmin();
+			var admin;
+			if(typeof $scope.authentication.user !=='undefined')admin=$scope.authentication.user.roles.indexOf('admin')>=0?true:false;//IsAdmin();
 			console.log(admin);
 			return admin;
 		}

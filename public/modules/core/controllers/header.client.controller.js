@@ -23,8 +23,7 @@ angular.module('core').controller('HeaderController', ['$rootScope','$scope', 'A
 
 	$scope.isAdmin=function(){
 		var admin;
-
-		if($scope.authentication.user)admin=$scope.authentication.user.roles.indexOf('admin')>=0?true:false;//IsAdmin();
+		if(typeof $scope.authentication.user.roles !=='undefined')admin=$scope.authentication.user.roles.indexOf('admin')>=0?true:false;//IsAdmin();
 		//console.log(admin);
 		return admin;
 	}
