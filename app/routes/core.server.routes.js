@@ -16,7 +16,7 @@ module.exports = function(app) {
 	var core = require('../../app/controllers/core.server.controller');
 	app.route('/').get(core.index);
 
-	app.route('/systeminfo').get(core.system);
-	app.route('/dashboard').get(core.dashboard);
-	app.route('/mongobackup').get(core.mongobackup);
+	app.route('/systeminfo').get(users.requiresLogin,core.system);
+	app.route('/dashboard').get(users.requiresLogin,core.dashboard);
+	app.route('/mongobackup').get(users.requiresLogin,core.mongobackup);
 };
