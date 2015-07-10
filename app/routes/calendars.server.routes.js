@@ -17,7 +17,7 @@ module.exports = function(app) {
 
 	// Calendars Routes
 	app.route('/calendars')
-		.get(calendars.list)
+		.get(users.requiresLogin,calendars.list)
 		.post(users.requiresLogin, calendars.create);
 
 	app.route('/calendars/:calendarId')

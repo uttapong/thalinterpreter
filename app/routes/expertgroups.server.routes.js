@@ -20,7 +20,7 @@ var users = require('../../app/controllers/users.server.controller'),
 module.exports = function(app) {
 	// Article Routes
 	app.route('/expertgroups')
-		.get(expertgroups.list)
+		.get(users.requiresLogin,expertgroups.list)
 		.post(users.requiresLogin, expertgroups.create);
 
 	app.route('/expertgroups/:articleId')
@@ -31,7 +31,7 @@ module.exports = function(app) {
 	// Finish by binding the article middleware
 	app.param('articleId', expertgroups.articleByID);
 
-	app.route('/addcuratortogroup').post(expertgroups.addcuratortogroup);
-	app.route('/searchgroupcurator').post(expertgroups.searchgroupcurator);
-	app.route('/removegroupcurator').post(expertgroups.removegroupcurator);
+	app.route('/addcuratortogroup').post(users.requiresLogin,expertgroups.addcuratortogroup);
+	app.route('/searchgroupcurator').post(users.requiresLogin,expertgroups.searchgroupcurator);
+	app.route('/removegroupcurator').post(users.requiresLogin,expertgroups.removegroupcurator);
 };

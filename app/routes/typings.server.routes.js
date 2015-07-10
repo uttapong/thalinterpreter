@@ -36,7 +36,7 @@ module.exports = function(app) {
 		});
 	// Typings Routes
 	app.route('/typings')
-		.get(typings.list)
+		.get(users.requiresLogin,typings.list)
 		.post(users.requiresLogin, typings.create);
 
 	app.route('/typings/:typingId')
@@ -44,12 +44,12 @@ module.exports = function(app) {
 		.put(users.requiresLogin, typings.hasAuthorization, typings.update)
 		.delete(users.requiresLogin, typings.hasAuthorization, typings.delete);
 	app.route('/typings/live')
-		.post(typings.liveinterprete);
+		.post(users.requiresLogin,typings.liveinterprete);
 	app.route('/pagetypings')
-			.post(typings.list);
+			.post(users.requiresLogin,typings.list);
 
 	app.route('/searchtypings')
-					.post(typings.search);
+					.post(users.requiresLogin,typings.search);
 	// Finish by binding the Typing middleware
 	app.param('typingId', typings.typingByID);
 
@@ -64,16 +64,16 @@ module.exports = function(app) {
 	app.route('/typingreport/:printid').get(users.requiresLogin,typings.typingreport);
 
 	app.route('/typingcalendar/:month/:year')
-		.get(typings.typingbycalendar);
+		.get(users.requiresLogin,typings.typingbycalendar);
 
 	app.route('/typingsbydate')
-			.post(typings.listbydate);
+			.post(users.requiresLogin,typings.listbydate);
 
 	app.route('/addtypingsadvice')
-					.post(typings.addadvice);
+					.post(users.requiresLogin,typings.addadvice);
 
 	app.route('/sendmail')
-									.post(typings.sendmail);
+									.post(users.requiresLogin,typings.sendmail);
 
 
 };

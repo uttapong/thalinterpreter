@@ -17,11 +17,11 @@ module.exports = function(app) {
 
 	// Rbcs Routes
 	app.route('/rbcs')
-		.get(rbcs.list)
+		.get(users.requiresLogin,rbcs.list)
 		.post(users.requiresLogin, rbcs.create);
 
 	app.route('/rbcs_by_machine')
-			.post(rbcs.list);
+			.post(users.requiresLogin,rbcs.list);
 
 	app.route('/rbcs/:rbcId')
 		.get(rbcs.read)

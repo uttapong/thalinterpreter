@@ -66,9 +66,9 @@ module.exports = function(app) {
 	// Finish by binding the user middleware
 	app.param('userId', users.userByID);
 
-	app.route('/curators').get(users.getcurators);
-	app.route('/addcurator').post(users.addcurator);
-	app.route('/addcuratorfromlist').post(users.addcuratorfromlist);
-	app.route('/searchcurator').post(users.searchcurator);
-	app.route('/removecurator').post(users.removecurator);
+	app.route('/curators').get(users.requiresLogin,users.getcurators);
+	app.route('/addcurator').post(users.requiresLogin,users.addcurator);
+	app.route('/addcuratorfromlist').post(users.requiresLogin,users.addcuratorfromlist);
+	app.route('/searchcurator').post(users.requiresLogin,users.searchcurator);
+	app.route('/removecurator').post(users.requiresLogin,users.removecurator);
 };

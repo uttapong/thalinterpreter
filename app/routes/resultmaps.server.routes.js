@@ -17,11 +17,11 @@ module.exports = function(app) {
 
 	// Resultmaps Routes
 	app.route('/resultmaps')
-		.get(resultmaps.list)
+		.get(users.requiresLogin,resultmaps.list)
 		.post(users.requiresLogin, resultmaps.create);
 
 	app.route('/resultmaps/:resultmapId')
-		.get(resultmaps.read)
+		.get(users.requiresLogin,resultmaps.read)
 		.put(users.requiresLogin, resultmaps.update)
 		.delete(users.requiresLogin, resultmaps.delete);
 
@@ -29,5 +29,5 @@ module.exports = function(app) {
 	app.param('resultmapId', resultmaps.resultmapByID);
 
 	app.route('/resultmapschoice')
-				.get(resultmaps.choicelist)
+				.get(users.requiresLogin,resultmaps.choicelist)
 };

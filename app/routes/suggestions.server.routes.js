@@ -17,7 +17,7 @@ module.exports = function(app) {
 
 	// Suggestions Routes
 	app.route('/suggestions')
-		.get(suggestions.list)
+		.get(users.requiresLogin,suggestions.list)
 		.post(users.requiresLogin, suggestions.create);
 
 		app.route('/suggestcombo')
