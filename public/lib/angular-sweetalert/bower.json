@@ -1,9 +1,9 @@
 {
 	"name": "ngSweetAlert",
-	"version": "1.1.0",
+	"version": "1.0.4",
 	"main": "./SweetAlert.js",
-	"author": "pedro@oitozero.com",
-	"contributors": [
+	"authors": [
+		"pedro@oitozero.com",
 		"gnick666@gmail.com"
 	],
 	"description": "AngularJS wrapper for SweetAlert",

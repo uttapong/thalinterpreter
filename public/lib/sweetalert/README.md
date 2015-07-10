@@ -1,17 +1,12 @@
-SweetAlert
-==========
+#SweetAlert
 
 An awesome replacement for JavaScript's alert.
 
+[See it in action!](http://tristanedwards.me/sweetalert)
+
 ![A success modal](https://raw.github.com/t4t5/sweetalert/master/sweetalert.gif)
 
-[See it in action!](http://t4t5.github.io/sweetalert)
-
-[Learn how to use it!](https://www.ludu.co/lesson/how-to-use-sweetalert)
-
-
-Usage
------
+#Usage
 
 You can install SweetAlert through bower:
 
@@ -19,29 +14,14 @@ You can install SweetAlert through bower:
 bower install sweetalert
 ```
 
-Or through npm:
-
-```bash
-npm install sweetalert
-```
-
 Alternatively, download the package and reference the JavaScript and CSS files manually:
 
 ```html
-<script src="dist/sweetalert.min.js"></script>
-<link rel="stylesheet" type="text/css" href="dist/sweetalert.css">
+<script src="lib/sweet-alert.min.js"></script>
+<link rel="stylesheet" type="text/css" href="lib/sweet-alert.css">
 ```
-**Note:** If you're using an older version than v1.0.0, the files are `lib/sweet-alert.min.js` and `lib/sweet-alert.css`
 
-
-Tutorial
---------
-
-The easiest way to get started is follow the [SweetAlert tutorial on Ludu](https://www.ludu.co/lesson/how-to-use-sweetalert)!
-
-
-Examples
---------
+#Examples
 
 The most basic message:
 
@@ -55,7 +35,7 @@ A message signaling an error:
 sweetAlert("Oops...", "Something went wrong!", "error");
 ```
 
-A warning message, with a function attached to the "Confirm"-button:
+A warning message, with a function attached to the "Confirm"-button..
 
 ```javascript
 sweetAlert({
@@ -74,40 +54,14 @@ sweetAlert({
 });
 ```
 
-A prompt modal where the user's input is logged:
-
-```javascript
-sweerAlert({
-  title: "An input!",
-  text: 'Write something interesting:',
-  type: 'input',
-  showCancelButton: true,
-  closeOnConfirm: false,
-  animation: "slide-from-top"
-}, function(inputValue){
-  console.log("You wrote", inputValue);   
-});
-```
-
-[View more examples](http://t4t5.github.io/sweetalert)
+[View more examples](http://tristanedwards.me/sweetalert)
 
 
-Themes
-------
+#Browser compatibility
 
-SweetAlert can easily be themed to fit your site's design. SweetAlert comes with three example themes that you can try out: **facebook**, **twitter** and **google**. They can be referenced right after the intial sweetalert-CSS:
-```html
-<link rel="stylesheet" href="dist/sweetalert.css">
-<link rel="stylesheet" href="themes/twitter/twitter.css">
-```
+SweetAlert works in all major browsers (yes, even IE). Some details:
 
-
-Browser compatibility
----------------------
-
-SweetAlert works in most major browsers (yes, even IE). Some details:
-
-- **IE8**: (Dropped since v1.0.0-beta)
+- **IE8**: Works, but icons (checkmark, x-mark...) are hidden.
 - **IE9**: Works, but icons are not animated.
 - **IE10+**: Works!
 - **Safari 4+**: Works!
@@ -116,25 +70,25 @@ SweetAlert works in most major browsers (yes, even IE). Some details:
 - **Opera 15+**: Works!
 
 
-Contributing
-------------
+#Contributing
 
 If you want to contribute:
 
 - Fork the repo
 
-- Make sure you have [Node](http://nodejs.org/), [NPM](https://www.npmjs.com/) and [Gulp](http://gulpjs.com/) installed. When in the SweetAlert directory, run `npm install` to install the dependencies. Then run `gulp` while working to automatically minify the SCSS and JS-files.
-
-- Keep in min that SweetAlert uses Browserify in order to compile ES6-files. For easy debugging, make sure you reference the file `dist/sweetalert-dev.js` instead of `sweetalert.js`.
+- Make sure you have [Node](http://nodejs.org/), [NPM](https://www.npmjs.com/) and [Gulp](http://gulpjs.com/) installed. When in the SweetAlert directory, run the command:
+```
+npm install
+```
+to install the dependencies and make Gulp automatically minify the SCSS and JS-files.
 
 - After you're done, make a pull request and wait for approval! :)
 
 
-Related projects
-----------------
+
+#Related projects
 
 * [SweetAlert for Android](https://github.com/pedant/sweet-alert-dialog)
 * [SweetAlert for Bootstrap](https://github.com/lipis/bootstrap-sweetalert)
 * [SweetAlert for AngularJS](https://github.com/oitozero/ngSweetAlert)
-* [SweetAlert for RubyOnRails](https://github.com/sharshenov/sweetalert-rails)
 

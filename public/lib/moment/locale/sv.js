@@ -27,8 +27,8 @@
             sameDay: '[Idag] LT',
             nextDay: '[Imorgon] LT',
             lastDay: '[Igår] LT',
-            nextWeek: '[På] dddd LT',
-            lastWeek: '[I] dddd[s] LT',
+            nextWeek: 'dddd LT',
+            lastWeek: '[Förra] dddd[en] LT',
             sameElse: 'L'
         },
         relativeTime : {

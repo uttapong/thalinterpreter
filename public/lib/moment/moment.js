@@ -1,5 +1,5 @@
 //! moment.js
-//! version : 2.10.3
+//! version : 2.10.2
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -22,12 +22,28 @@
         hookCallback = callback;
     }
 
+    function defaultParsingFlags() {
+        // We need to deep clone this object.
+        return {
+            empty           : false,
+            unusedTokens    : [],
+            unusedInput     : [],
+            overflow        : -2,
+            charsLeftOver   : 0,
+            nullInput       : false,
+            invalidMonth    : null,
+            invalidFormat   : false,
+            userInvalidated : false,
+            iso             : false
+        };
+    }
+
     function isArray(input) {
         return Object.prototype.toString.call(input) === '[object Array]';
     }
 
     function isDate(input) {
-        return input instanceof Date || Object.prototype.toString.call(input) === '[object Date]';
+        return Object.prototype.toString.call(input) === '[object Date]' || input instanceof Date;
     }
 
     function map(arr, fn) {
@@ -64,45 +80,21 @@
         return createLocalOrUTC(input, format, locale, strict, true).utc();
     }
 
-    function defaultParsingFlags() {
-        // We need to deep clone this object.
-        return {
-            empty           : false,
-            unusedTokens    : [],
-            unusedInput     : [],
-            overflow        : -2,
-            charsLeftOver   : 0,
-            nullInput       : false,
-            invalidMonth    : null,
-            invalidFormat   : false,
-            userInvalidated : false,
-            iso             : false
-        };
-    }
-
-    function getParsingFlags(m) {
-        if (m._pf == null) {
-            m._pf = defaultParsingFlags();
-        }
-        return m._pf;
-    }
-
     function valid__isValid(m) {
         if (m._isValid == null) {
-            var flags = getParsingFlags(m);
             m._isValid = !isNaN(m._d.getTime()) &&
-                flags.overflow < 0 &&
-                !flags.empty &&
-                !flags.invalidMonth &&
-                !flags.nullInput &&
-                !flags.invalidFormat &&
-                !flags.userInvalidated;
+                m._pf.overflow < 0 &&
+                !m._pf.empty &&
+                !m._pf.invalidMonth &&
+                !m._pf.nullInput &&
+                !m._pf.invalidFormat &&
+                !m._pf.userInvalidated;
 
             if (m._strict) {
                 m._isValid = m._isValid &&
-                    flags.charsLeftOver === 0 &&
-                    flags.unusedTokens.length === 0 &&
-                    flags.bigHour === undefined;
+                    m._pf.charsLeftOver === 0 &&
+                    m._pf.unusedTokens.length === 0 &&
+                    m._pf.bigHour === undefined;
             }
         }
         return m._isValid;
@@ -111,10 +103,10 @@
     function valid__createInvalid (flags) {
         var m = create_utc__createUTC(NaN);
         if (flags != null) {
-            extend(getParsingFlags(m), flags);
+            extend(m._pf, flags);
         }
         else {
-            getParsingFlags(m).userInvalidated = true;
+            m._pf.userInvalidated = true;
         }
 
         return m;
@@ -150,7 +142,7 @@
             to._offset = from._offset;
         }
         if (typeof from._pf !== 'undefined') {
-            to._pf = getParsingFlags(from);
+            to._pf = from._pf;
         }
         if (typeof from._locale !== 'undefined') {
             to._locale = from._locale;
@@ -185,7 +177,7 @@
     }
 
     function isMoment (obj) {
-        return obj instanceof Moment || (obj != null && obj._isAMomentObject != null);
+        return obj instanceof Moment || (obj != null && hasOwnProp(obj, '_isAMomentObject'));
     }
 
     function toInt(argumentForCoercion) {
@@ -623,7 +615,7 @@
         if (month != null) {
             array[MONTH] = month;
         } else {
-            getParsingFlags(config).invalidMonth = input;
+            config._pf.invalidMonth = input;
         }
     });
 
@@ -707,7 +699,7 @@
         var overflow;
         var a = m._a;
 
-        if (a && getParsingFlags(m).overflow === -2) {
+        if (a && m._pf.overflow === -2) {
             overflow =
                 a[MONTH]       < 0 || a[MONTH]       > 11  ? MONTH :
                 a[DATE]        < 1 || a[DATE]        > daysInMonth(a[YEAR], a[MONTH]) ? DATE :
@@ -717,11 +709,11 @@
                 a[MILLISECOND] < 0 || a[MILLISECOND] > 999 ? MILLISECOND :
                 -1;
 
-            if (getParsingFlags(m)._overflowDayOfYear && (overflow < YEAR || overflow > DATE)) {
+            if (m._pf._overflowDayOfYear && (overflow < YEAR || overflow > DATE)) {
                 overflow = DATE;
             }
 
-            getParsingFlags(m).overflow = overflow;
+            m._pf.overflow = overflow;
         }
 
         return m;
@@ -734,12 +726,10 @@
     }
 
     function deprecate(msg, fn) {
-        var firstTime = true,
-            msgWithStack = msg + '\n' + (new Error()).stack;
-
+        var firstTime = true;
         return extend(function () {
             if (firstTime) {
-                warn(msgWithStack);
+                warn(msg);
                 firstTime = false;
             }
             return fn.apply(this, arguments);
@@ -784,7 +774,7 @@
             match = from_string__isoRegex.exec(string);
 
         if (match) {
-            getParsingFlags(config).iso = true;
+            config._pf.iso = true;
             for (i = 0, l = isoDates.length; i < l; i++) {
                 if (isoDates[i][1].exec(string)) {
                     // match[5] should be 'T' or undefined
@@ -1064,7 +1054,7 @@
             yearToUse = defaults(config._a[YEAR], currentDate[YEAR]);
 
             if (config._dayOfYear > daysInYear(yearToUse)) {
-                getParsingFlags(config)._overflowDayOfYear = true;
+                config._pf._overflowDayOfYear = true;
             }
 
             date = createUTCDate(yearToUse, 0, config._dayOfYear);
@@ -1160,7 +1150,7 @@
         }
 
         config._a = [];
-        getParsingFlags(config).empty = true;
+        config._pf.empty = true;
 
         // This array is used to make a Date, either with `new Date` or `Date.UTC`
         var string = '' + config._i,
@@ -1176,7 +1166,7 @@
             if (parsedInput) {
                 skipped = string.substr(0, string.indexOf(parsedInput));
                 if (skipped.length > 0) {
-                    getParsingFlags(config).unusedInput.push(skipped);
+                    config._pf.unusedInput.push(skipped);
                 }
                 string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
                 totalParsedInputLength += parsedInput.length;
@@ -1184,29 +1174,27 @@
             // don't parse if it's not a known token
             if (formatTokenFunctions[token]) {
                 if (parsedInput) {
-                    getParsingFlags(config).empty = false;
+                    config._pf.empty = false;
                 }
                 else {
-                    getParsingFlags(config).unusedTokens.push(token);
+                    config._pf.unusedTokens.push(token);
                 }
                 addTimeToArrayFromToken(token, parsedInput, config);
             }
             else if (config._strict && !parsedInput) {
-                getParsingFlags(config).unusedTokens.push(token);
+                config._pf.unusedTokens.push(token);
             }
         }
 
         // add remaining unparsed input length to the string
-        getParsingFlags(config).charsLeftOver = stringLength - totalParsedInputLength;
+        config._pf.charsLeftOver = stringLength - totalParsedInputLength;
         if (string.length > 0) {
-            getParsingFlags(config).unusedInput.push(string);
+            config._pf.unusedInput.push(string);
         }
 
         // clear _12h flag if hour is <= 12
-        if (getParsingFlags(config).bigHour === true &&
-                config._a[HOUR] <= 12 &&
-                config._a[HOUR] > 0) {
-            getParsingFlags(config).bigHour = undefined;
+        if (config._pf.bigHour === true && config._a[HOUR] <= 12) {
+            config._pf.bigHour = undefined;
         }
         // handle meridiem
         config._a[HOUR] = meridiemFixWrap(config._locale, config._a[HOUR], config._meridiem);
@@ -1250,7 +1238,7 @@
             currentScore;
 
         if (config._f.length === 0) {
-            getParsingFlags(config).invalidFormat = true;
+            config._pf.invalidFormat = true;
             config._d = new Date(NaN);
             return;
         }
@@ -1261,6 +1249,7 @@
             if (config._useUTC != null) {
                 tempConfig._useUTC = config._useUTC;
             }
+            tempConfig._pf = defaultParsingFlags();
             tempConfig._f = config._f[i];
             configFromStringAndFormat(tempConfig);
 
@@ -1269,12 +1258,12 @@
             }
 
             // if there is any input that was not parsed add a penalty for that format
-            currentScore += getParsingFlags(tempConfig).charsLeftOver;
+            currentScore += tempConfig._pf.charsLeftOver;
 
             //or tokens
-            currentScore += getParsingFlags(tempConfig).unusedTokens.length * 10;
+            currentScore += tempConfig._pf.unusedTokens.length * 10;
 
-            getParsingFlags(tempConfig).score = currentScore;
+            tempConfig._pf.score = currentScore;
 
             if (scoreToBeat == null || currentScore < scoreToBeat) {
                 scoreToBeat = currentScore;
@@ -1317,8 +1306,6 @@
             configFromStringAndArray(config);
         } else if (format) {
             configFromStringAndFormat(config);
-        } else if (isDate(input)) {
-            config._d = input;
         } else {
             configFromInput(config);
         }
@@ -1371,6 +1358,7 @@
         c._i = input;
         c._f = format;
         c._strict = strict;
+        c._pf = defaultParsingFlags();
 
         return createFromConfig(c);
     }
@@ -1944,25 +1932,11 @@
     }
 
     function from (time, withoutSuffix) {
-        if (!this.isValid()) {
-            return this.localeData().invalidDate();
-        }
         return create__createDuration({to: this, from: time}).locale(this.locale()).humanize(!withoutSuffix);
     }
 
     function fromNow (withoutSuffix) {
         return this.from(local__createLocal(), withoutSuffix);
-    }
-
-    function to (time, withoutSuffix) {
-        if (!this.isValid()) {
-            return this.localeData().invalidDate();
-        }
-        return create__createDuration({from: this, to: time}).locale(this.locale()).humanize(!withoutSuffix);
-    }
-
-    function toNow (withoutSuffix) {
-        return this.to(local__createLocal(), withoutSuffix);
     }
 
     function locale (key) {
@@ -2067,11 +2041,11 @@
     }
 
     function parsingFlags () {
-        return extend({}, getParsingFlags(this));
+        return extend({}, this._pf);
     }
 
     function invalidAt () {
-        return getParsingFlags(this).overflow;
+        return this._pf.overflow;
     }
 
     addFormatToken(0, ['gg', 2], 0, function () {
@@ -2222,7 +2196,7 @@
         if (weekday != null) {
             week.d = weekday;
         } else {
-            getParsingFlags(config).invalidWeekday = input;
+            config._pf.invalidWeekday = input;
         }
     });
 
@@ -2347,7 +2321,7 @@
     });
     addParseToken(['h', 'hh'], function (input, array, config) {
         array[HOUR] = toInt(input);
-        getParsingFlags(config).bigHour = true;
+        config._pf.bigHour = true;
     });
 
     // LOCALES
@@ -2464,8 +2438,6 @@
     momentPrototype__proto.format       = format;
     momentPrototype__proto.from         = from;
     momentPrototype__proto.fromNow      = fromNow;
-    momentPrototype__proto.to           = to;
-    momentPrototype__proto.toNow        = toNow;
     momentPrototype__proto.get          = getSet;
     momentPrototype__proto.invalidAt    = invalidAt;
     momentPrototype__proto.isAfter      = isAfter;
@@ -2654,7 +2626,7 @@
         }
         // Lenient ordinal parsing accepts just a number in addition to
         // number + (possibly) stuff coming from _ordinalParseLenient.
-        this._ordinalParseLenient = new RegExp(this._ordinalParse.source + '|' + (/\d{1,2}/).source);
+        this._ordinalParseLenient = new RegExp(this._ordinalParse.source + '|' + /\d{1,2}/.source);
     }
 
     var prototype__proto = Locale.prototype;
@@ -2871,13 +2843,13 @@
             // handle milliseconds separately because of floating point math errors (issue #1867)
             days = this._days + Math.round(yearsToDays(this._months / 12));
             switch (units) {
-                case 'week'   : return days / 7     + milliseconds / 6048e5;
-                case 'day'    : return days         + milliseconds / 864e5;
-                case 'hour'   : return days * 24    + milliseconds / 36e5;
-                case 'minute' : return days * 1440  + milliseconds / 6e4;
-                case 'second' : return days * 86400 + milliseconds / 1000;
+                case 'week'   : return days / 7            + milliseconds / 6048e5;
+                case 'day'    : return days                + milliseconds / 864e5;
+                case 'hour'   : return days * 24           + milliseconds / 36e5;
+                case 'minute' : return days * 24 * 60      + milliseconds / 6e4;
+                case 'second' : return days * 24 * 60 * 60 + milliseconds / 1000;
                 // Math.floor prevents floating point math errors here
-                case 'millisecond': return Math.floor(days * 864e5) + milliseconds;
+                case 'millisecond': return Math.floor(days * 24 * 60 * 60 * 1000) + milliseconds;
                 default: throw new Error('Unknown unit ' + units);
             }
         }
@@ -3078,7 +3050,7 @@
     // Side effect imports
 
 
-    utils_hooks__hooks.version = '2.10.3';
+    utils_hooks__hooks.version = '2.10.2';
 
     setHookCallback(local__createLocal);
 
