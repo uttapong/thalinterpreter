@@ -33,51 +33,6 @@ var TypingSchema = new Schema({
 		default: '',
 		trim: true,
 	},
-	dcip: {
-		type: String,
-		default: '',
-		trim: true,
-	},
-	hb: {
-		type: Number,
-		default: '',
-		trim: true,
-	},
-	mcv: {
-		type: Number,
-		default: '',
-		trim: true,
-	},
-	a: {
-		type: Number,
-		default: '',
-		trim: true,
-	},
-	a2: {
-		type: Number,
-		default: '',
-		trim: true,
-	},
-	f: {
-		type: Number,
-		default: '',
-		trim: true,
-	},
-	hbe: {
-		type: Number,
-		default: '',
-		trim: true,
-	},
-	hbcs: {
-		type: Number,
-		default: '',
-		trim: true,
-	},
-	bart_h: {
-		type: Number,
-		default: '',
-		trim: true,
-	},
 	clinical_result: {
 		type: String,
 		default: '',
