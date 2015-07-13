@@ -36,7 +36,9 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 	var typing = new Typing(req.body);
-	/*console.log(typing);
+	console.log('--create-function--------------');
+	console.log(typing);
+	/*
 	typing.save(function(err){
 		res.jsonp('xxxx');
 	});*/
@@ -44,6 +46,9 @@ exports.create = function(req, res) {
 	typing.user = req.user;
 	var interprete_result=thal.interprete(typing,'single');
 	typing.interprete_code=interprete_result.result;
+
+	console.log('--create-function---after interpreted-----------');
+	console.log(typing);
 
 	ResultMap.findOne({ 'code':  typing.interprete_code },function(error,code_doc){
 		if(error) {
