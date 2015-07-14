@@ -110,3 +110,22 @@ Typing.aggregate(
 
 
 };
+
+exports.normaldist=function(req,res){
+    var freq=50;
+    var param=req.param;
+    Typing.find({},['typing.'+param],{limit:1,sort:{'typing.'+param:-1}}).exec(function(err, max_values) {
+  		if (err) return next(err);
+  		if (! max_values) return next(new Error('Failed to load max values ' + id));
+  		var max_value=max_values[0];
+
+      Typing.find({},['typing.'+param],{limit:1,sort:{'typing.'+param:1}}).exec(function(err, min_values) {
+    		if (err) return next(err);
+    		if (! min_values) return next(new Error('Failed to load min values ' + id));
+    		var min_value=min_values[0];
+    	});
+  	});
+    Typing.aggregate({$project:{'typing.mcv':1}},function(err,obj){
+
+    });
+}
