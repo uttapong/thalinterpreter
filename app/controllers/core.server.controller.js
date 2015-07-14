@@ -14,26 +14,27 @@
 /**
  * Module dependencies.
  */
- var mongoose = require('mongoose'),
- User = mongoose.model('User'),
- Typing = mongoose.model('Typing'),
- ResultMap=mongoose.model('ResultMap'),
- 	Hospital = mongoose.model('Hospital'),
-   os = require('os'),
-sys = require('sys'),
-exec = require('child_process').exec,
-	_ = require('lodash');
+var mongoose = require('mongoose'),
+  User = mongoose.model('User'),
+  Typing = mongoose.model('Typing'),
+  ResultMap = mongoose.model('ResultMap'),
+  Hospital = mongoose.model('Hospital'),
+  histc = require('histc'),
+  os = require('os'),
+  sys = require('sys'),
+  exec = require('child_process').exec,
+  _ = require('lodash');
 
 exports.index = function(req, res) {
-	res.render('index', {
-		user: req.user || null,
-		request: req
-	});
+  res.render('index', {
+    user: req.user || null,
+    request: req
+  });
 };
 
-exports.mongobackup=function(req,res){
+exports.mongobackup = function(req, res) {
   var child;
-  child = exec("grunt mongobackup:dump", function (error, stdout, stderr) {
+  child = exec("grunt mongobackup:dump", function(error, stdout, stderr) {
     sys.print('stdout: ' + stdout);
     sys.print('stderr: ' + stderr);
     //console.log(stdout);
@@ -45,87 +46,153 @@ exports.mongobackup=function(req,res){
   });
 }
 
-exports.system=function(req,res){
-	res.jsonp({
-		hostname:os.hostname(),
-		type:os.type(),
-		platform:os.platform(),
-		arch:os.arch(),
-		release:os.release(),
-		uptime: os.uptime(),
-		loadavg:os.loadavg(),
-		totalmem:os.totalmem(),
-		freemem:os.freemem(),
-		cpus:os.cpus()
+exports.system = function(req, res) {
+  res.jsonp({
+    hostname: os.hostname(),
+    type: os.type(),
+    platform: os.platform(),
+    arch: os.arch(),
+    release: os.release(),
+    uptime: os.uptime(),
+    loadavg: os.loadavg(),
+    totalmem: os.totalmem(),
+    freemem: os.freemem(),
+    cpus: os.cpus()
 
-	});
+  });
 };
 
-exports.dashboard=function(req,res){
+exports.dashboard = function(req, res) {
 
-var result={};
+  var result = {};
 
-Typing.aggregate(
-    { $group : {
-         '_id' : '$resultmap',
-         'count' : { $sum : 1 }}
-         },
-    function (err, obj)
-         { if (err) ; // TODO handle error
-           //console.log(res);
-           result.hemotype=obj;
+  Typing.aggregate({
+      $group: {
+        '_id': '$resultmap',
+        'count': {
+          $sum: 1
+        }
+      }
+    },
+    function(err, obj) {
+      if (err); // TODO handle error
+      //console.log(res);
+      result.hemotype = obj;
 
-           Typing.aggregate(
-               { $group : {
-                    '_id' : {$dayOfYear:'$created"' },
-                    'count' : { $sum : 1 }
+      Typing.aggregate({
+          $group: {
+            '_id': {
+              $dayOfYear: '$created"'
+            },
+            'count': {
+              $sum: 1
+            }
 
-                    }
-                    },
-               function (err, obj2)
-                    { if (err) ; // TODO handle error
-                      //console.log(res);
-                      result.monthly=obj2;
+          }
+        },
+        function(err, obj2) {
+          if (err); // TODO handle error
+          //console.log(res);
+          result.monthly = obj2;
 
-                      User.count({ }, function (err, usercount) {
-                       result.usercount=usercount;
-                       Hospital.count({ }, function (err, hpcount) {
-                        result.hospitalcount=hpcount;
-                        Typing.count({ }, function (err, typingcount) {
-                         result.hemocount=typingcount;
-                         User.count({roles:'curator' }, function (err, crcount) {
-                          result.curatorcount=crcount;
-                            ResultMap.find({}, function (err, resultmaps) {
-                              result.resultmaps=resultmaps;
-                              res.jsonp(result);
-                            });
-                          });
-                        });
-                       });
-                      });
-                      //res.jsonp(obj);
-                    });
-           //res.jsonp(obj);
-         });
+          User.count({}, function(err, usercount) {
+            result.usercount = usercount;
+            Hospital.count({}, function(err, hpcount) {
+              result.hospitalcount = hpcount;
+              Typing.count({}, function(err, typingcount) {
+                result.hemocount = typingcount;
+                User.count({
+                  roles: 'curator'
+                }, function(err, crcount) {
+                  result.curatorcount = crcount;
+                  ResultMap.find({}, function(err, resultmaps) {
+                    result.resultmaps = resultmaps;
+                    res.jsonp(result);
+                  });
+                });
+              });
+            });
+          });
+          //res.jsonp(obj);
+        });
+      //res.jsonp(obj);
+    });
 
 
 };
 
-exports.normaldist=function(req,res){
-    var freq=50;
-    var param=req.param;
-    Typing.find({},['typing.'+param],{limit:1,sort:{'typing.'+param:-1}}).exec(function(err, max_values) {
-  		if (err) return next(err);
-  		if (! max_values) return next(new Error('Failed to load max values ' + id));
-  		var max_value=max_values[0];
+exports.testhisc = function(req.res) {
+  // Parameters:
+  var minEdge = -0.025;
+  var maxEdge = -1.025;
+  var binWidth = 0.05;
+  var data=new Array(1000);
 
-      Typing.find({},['typing.'+param],{limit:1,sort:{'typing.'+param:1}}).exec(function(err, min_values) {
-    		if (err) return next(err);
-    		if (! min_values) return next(new Error('Failed to load min values ' + id));
-    		var min_value=min_values[0];
-    	});
-  	});
-    Typing.aggregate({$project:{'typing.mcv':1}},function(err,obj){
+  var varnumEdges = Math.floor((maxEdge - minEdge) / binWidth) + 1;
+
+  // Create a 1d edge array...
+  var edges = new Array(numEdges);
+  for (var i = 0; i < numEdges; i++) {
+    edges[i] = minEdge + i * binWidth;
+  }
+
+  // Simulate some data:
+  for (var j = 0; j < 1000; j++) {
+    data[j] = Math.random();
+  }
+
+  // Compute the histogram:
+  var counts = histc(data, edges);
+  res.jsonp(counts);
+}
+exports.normaldis = function(req, res) {
+  var
+    Typing.aggregate({
+      $project: {
+        'typing.mcv': 1
+      }
+    }, function(err, objs) {
+
 
     });
+}
+exports.normaldist2 = function(req, res) {
+  var freq = 50;
+  var param = req.param;
+  Typing.find({}, ['typing.' + param], {
+    limit: 1,
+    sort: {
+      'typing.' + param: -1
+    }
+  }).exec(function(err, max_values) {
+    if (err) return next(err);
+    if (!max_values) return next(new Error('Failed to load max values ' + id));
+    var max_value = max_values[0];
+
+    Typing.find({}, ['typing.' + param], {
+      limit: 1,
+      sort: {
+        'typing.' + param: 1
+      }
+    }).exec(function(err, min_values) {
+      if (err) return next(err);
+      if (!min_values) return next(new Error('Failed to load min values ' + id));
+      var min_value = min_values[0];
+      var interval = Math.floor((max_value - min_value) / freq);
+      Typing.aggregate({
+        $project: {
+          'typing.mcv': 1
+        }
+      }, function(err, objs) {
+        for (var i = 0; i < objs.length(); i++) {
+          for (var y = min_value; y < max_value; y += interval) {
+            if (objs[i] >= y - interval && objs[i] <= y + interval)
+          }
+        }
+
+      });
+
+    });
+  });
+
 }
