@@ -121,7 +121,7 @@ exports.dashboard = function(req, res) {
 
 };
 
-exports.testhisc = function(req.res) {
+exports.testhisc = function(req,res) {
   // Parameters:
   var minEdge = -0.025;
   var maxEdge = -1.025;
@@ -145,18 +145,8 @@ exports.testhisc = function(req.res) {
   var counts = histc(data, edges);
   res.jsonp(counts);
 }
-exports.normaldis = function(req, res) {
-  var
-    Typing.aggregate({
-      $project: {
-        'typing.mcv': 1
-      }
-    }, function(err, objs) {
 
-
-    });
-}
-exports.normaldist2 = function(req, res) {
+/*exports.normaldist2 = function(req, res) {
   var freq = 50;
   var param = req.param;
   Typing.find({}, ['typing.' + param], {
@@ -195,4 +185,4 @@ exports.normaldist2 = function(req, res) {
     });
   });
 
-}
+}*/
