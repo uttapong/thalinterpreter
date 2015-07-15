@@ -55,7 +55,18 @@ angular.module('core').controller('HomeController', ['$rootScope','$scope', 'Aut
 		      console.log('error');
 		    });
 
+		    $scope.getRBCcombo();
 
+
+		};
+
+		$scope.getRBCcombo=function(){
+
+			$http({method:'GET',url:'/rbcs'}).success(function(data){
+
+				$scope.rbccombo=data;
+				$scope.param=$scope.rbccombo[0];
+			});
 		};
 
 		$scope.startBackupDB=function(){

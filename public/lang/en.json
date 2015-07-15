@@ -150,6 +150,8 @@
   "SEARCH_NAME":"Name/Full name/Email",
   "REMOVE":"Remove",
   "ADVICE_RESULT":"Suggest Thalassemia Type",
-  "ADVICE_COMMENT":"Comment"
+  "ADVICE_COMMENT":"Comment",
+  "HISTOGRAM":"Parameter Histogram",
+  "TYPING_FREQ_REPORT":"Parameter's Histogram"
 
 }
