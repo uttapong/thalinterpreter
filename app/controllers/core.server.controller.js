@@ -133,7 +133,7 @@ var sortObj={};
  // var param = req.param;
  var param='typing.'+req.body.param;
  
-  
+ var histogram={}; 
   //res.jsonp(counts);
   
   sortObj[param]=-1;
@@ -164,6 +164,7 @@ var sortObj={};
 	    edges[i] = minEdge + i * binWidth;
 	  }
 	  console.log(edges);
+	histogram.label=edges;
 	  // Simulate some data:
 	  Typing.find({},'typing').exec(function(err, objs) {
 		  	for (var i = 0; i < objs.length; i++) {
@@ -171,7 +172,8 @@ var sortObj={};
 	  		}
 	  		
 	  		var counts = histc(data, edges);
-	  		res.jsonp(counts);
+			histogram.freq=counts;
+	  		res.jsonp(histogram);
 		});
 	 
 
