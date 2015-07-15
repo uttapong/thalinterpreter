@@ -19,5 +19,6 @@ module.exports = function(app) {
 	app.route('/systeminfo').get(users.requiresLogin,core.system);
 	app.route('/dashboard').get(users.requiresLogin,core.dashboard);
 	app.route('/mongobackup').get(users.requiresLogin,core.mongobackup);
+	app.route('/histogram').post(users.requiresLogin,core.gethistogram);
 	app.route('/testhisc').get(core.testhisc);
 };

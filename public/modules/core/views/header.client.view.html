@@ -112,7 +112,13 @@
                             </div>
                         </li>-->
                         <li >
-                            <a ui-sref="dashboard"><i class="fa fa-dashboard fa-fw"></i> {{ 'DASHBOARD' | translate }}</a>
+                            <a ui-sref="dashboard"><i class="fa fa-dashboard fa-fw"></i> {{ 'DASHBOARD' | translate }}<span class="fa arrow"></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                  <a ui-sref="showHistogram"><i class="fa fa-bar-chart-o"></i> {{ 'HISTOGRAM' | translate }}</a>
+                                </li>
+
+                            </ul>
                         </li>
                         <li>
                             <a ui-sref="listTypings"><i class="fa fa-file-o"></i> {{ 'TYPINGDATA' | translate }}</a>

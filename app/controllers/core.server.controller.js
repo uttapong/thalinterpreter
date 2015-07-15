@@ -121,7 +121,7 @@ exports.dashboard = function(req, res) {
 
 };
 
-exports.testhisc = function(req,res) {
+exports.gethistogram = function(req,res) {
   // Parameters:
   var minEdge;
   var maxEdge;
@@ -131,7 +131,7 @@ exports.testhisc = function(req,res) {
 var sortObj={};
   var freq = 50;
  // var param = req.param;
- var param='typing.mcv';
+ var param='typing.'+req.body.param;
  
   
   //res.jsonp(counts);

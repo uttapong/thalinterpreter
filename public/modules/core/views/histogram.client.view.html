@@ -1,0 +1,36 @@
+<div class="row" data-ng-controller="HomeController" ng-init="getDashboardInfo()">
+            <div  >
+                <div class="col-lg-12">
+                    <h1 class="page-header">{{ 'HISTOGRAM' | translate }}</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+           
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> {{ 'TYPING_STATISTICS_REPORT' | translate }}
+                            <canvas id="bar" class="chart chart-bar" options="bar_options" data="bar_value"
+  labels="bar_label" legend="true"></canvas>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="morris-area-chart"></div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+
+                    <!-- /.panel -->
+
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-8 -->
+
+                <!-- /.col-lg-4 -->
+            </div>
+
+</div><!-- /.row -->

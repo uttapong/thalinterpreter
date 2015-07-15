@@ -10,7 +10,6 @@ angular.module('core').controller('HomeController', ['$rootScope','$scope', 'Aut
 		$rootScope.sidebar=true;
 		$scope.getDashboardInfo = function() {
 
-			console.log($scope.authentication.user);
 			$http.get('/dashboard').
 		    success(function(data, status, headers, config) {
 					$scope.doughnut_label=[];
@@ -29,6 +28,27 @@ angular.module('core').controller('HomeController', ['$rootScope','$scope', 'Aut
 					//console.log($scope.dashboard);
 					$scope.doughnut_options={segmentShowStroke : false};
 					console.log($scope.dashboard);
+
+		    }).
+		    error(function(data, status, headers, config) {
+		      console.log('error');
+		    });
+
+
+		};
+
+
+		$scope.getHistogramInfo = function() {
+
+			$http.post('/histogram',{param:'mcv', group:'all'}).
+		    success(function(data, status, headers, config) {
+					$scope.bar_label=data.label;
+					$scope.bar_value=data.freq;
+		     // $scope.histogram_data = data;
+					
+					//console.log($scope.dashboard);
+					$scope.bar_options={segmentShowStroke : false};
+					// console.log($scope.dashboard);
 
 		    }).
 		    error(function(data, status, headers, config) {
