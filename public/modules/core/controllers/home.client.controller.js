@@ -43,11 +43,11 @@ angular.module('core').controller('HomeController', ['$rootScope','$scope', 'Aut
 			$http.post('/histogram',{param:'mcv', group:'all'}).
 		    success(function(data, status, headers, config) {
 					$scope.bar_label=data.label;
-					$scope.bar_value=data.freq;
+					$scope.bar_value=[data.freq];
 		     // $scope.histogram_data = data;
 					
 					//console.log($scope.dashboard);
-					$scope.bar_options={segmentShowStroke : false};
+					$scope.bar_options={};
 					// console.log($scope.dashboard);
 
 		    }).
