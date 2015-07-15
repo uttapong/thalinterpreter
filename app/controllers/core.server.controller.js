@@ -123,27 +123,66 @@ exports.dashboard = function(req, res) {
 
 exports.testhisc = function(req,res) {
   // Parameters:
-  var minEdge = -0.025;
-  var maxEdge = -1.025;
-  var binWidth = 0.05;
-  var data=new Array(1000);
+  var minEdge;
+  var maxEdge;
 
-  var varnumEdges = Math.floor((maxEdge - minEdge) / binWidth) + 1;
+  var binWidth;
+  var data=new Array();
+var sortObj={};
+  var freq = 50;
+ // var param = req.param;
+ var param='typing.mcv';
+ 
+  
+  //res.jsonp(counts);
+  
+  sortObj[param]=-1;
+  Typing.find({},'typing').sort(sortObj).limit(1).exec(function(err, max_values) {
+    if (err) return next(err);
+    if (!max_values) return next(new Error('Failed to load max values ' + id));
+    var max_value = max_values[0].typing.mcv;
+    //res.jsonp(max_value);
+    console.log("max value: "+max_value);
+    sortObj[param]=1;
 
-  // Create a 1d edge array...
-  var edges = new Array(numEdges);
-  for (var i = 0; i < numEdges; i++) {
-    edges[i] = minEdge + i * binWidth;
-  }
+    Typing.find({},'typing').sort(sortObj).limit(1).exec(function(err, min_values) {
+    if (err) return next(err);
+    if (!min_values) return next(new Error('Failed to load min values ' + id));
+    var min_value = min_values[0].typing.mcv;
+    console.log("min value: "+min_value);
+    //res.jsonp(min_value);
+    
+    minEdge=min_value;
+    maxEdge=max_value;
+    binWidth=Math.floor((max_value - min_value) / freq);
 
-  // Simulate some data:
-  for (var j = 0; j < 1000; j++) {
-    data[j] = Math.random();
-  }
+    var numEdges = Math.abs(Math.floor((maxEdge - minEdge) / binWidth)) + 1;
+	  
+	  // Create a 1d edge array...
+	  var edges = new Array(numEdges);
+	  for (var i = 0; i < numEdges; i++) {
+	    edges[i] = minEdge + i * binWidth;
+	  }
+	  console.log(edges);
+	  // Simulate some data:
+	  Typing.find({},'typing').exec(function(err, objs) {
+		  	for (var i = 0; i < objs.length; i++) {
+		   		data.push(objs[i].typing.mcv);
+	  		}
+	  		
+	  		var counts = histc(data, edges);
+	  		res.jsonp(counts);
+		});
+	 
 
-  // Compute the histogram:
-  var counts = histc(data, edges);
-  res.jsonp(counts);
+	  // Compute the histogram:
+	 // 
+
+
+  
+  });
+  
+  });
 }
 
 /*exports.normaldist2 = function(req, res) {
