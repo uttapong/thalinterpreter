@@ -137,27 +137,31 @@ var sortObj={};
   //res.jsonp(counts);
   
   sortObj[param]=-1;
+console.log(sortObj);
   Typing.find({},'typing').sort(sortObj).limit(1).exec(function(err, max_values) {
     if (err) return next(err);
     if (!max_values) return next(new Error('Failed to load max values ' + id));
-    var max_value = max_values[0].typing.mcv;
+	console.log(max_values[0]);
+    var max_value = max_values[0]['typing'][req.body.param];
     //res.jsonp(max_value);
-    console.log("max value: "+max_value);
+    
     sortObj[param]=1;
 
     Typing.find({},'typing').sort(sortObj).limit(1).exec(function(err, min_values) {
     if (err) return next(err);
     if (!min_values) return next(new Error('Failed to load min values ' + id));
-    var min_value = min_values[0].typing.mcv;
-    console.log("min value: "+min_value);
+    var min_value = min_values[0]['typing'][req.body.param];
+    
     //res.jsonp(min_value);
     
     minEdge=min_value;
     maxEdge=max_value;
-    binWidth=Math.floor((max_value - min_value) / freq);
-
+    binWidth=Math.ceil((max_value - min_value) / freq);
+	console.log("max value: "+max_value);
+console.log("min value: "+min_value);	
+console.log("bin width: "+binWidth);	
     var numEdges = Math.abs(Math.floor((maxEdge - minEdge) / binWidth)) + 1;
-	  
+	 console.log("numedge :"+numEdges); 
 	  // Create a 1d edge array...
 	  var edges = new Array(numEdges);
 	  for (var i = 0; i < numEdges; i++) {

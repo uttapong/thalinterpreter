@@ -38,9 +38,10 @@ angular.module('core').controller('HomeController', ['$rootScope','$scope', 'Aut
 		};
 
 
-		$scope.getHistogramInfo = function() {
-
-			$http.post('/histogram',{param:'mcv', group:'all'}).
+		$scope.getHistogramInfo = function(param) {
+			console.log(param);
+			if(!param)param='bart_h';
+			$http.post('/histogram',{param:param, group:'all'}).
 		    success(function(data, status, headers, config) {
 					$scope.bar_label=data.label;
 					$scope.bar_value=[data.freq];
@@ -55,7 +56,6 @@ angular.module('core').controller('HomeController', ['$rootScope','$scope', 'Aut
 		      console.log('error');
 		    });
 
-		    $scope.getRBCcombo();
 
 
 		};
@@ -63,9 +63,12 @@ angular.module('core').controller('HomeController', ['$rootScope','$scope', 'Aut
 		$scope.getRBCcombo=function(){
 
 			$http({method:'GET',url:'/rbcs'}).success(function(data){
-
+				
 				$scope.rbccombo=data;
-				$scope.param=$scope.rbccombo[0];
+				delete $scope.rbccombo[0];
+				$scope.param=$scope.rbccombo[1];
+
+				$scope.getHistogramInfo($scope.param.name);
 			});
 		};
 
