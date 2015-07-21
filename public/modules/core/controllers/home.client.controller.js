@@ -38,9 +38,9 @@ angular.module('core').controller('HomeController', ['$rootScope','$scope', 'Aut
 		};
 
 
-		$scope.getHistogramInfo = function() {
-
-			$http.post('/histogram',{param:'mcv', group:'all'}).
+		$scope.getHistogramInfo = function(param) {
+			if(!param)param='mcv';
+			$http.post('/histogram',{param:param, group:'all'}).
 		    success(function(data, status, headers, config) {
 					$scope.bar_label=data.label;
 					$scope.bar_value=[data.freq];
