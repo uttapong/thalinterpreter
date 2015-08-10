@@ -48,6 +48,7 @@
 
 		it('$scope.signin() should login with a correct user and password', function() {
 			// Test expected GET request
+
 			$httpBackend.when('POST', '/auth/signin').respond(200, 'Fred');
 
 			scope.signin();
@@ -104,6 +105,8 @@
 
 		it('$scope.signup() should fail to register with duplicate Username', function() {
 			// Test expected POST request
+			console.log('********************************************************************************');
+			console.log($httpBackend);
 			$httpBackend.when('POST', '/auth/signup').respond(400, {
 				'message': 'Username already exists'
 			});

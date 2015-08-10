@@ -14,6 +14,7 @@ angular.module('rbcs').controller('RbcsController', ['$scope', '$stateParams', '
 				unit:this.unit,
 				min:this.min,
 				max:this.max,
+				order:this.order,
 				comment:this.comment,
 				warning:this.warning
 			});

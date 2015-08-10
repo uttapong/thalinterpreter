@@ -22,7 +22,7 @@ module.exports = function(app) {
 
 	app.route('/calendars/:calendarId')
 		.get(calendars.read)
-		.put(users.requiresLogin, calendars.hasAuthorization, calendars.update)
+		.put(users.requiresLogin, calendars.update)
 		.delete(users.requiresLogin, calendars.hasAuthorization, calendars.delete);
 
 	// Finish by binding the Calendar middleware

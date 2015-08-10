@@ -39,12 +39,12 @@ angular.module('core').controller('HomeController', ['$rootScope','$scope', 'Aut
 
 
 		$scope.getHistogramInfo = function(param) {
-<<<<<<< HEAD
+
 			if(!param)param='mcv';
-=======
+
 			console.log(param);
 			if(!param)param='bart_h';
->>>>>>> origin/production
+
 			$http.post('/histogram',{param:param, group:'all'}).
 		    success(function(data, status, headers, config) {
 					$scope.bar_label=data.label;

@@ -23,9 +23,8 @@ var mongoose = require('mongoose'),
 var CalendarSchema = new Schema({
 	name: {
 		type: String,
-		default: '',
 		required: 'Please fill Calendar name',
-		trim: true
+		trim: true,
 	},
 	created: {
 		type: Date,
