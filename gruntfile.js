@@ -167,8 +167,8 @@ module.exports = function(grunt) {
         },
         mongobackup: {
 		    options: {
-		      host : '172.16.0.56',
-		      port: '27000',
+		      host : 'localhost',
+		      port: '27017',
 		      db : 'thal',
 		      dump:{
 		        out : './dump',
@@ -199,7 +199,7 @@ module.exports = function(grunt) {
 
 	// Default task(s).
 	//grunt.registerTask('default', ['lint', 'concurrent:default','less']);
-	grunt.registerTask('default', [ 'less']);
+	grunt.registerTask('default', [ 'lint','concurrent:default']);
 	// Debug task.
 	grunt.registerTask('debug', ['lint', 'concurrent:debug']);
 
@@ -214,6 +214,6 @@ module.exports = function(grunt) {
 	grunt.registerTask('build', [ 'loadConfig', 'ngAnnotate', 'uglify','cssmin','less']);
 
 	// Test task.
-	grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit']);
+	grunt.registerTask('test', ['env:development', 'mochaTest', 'karma:unit']);
 	grunt.loadNpmTasks('grunt-mongo-backup');
 };

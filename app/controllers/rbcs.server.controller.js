@@ -84,9 +84,24 @@ exports.delete = function(req, res) {
  * List of Rbcs
  */
 exports.list = function(req, res) {
-	if(req.body.device=='CE')
+	console.log(req.body.device);
+	if(req.body.device=='HPLC_LPLC')
 	{
-		Rbc.find({name:{'$ne':'a2e'}}).sort('-created').populate('user', 'displayName').exec(function(err, rbcs) {
+
+
+		Rbc.find({name:{'$nin':['hbe','a2']}}).sort('order').populate('user', 'displayName').exec(function(err, rbcs) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+				res.jsonp(rbcs);
+			}
+		});
+	}
+	else if(req.body.device=='CE')
+	{
+		Rbc.find({name:{'$ne':'a2e'}}).sort('order').populate('user', 'displayName').exec(function(err, rbcs) {
 			if (err) {
 				return res.status(400).send({
 					message: errorHandler.getErrorMessage(err)
@@ -97,10 +112,11 @@ exports.list = function(req, res) {
 		});
 	}
 	else{
-		Rbc.find({name:{'$nin':['hbe','a2']}}).sort('-created').populate('user', 'displayName').exec(function(err, rbcs) {
+		Rbc.find().sort('order').populate('user', 'displayName').exec(function(err, rbcs) {
 			if (err) {
 				return res.status(400).send({
 					message: errorHandler.getErrorMessage(err)
+
 				});
 			} else {
 				res.jsonp(rbcs);

@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-	db: 'mongodb://172.16.0.56:27000/thal',
+	db: 'mongodb://localhost:27017/thal',
 	port:3000,
 	app: {
 		title: 'Thal Software: Thalassemia Interpreter'

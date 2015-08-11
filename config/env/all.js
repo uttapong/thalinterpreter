@@ -51,7 +51,8 @@ module.exports = {
 				'public/lib/cryptojslib/rollups/md5.js',
 				'public/lib/angular-ui-calendar/src/calendar.js',
 				'public/lib/fullcalendar/fullcalendar.min.js',
-				'public/lib/fullcalendar/gcal.js'
+				'public/lib/fullcalendar/gcal.js',
+				'public/lib/jspdf/dist/jspdf.min.js'
 
 			]
 		},

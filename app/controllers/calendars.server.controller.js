@@ -25,7 +25,7 @@ var mongoose = require('mongoose'),
 exports.create = function(req, res) {
 	var calendar = new Calendar(req.body);
 	calendar.user = req.user;
-
+	console.log(calendar.user);
 	calendar.save(function(err) {
 		if (err) {
 			return res.status(400).send({

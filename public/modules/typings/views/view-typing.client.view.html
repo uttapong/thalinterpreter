@@ -1,9 +1,62 @@
 <div class="row" data-ng-controller="TypingsController" data-ng-init="typingReport()">
-  <div class="col-xs-12 page-header">
+  <div class="col-xs-6 page-header">
     <h1>Typing ID: {{typing.typingid}} </h1>
+
   </div>
-  <div class="row">
-  <div class="col-xs-12">
+  <div  class="text-right" style=" col-xs-6 float: right;padding-top: 60px;">
+
+				<div class="text-left" style="margin-bottom: 10px;">
+					<a class="btn btn-info" href="/#!/typings/{{typing._id}}/edit">
+		        <i class="glyphicon glyphicon-edit"></i> {{ 'EDIT' | translate }}
+		      </a>
+				<button class="btn btn-info" ng-click="genReport()">
+		        <i class="fa fa-bar-chart"></i> {{ 'SAVE_REPORT' | translate }}
+		      </button>
+
+		      <button class="btn btn-warning"  ng-click="showMailList(typing._id)" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+						<i class="fa fa-envelope-o"></i> Mail for Suggestion
+					</button>
+
+					<a class="btn btn-danger" data-ng-click="remove();">
+		        <i class="glyphicon glyphicon-trash"></i>
+		      </a>
+				</div>
+		    <div class="collapse col-xs-6" id="collapseExample">
+		      <div class="well">
+		        <div class="form-group">
+								<label class="control-label" for="name">Mail Group</label>
+
+									<select class="form-control" ng-options="item.title  for item in allgroups track by item._id" ng-model="expertgroup">
+									</select>
+						</div>
+		        <button class="btn btn-warning"  ng-click="sendMail(typing._id)">
+		  				<i class="fa fa-envelope-o"></i> Send Mail
+		  			</button>
+		      </div>
+		    </div>
+
+
+		</div>
+  <div class="row" style="clear:both;">
+  <div class="col-xs-8">
+
+    <div class="meta-typing col-xs-12">
+      <p>{{ 'TYPING_ID' | translate }}: {{typing.typingid}}</p>
+      <p>{{ 'SUBMITTED_DATE' | translate }}: {{typing.created|date}}</p>
+      <p>{{ 'AGE' | translate }}: {{typing.age}}</p>
+      <p>{{ 'GENDER' | translate }}: {{typing.gender}}</p>
+
+    </div>
+    <!--<div class='interprete_type alpha' ng-show="isalpha">&alpha;</div>
+    <div class='interprete_type beta' ng-hide="isalpha">&beta;</div>-->
+
+
+    <div class="page-content col-xs-12" style="margin-bottom: 20px;" ng-show="typing.image">
+      <h4>{{ 'TYPING_IMAGE' | translate }}</h4>
+      <a target="_blank" href="/uploads/typingimage/{{typing.typingid}}/{{typing.image}}">
+        <img class="col-xs-6" ng-src="/uploads/typingimage/{{typing.typingid}}/{{typing.image}}" />
+      </a>
+    </div>
 
     <div class="col-xs-12 pull-right" data-ng-show="((authentication.user) && (authentication.user._id == typing.user._id))">
 
@@ -24,96 +77,46 @@
         </div>
       </form>
     </div>
-
-    <div class="meta-typing">
-      <p>{{ 'TYPING_ID' | translate }}: {{typing.typingid}}</p>
-      <p>{{ 'SUBMITTED_DATE' | translate }}: {{typing.created|date}}</p>
-      <p>{{ 'AGE' | translate }}: {{typing.age}}</p>
-      <p>{{ 'GENDER' | translate }}: {{typing.gender}}</p>
-
+    <div class"col-xs-12">
+    <hr />
+    <h4>{{ 'INTERPRETED_RESULT' | translate }}</h4>
+  <p >
+      <strong class='color-code' style="background-color: {{typing.resultmap.color}};">{{typing.resultmap.results[0]}}</strong>
+    </p>
+    <strong>{{ 'OTHER_POSSIBLE_RESULT' | translate }}</strong>
+    <p>
+    {{typing.resultmap.results.slice(1).join(', ')}}
+    </p>
+    <div class="typing_comemnt" ng-show="typing.resultmap.comment">
+      <strong>{{ 'COMMENTS' | translate }}</strong>
+      <p>{{typing.resultmap.comment}}</p>
     </div>
-    <div class='interprete_type alpha' ng-show="isalpha">&alpha;</div>
-    <div class='interprete_type beta' ng-hide="isalpha">&beta;</div>
-    <div class="page-content col-xs-12">
-
-      <table class="table-striped table col-xs-12">
-        <thead>
-          <tr>
-            <th ng-repeat="(key, value) in typing.typing">{{key | uppercase}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td ng-repeat="(key, value) in typing.typing">{{value| number: 2}}</td>
-          </tr>
-        </tbody>
-      </table>
-      <hr />
-      <h4>{{ 'INTERPRETED_RESULT' | translate }}</h4>
-      <p >
-        <strong class='color-code' style="background-color: {{typing.resultmap.color}};">{{typing.resultmap.results[0]}}</strong>
-      </p>
-      <strong>{{ 'OTHER_POSSIBLE_RESULT' | translate }}</strong>
-      <p>
-      {{typing.resultmap.results.slice(1).join(', ')}}
-      </p>
-      <div class="typing_comemnt" ng-show="typing.resultmap.comment">
-        <strong>{{ 'COMMENTS' | translate }}</strong>
-        <p>{{typing.resultmap.comment}}</p>
-      </div>
-      <div  class="typing_suggestion" ng-show="suggestions">
-      <strong>{{ 'SUGGESTION' | translate }}</strong>
-      <ul>
-        <li ng-show="typing.abnormal"><span class="label label-danger"><i class="fa fa-exclamation-circle fa-lg"></i> Warning</span>Abnormal Hemoblogin</li>
-        <li ng-repeat="suggest in suggestions">{{suggest}} </li>
-        <li ng-repeat="warning in warnings">{{warning}} <span class="label label-danger"><i class="fa fa-exclamation-circle fa-lg"></i> Warning</span></li>
-      </ul>
-    </div>
-    </div>
-
-    <div class="page-content col-xs-12" style="margin-bottom: 20px;" ng-show="typing.image">
-      <h4>{{ 'TYPING_IMAGE' | translate }}</h4>
-      <a target="_blank" href="/uploads/typingimage/{{typing.typingid}}/{{typing.image}}">
-        <img class="col-xs-6" ng-src="/uploads/typingimage/{{typing.typingid}}/{{typing.image}}" />
-      </a>
-    </div>
+    <div  class="typing_suggestion" ng-show="suggestions">
+    <strong>{{ 'SUGGESTION' | translate }}</strong>
+    <ul>
+      <li ng-show="typing.abnormal"><span class="label label-danger"><i class="fa fa-exclamation-circle fa-lg"></i> Warning</span>Abnormal Hemoblogin</li>
+      <li ng-repeat="suggest in suggestions">{{suggest}} </li>
+      <li ng-repeat="warning in warnings">{{warning}} <span class="label label-danger"><i class="fa fa-exclamation-circle fa-lg"></i> Warning</span></li>
+    </ul>
   </div>
 </div>
-<div class="row" style="padding-top: 40px;border-top: 1px solid #eee;">
-  <div class="col-xs-12">
-		<div class="page-content col-xs-12 text-left" style="margin-bottom: 10px;">
-			<a class="btn btn-info" href="/#!/typings/{{typing._id}}/edit">
-        <i class="glyphicon glyphicon-edit"></i> {{ 'EDIT' | translate }}
-      </a>
-
-      <a class="btn btn-info" target="_blank" href="/printview/{{typing._id}}">
-        <i class="fa fa-bar-chart"></i> {{ 'VIEW_REPORT' | translate }}
-      </a>
-			<button class="btn btn-info" href="/typingreport/{{typing._id}}" ng-click="printChart(typing._id)">
-				<i class="fa fa-print"></i> {{ 'PRINT_REPORT' | translate }}
-			</button>
-      <button class="btn btn-warning"  ng-click="showMailList(typing._id)" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-				<i class="fa fa-envelope-o"></i> Mail for Suggestion
-			</button>
-
-			<a class="btn btn-danger" data-ng-click="remove();">
-        <i class="glyphicon glyphicon-trash"></i>
-      </a>
-		</div>
-    <div class="collapse col-xs-6" id="collapseExample">
-      <div class="well">
-        <div class="form-group">
-						<label class="control-label" for="name">Mail Group</label>
-
-							<select class="form-control" ng-options="item.title  for item in allgroups track by item._id" ng-model="expertgroup">
-							</select>
-				</div>
-        <button class="btn btn-warning"  ng-click="sendMail(typing._id)">
-  				<i class="fa fa-envelope-o"></i> Send Mail
-  			</button>
-      </div>
-    </div>
-    <iframe id="frame" ng-src="{{printurl}}"></iframe>
   </div>
+
+  <div class=" col-xs-4">
+    <div class="row col-xs-12" >
+    <table class="table-striped table" style="font-size: 11px;">
+      <tbody>
+        <tr ng-repeat="rbc in rbcs|orderBy :'order'">
+
+          <td >{{rbc.label}}</td><td>{{ typing.typing[rbc.name] |number:2}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  </div>
+
+
 </div>
+
 </div>

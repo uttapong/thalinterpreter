@@ -1,13 +1,3 @@
-modules/articles/articles.client.module.js
-modules/articles/config/articles.client.config.js
-modules/articles/config/articles.client.routes.js
-modules/articles/controllers/articles.client.controller.js
-modules/articles/services/articles.client.service.js
-modules/articles/tests/articles.client.controller.test.js
-modules/articles/views/create-article.client.view.html
-modules/articles/views/edit-article.client.view.html
-modules/articles/views/list-articles.client.view.html
-modules/articles/views/view-article.client.view.html
 modules/calendars/calendars.client.module.js
 modules/calendars/config/calendars.client.config.js
 modules/calendars/config/calendars.client.routes.js
