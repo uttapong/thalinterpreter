@@ -1,8 +1,12 @@
 'use strict';
 
 module.exports = {
-	db: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/thal',
-	assets: {
+	db: 'mongodb://172.16.0.56:27000/thal',
+	port:3000,
+	app: {
+		title: 'Thal Software: Thalassemia Interpreter'
+	},
+	/*assets: {
 		lib: {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.min.css',
@@ -23,11 +27,11 @@ module.exports = {
 		},
 		css: 'public/dist/application.min.css',
 		js: 'public/dist/application.min.js'
-	},
+	},*/
 	facebook: {
-		clientID: process.env.FACEBOOK_ID || 'APP_ID',
-		clientSecret: process.env.FACEBOOK_SECRET || 'APP_SECRET',
-		callbackURL: '/auth/facebook/callback'
+		clientID: '1598524447091448',
+		clientSecret: '49f467a9779ee79ec49e4cbfe101e6b0',
+		callbackURL: 'http://thalinterpreter.biotec.or.th/auth/facebook/callback'
 	},
 	twitter: {
 		clientID: process.env.TWITTER_KEY || 'CONSUMER_KEY',
